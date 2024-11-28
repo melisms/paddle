@@ -57,7 +57,7 @@ group :test do
 end
 
 gem "tailwindcss-rails"
-gem 'rails_admin'
+gem "rails_admin"
 gem "cssbundling-rails"
-gem 'devise'
-gem 'cancancan', '~> 3.0'
+gem "devise"
+gem "cancancan", "~> 3.0"
