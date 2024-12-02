@@ -18,6 +18,7 @@
           width: 100%;
           max-width: 1600px;
           height: 100vh;
+          box-sizing: border-box;
       }
 
       .header {
@@ -28,6 +29,11 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 10;
+          height: 70px;
       }
 
       .header .logo {
@@ -42,64 +48,15 @@
           font-weight: 600;
       }
 
-      .left-bar {
-          width: 30%;
-          background-color: #ffffff;
-          border-right: 1px solid #ddd;
-          padding: 20px;
-          box-sizing: border-box;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-      }
-
-      .left-bar .menu {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-      }
-
-      .left-bar a {
-          text-decoration: none;
-          color: #228b22;
-          font-size: 18px;
-          font-weight: bold;
-          transition: 0.3s ease;
-      }
-
-      .left-bar a:hover {
-          color: #1c6b1c;
-      }
-
-      .left-bar .auth {
-          margin-top: 30px;
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-      }
-
-      .left-bar button {
-          padding: 10px 20px;
-          background-color: #228b22;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          font-size: 16px;
-          cursor: pointer;
-          transition: 0.3s ease;
-      }
-
-      .left-bar button:hover {
-          background-color: #1c6b1c;
-      }
-
       .main-content {
           flex-grow: 1;
           background-color: #ffffff;
           border-left: 1px solid #ddd;
           border-right: 1px solid #ddd;
           padding: 20px;
+          padding-top: 80px;
           overflow-y: auto;
+          box-sizing: border-box;
       }
 
       .post-input {
@@ -140,8 +97,12 @@
           color: #555;
       }
 
-      .posts-feed {
-          padding: 20px;
+      .image-preview {
+          margin-top: 10px;
+          max-width: 100%;
+          max-height: 300px;
+          object-fit: cover;
+          border-radius: 5px;
       }
 
       .post {
@@ -163,12 +124,43 @@
           color: #555;
       }
 
+      .left-bar {
+          width: 25%;
+          background-color: #ffffff;
+          border-right: 1px solid #ddd;
+          padding: 20px;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          padding-top: 80px;
+      }
+
+      .left-bar .menu {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+      }
+
+      .left-bar a {
+          text-decoration: none;
+          color: #228b22;
+          font-size: 18px;
+          font-weight: bold;
+          transition: 0.3s ease;
+      }
+
+      .left-bar a:hover {
+          color: #1c6b1c;
+      }
+
       .right-bar {
-          width: 35%;
+          width: 25%;
           background-color: #ffffff;
           border-left: 1px solid #ddd;
           padding: 20px;
           box-sizing: border-box;
+          padding-top: 80px; /* Make space for the fixed header */
       }
 
       .search-bar {
@@ -242,6 +234,171 @@
           cursor: pointer;
       }
 
+      .post-actions {
+    margin-top: 10px;
+}
+
+.like-button {
+    background-color: #228b22;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.like-button:hover {
+    background-color: #1c6b1c;
+    transform: scale(1.05);
+}
+
+.like-button.liked {
+    background-color: #ff6f61;
+    color: white;
+}
+
+
+.comments-section {
+    margin-top: 15px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+
+.comment-input {
+    width: calc(100% - 50px); 
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+
+.add-comment-button {
+    padding: 8px 15px;
+    background-color: #228b22;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.add-comment-button:hover {
+    background-color: #1c6b1c;
+}
+
+.comments-list {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+
+.comment-item {
+    background-color: #eaf8e9;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word; 
+}
+
+.comment-item:hover {
+    background-color: #d8f5d9;
+}
+
+
+.auth-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.auth-button {
+    padding: 10px 15px;
+    background-color: #228b22;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.auth-button:hover {
+    background-color: #1c6b1c;
+}
+.image-upload {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #228b22;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.custom-file-upload:hover {
+    background-color: #1c6b1c;
+    transform: scale(1.05);
+}
+
+#imageInput {
+    display: none; /* Dosya girdi alanını gizler */
+}
+
+.preview-container {
+    margin-top: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.image-preview {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.remove-image-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    display: none;
+}
+
+.preview-container:hover .remove-image-button {
+    display: inline-block;
+}
+
+
+
   </style>
 </head>
 <body>
@@ -262,6 +419,11 @@
     <div class="post-input">
       <textarea id="postContent" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()"></textarea>
       <div class="char-count" id="charCount">0/350</div>
+
+
+      <input type="file" id="imageInput" accept="image/*" onchange="previewImage()" />
+      <img id="imagePreview" class="image-preview" style="display: none;" />
+
       <button onclick="addPost()">Post</button>
     </div>
     <div class="posts-feed" id="postsFeed"></div>
@@ -287,11 +449,25 @@
       <div class="trend-item">🐦 #BirdWatching</div>
     </div>
   </div>
+
+  <div class="image-upload">
+  <label for="imageInput" class="custom-file-upload">
+    📁 Select Image
+  </label>
+  <input type="file" id="imageInput" accept="image/*" onchange="previewImage()" />
+  <div class="preview-container">
+    <img id="imagePreview" class="image-preview" style="display: none;" />
+  </div>
+</div>
+
+
 </div>
 
 <script>
     function addPost() {
         const postContent = document.getElementById('postContent').value.trim();
+        const image = document.getElementById('imagePreview').src;
+
         if (postContent === '') {
             alert('Please share your pet moment!');
             return;
@@ -302,23 +478,119 @@
 
         const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-        postElement.innerHTML = `
-        <div class="post-header">User's Pet</div>
-        <div>${postContent}</div>
-        <div class="post-time">${currentTime}</div>
-      `;
+        postElement.innerHTML = 
+            <div class="post-header">User's Pet</div>
+            <div>${postContent}</div>
+            ${image ? <img src="${image}" class="image-preview" /> : ''}
+            <div class="post-time">${currentTime}</div>
+            <div class="post-actions">
+                <button class="like-button" onclick="toggleLike(this)">❤️ Like</button>
+                <div class="comments-section">
+                    <input type="text" class="comment-input" placeholder="Add a comment..." />
+                    <button class="add-comment-button" onclick="handleAddComment(this)">Add Comment</button>
+                    <div class="comments-list"></div>
+                </div>
+            </div>
+        ;
 
         const postsFeed = document.getElementById('postsFeed');
         postsFeed.prepend(postElement);
 
         document.getElementById('postContent').value = '';
-        document.getElementById('charCount').textContent = '0/350'; 
+        document.getElementById('charCount').textContent = '0/350';
+        document.getElementById('imagePreview').style.display = 'none';
+        document.getElementById('imageInput').value = '';
     }
+
+function toggleLike(button) {
+    
+    const isLiked = button.classList.toggle("liked");
+    button.textContent = isLiked ? "💚 Liked" : "❤️ Like";
+
+    
+    if (isLiked) {
+        console.log("You liked this post!");
+    } else {
+        console.log("You unliked this post.");
+    }
+}
+
+function handleCommentKey(event, input) {
+    
+    if (event.key === "Enter") {
+        event.preventDefault();
+        const commentText = input.value.trim();
+
+        if (commentText) {
+            addComment(commentText, input);
+        } else {
+            alert("Please enter a comment before pressing Enter.");
+        }
+    }
+}
+
+function handleAddComment(button) {
+    
+    const commentInput = button.previousElementSibling;
+    const commentText = commentInput.value.trim();
+
+    if (commentText) {
+        addComment(commentText, commentInput);
+    } else {
+        alert("Please write a comment before adding.");
+    }
+}
+
+function addComment(commentText, inputElement) {
+    
+    const commentsList = inputElement.parentElement.querySelector('.comments-list');
+
+
+    const commentItem = document.createElement('div');
+    commentItem.className = 'comment-item';
+    commentItem.textContent = commentText;
+
+    commentsList.appendChild(commentItem);
+
+   
+    inputElement.value = '';
+    inputElement.focus();
+
+    
+    console.log(New comment added: ${commentText});
+}
+
+
+
 
     function updateCharCount() {
         const postContent = document.getElementById('postContent').value;
         const charCount = postContent.length;
-        document.getElementById('charCount').textContent = `${charCount}/350`;
+        document.getElementById('charCount').textContent = ${charCount}/350;
+    }
+
+    function previewImage() {
+        const file = document.getElementById('imageInput').files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = function () {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.src = reader.result;
+            imagePreview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function openSignUp() {
+       
+        
+    }
+
+    function openLogIn() {
+       
     }
 </script>
 

@@ -4,7 +4,7 @@
         <a href="#">🐾 Profile</a>
         <a href="#">💌 Messages</a>
         <a href="#">⚙ Settings</a>
-        <%= button_to "🔓 Logout", destroy_user_session_path, method: :delete %>
+        <%= button_to "🔓 Logout", destroy_user_session_path, method: :delete, class: 'auth-button' %>
     </div>
 <% else %>
     <div class="menu">
@@ -13,8 +13,17 @@
         <a href="#">💌 Messages</a>
         <a href="#">⚙ Settings</a>
     </div>
-    <div class="auth">
-        <button onclick="window.location.href='/users/sign_up'">Sign Up</button>
-        <button onclick="window.location.href='/users/sign_in'">Log In</button>
+    <div class="auth-buttons">
+        <button class="auth-button" onclick="window.location.href='/users/sign_up'">Sign Up</button>
+        <button class="auth-button" onclick="window.location.href='/users/sign_in'">Log In</button>
     </div>
 <% end %>
+
+<style>
+.auth-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+</style>
