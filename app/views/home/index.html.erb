@@ -459,37 +459,62 @@
 </div>
 
 <script>
-    const username = "<%= @username %>";
-    function addPost() {
-        const postContent = document.getElementById('postContent').value.trim();
-        if (postContent === '') {
-            alert('Please share your pet moment!');
-            return;
-        }
+  const username = "<%= @username %>";
 
+function loadPosts() {
+    const postsFeed = document.getElementById('postsFeed');
+    postsFeed.innerHTML = ''; // Clear any existing posts
+
+    const posts = JSON.parse(localStorage.getItem('posts')) || []; // Load posts from localStorage
+    posts.forEach(post => {
         const postElement = document.createElement('div');
         postElement.className = 'post';
 
-        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
         postElement.innerHTML = `
-        <div class="post-header">${username}</div>
-        <div>${postContent}</div>
-        <div class="post-time">${currentTime}</div>
-      `;
+            <div class="post-header">${post.username}</div>
+            <div>${post.content}</div>
+            <div class="post-time">${post.time}</div>
+        `;
 
-        const postsFeed = document.getElementById('postsFeed');
-        postsFeed.prepend(postElement);
+        postsFeed.appendChild(postElement);
+    });
+}
 
-        document.getElementById('postContent').value = '';
-        document.getElementById('charCount').textContent = '0/350'; 
+function addPost() {
+    const postContent = document.getElementById('postContent').value.trim();
+    if (postContent === '') {
+        alert('Please share your pet moment!');
+        return;
     }
 
-    function updateCharCount() {
-        const postContent = document.getElementById('postContent').value;
-        const charCount = postContent.length;
-        document.getElementById('charCount').textContent = `${charCount}/350`;
-    }
+    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const post = {
+        username: username,
+        content: postContent,
+        time: currentTime
+    };
+
+    // Save post to localStorage
+    const posts = JSON.parse(localStorage.getItem('posts')) || [];
+    posts.unshift(post); // Add new post at the beginning
+    localStorage.setItem('posts', JSON.stringify(posts));
+
+    loadPosts(); // Reload the posts to show the latest
+
+    // Clear the input and reset the char count
+    document.getElementById('postContent').value = '';
+    document.getElementById('charCount').textContent = '0/350'; 
+}
+
+function updateCharCount() {
+    const postContent = document.getElementById('postContent').value;
+    const charCount = postContent.length;
+    document.getElementById('charCount').textContent = `${charCount}/350`;
+}
+
+// Load posts when the page loads
+window.onload = loadPosts;
+
 </script>
 
 </body>
