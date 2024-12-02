@@ -1,34 +1,151 @@
-<div class="post">
-  <h2><%= @post.user.username %></h2>
-  <p><%= @post.body %></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paddle</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f8f0;
+      display: flex;
+      justify-content: center;
+    }
 
-  <!-- Likes -->
-  <div>
-    <p><%= pluralize(@post.likes.count, 'like') %></p>
-    <% if @post.likes.exists?(user: current_user) %>
-      <%= button_to 'Unlike', post_like_path(@post, @post.likes.find_by(user: current_user)), method: :delete %>
-    <% else %>
-      <%= button_to 'Like', post_likes_path(@post), method: :post %>
-    <% end %>
+    .layout {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1600px;
+      height: 100vh;
+      box-sizing: border-box;
+      margin-top: 70px; /* Adjust for fixed header */
+    }
+
+    .header {
+      width: 100%;
+      background-color: #228b22;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      height: 70px;
+    }
+
+    .header .logo {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .post {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px;
+      background-color: #eaf8e9;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .post h2 {
+      font-size: 24px;
+      color: #228b22;
+    }
+
+    .post p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .post-actions {
+      margin-top: 20px;
+    }
+
+    .like-button {
+      background-color: #228b22;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .like-button:hover {
+      background-color: #1c6b1c;
+      transform: scale(1.05);
+    }
+
+    .comments-section {
+      margin-top: 25px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .comment-item {
+      background-color: #eaf8e9;
+      padding: 8px;
+      margin-bottom: 12px;
+      border-radius: 5px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .comment-item:hover {
+      background-color: #d8f5d9;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">Paddle</div>
   </div>
+  <div class="layout">
+    <div class="post">
+      <h2><%= @post.user.username %></h2>
+      <p><%= @post.body %></p>
 
-  <!-- Comments -->
-  <h3>Comments</h3>
-  <ul>
-    <% @post.comments.each do |comment| %>
-      <li>
-        <strong><%= comment.user.username %>:</strong> <%= comment.body %>
-      </li>
-    <% end %>
-  </ul>
+      <!-- Likes -->
+      <div>
+        <p><%= pluralize(@post.likes.count, 'like') %></p>
+        <% if @post.likes.exists?(user: current_user) %>
+          <%= button_to 'Unlike', post_like_path(@post, @post.likes.find_by(user: current_user)), method: :delete %>
+        <% else %>
+          <%= button_to 'Like', post_likes_path(@post), method: :post %>
+        <% end %>
+      </div>
 
-  <!-- Add a Comment -->
-  <%= form_with model: [@post, @comment], local: true do |form| %>
-    <p>
-      <%= form.text_area :body, placeholder: 'Add a comment...' %>
-    </p>
-    <p>
-      <%= form.submit 'Comment' %>
-    </p>
-  <% end %>
-</div>
+      <!-- Comments -->
+      <div class="comments-section">
+        <h3>Comments</h3>
+        <ul>
+          <% @post.comments.each do |comment| %>
+            <li class="comment-item">
+              <strong><%= comment.user.username %>:</strong> <%= comment.body %>
+            </li>
+          <% end %>
+        </ul>
+
+        <!-- Add a Comment -->
+        <%= form_with model: [@post, @comment], local: true do |form| %>
+          <p>
+            <%= form.text_area :body, placeholder: 'Add a comment...' %>
+          </p>
+          <p>
+            <%= form.submit 'Comment' %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
