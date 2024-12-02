@@ -255,17 +255,7 @@
 <div class="layout">
 
   <div class="left-bar">
-    <div class="menu">
-      <a href="#">🏠 Home</a>
-      <a href="#">🐾 Profile</a>
-      <a href="#">💌 Messages</a>
-      <a href="#">⚙ Settings</a>
-      <a href="#">🔓 Logout</a>
-    </div>
-    <div class="auth">
-      <button onclick="alert('Sign Up clicked')">Sign Up</button>
-      <button onclick="alert('Log In clicked')">Log In</button>
-    </div>
+    <%= render 'user/session_manager' %>
   </div>
 
   <div class="main-content">
