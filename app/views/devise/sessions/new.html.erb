@@ -1,26 +1,101 @@
-<h2>Log in</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+        }
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+        .left-section {
+            width: 33%;
+            padding: 2rem;
+            background-color: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+        .left-section h1 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .form-control {
+            width: 1000%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #4cae4c;
+        }
+
+        .right-section {
+            width: 67%;
+            background-image: url('dogss.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .secondary-btn {
+            background-color: #0275d8;
+            color: white;
+            margin-top: 0.5rem;
+        }
+
+        .secondary-btn:hover {
+            background-color: #025aa5;
+        }
+    </style>
+</head>
+<body>
+    <div class="left-section">
+        <h1>Welcome!</h1>
+        <form>
+            <div class="form-group">
+                <label for="email" class="form-label">E-mail:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn">Log in</button>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn secondary-btn" onclick="alert('Sign up!')">Sign up</button>
+            </div>
+        </form>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+    <div class="right-section"></div>
+</body>
+</html>
