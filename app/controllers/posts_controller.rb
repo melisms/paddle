@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_post, only: %i[ show edit update destroy ]
-
+  before_action :check_post_owner_or_admin, only: %i[edit update destroy]
   # GET /posts or /posts.json
   def index
     @posts = Post.all
@@ -21,7 +22,7 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.build(post_params)
 
     respond_to do |format|
       if @post.save
@@ -66,5 +67,12 @@ class PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:body)
+    end
+
+    # Ensure that only the post owner or an admin can edit, update or destroy a post
+    def check_post_owner_or_admin
+      if @post.user != current_user && !current_user.admin?
+        redirect_to posts_path, alert: "You are not authorized to perform this action."
+      end
     end
 end
