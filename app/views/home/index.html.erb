@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paddle</title>
-  <style>
+    <style>
       body {
           margin: 0;
           font-family: Arial, sans-serif;
           background-color: #f0f8f0;
           display: flex;
           justify-content: center;
-      }
+        }
 
       .layout {
           display: flex;
@@ -19,7 +19,7 @@
           max-width: 1600px;
           height: 100vh;
           box-sizing: border-box;
-      }
+        }
 
       .header {
           width: 100%;
@@ -34,19 +34,19 @@
           left: 0;
           z-index: 10;
           height: 70px;
-      }
+        }
 
       .header .logo {
           font-size: 24px;
           font-weight: bold;
           letter-spacing: 2px;
-      }
+        }
 
       .header .logo span {
           color: #fff;
           font-size: 26px;
           font-weight: 600;
-      }
+        }
 
       .main-content {
           flex-grow: 1;
@@ -57,13 +57,13 @@
           padding-top: 80px;
           overflow-y: auto;
           box-sizing: border-box;
-      }
+        }
 
       .post-input {
           padding: 20px;
           border-bottom: 1px solid #ddd;
           position: relative;
-      }
+        }
 
       .post-input textarea {
           width: 100%;
@@ -72,7 +72,7 @@
           border-radius: 5px;
           resize: none;
           font-size: 16px;
-      }
+        }
 
       .post-input button {
           margin-top: 10px;
@@ -83,11 +83,11 @@
           border-radius: 5px;
           cursor: pointer;
           transition: 0.3s ease;
-      }
+        }
 
       .post-input button:hover {
           background-color: #1c6b1c;
-      }
+        }
 
       .char-count {
           position: absolute;
@@ -95,7 +95,7 @@
           right: 10px;
           font-size: 14px;
           color: #555;
-      }
+        }
 
       .image-preview {
           margin-top: 10px;
@@ -103,7 +103,7 @@
           max-height: 300px;
           object-fit: cover;
           border-radius: 5px;
-      }
+        }
 
       .post {
           border: 1px solid #ddd;
@@ -111,18 +111,18 @@
           padding: 15px;
           margin-bottom: 15px;
           background-color: #eaf8e9;
-      }
+        }
 
       .post-header {
           font-weight: bold;
           margin-bottom: 5px;
           color: #228b22;
-      }
+        }
 
       .post-time {
           font-size: 12px;
           color: #555;
-      }
+        }
 
       .left-bar {
           width: 25%;
@@ -134,13 +134,13 @@
           flex-direction: column;
           justify-content: space-between;
           padding-top: 80px;
-      }
+        }
 
       .left-bar .menu {
           display: flex;
           flex-direction: column;
           gap: 20px;
-      }
+        }
 
       .left-bar a {
           text-decoration: none;
@@ -148,11 +148,11 @@
           font-size: 18px;
           font-weight: bold;
           transition: 0.3s ease;
-      }
+        }
 
       .left-bar a:hover {
           color: #1c6b1c;
-      }
+        }
 
       .right-bar {
           width: 25%;
@@ -161,20 +161,20 @@
           padding: 20px;
           box-sizing: border-box;
           padding-top: 80px; /* Make space for the fixed header */
-      }
+        }
 
       .search-bar {
           display: flex;
           align-items: center;
           gap: 10px;
-      }
+        }
 
       .search-bar input {
           width: 100%;
           padding: 10px;
           border: 1px solid #ddd;
           border-radius: 5px;
-      }
+        }
 
       .search-bar button {
           padding: 10px 20px;
@@ -184,20 +184,20 @@
           border-radius: 5px;
           font-size: 16px;
           cursor: pointer;
-      }
+        }
 
       .search-bar button:hover {
           background-color: #1c6b1c;
-      }
+        }
 
       .explore {
           margin-top: 20px;
-      }
+        }
 
       .explore h3 {
           margin-bottom: 10px;
           color: #228b22;
-      }
+        }
 
       .explore-item {
           margin-bottom: 10px;
@@ -205,21 +205,21 @@
           border: 1px solid #ddd;
           border-radius: 5px;
           background-color: #f5f5f5;
-      }
+        }
 
       .explore-item:hover {
           background-color: #e6f7ff;
           cursor: pointer;
-      }
+        }
 
       .trending {
           margin-top: 20px;
-      }
+        }
 
       .trending h3 {
           margin-bottom: 10px;
           color: #228b22;
-      }
+        }
 
       .trend-item {
           margin-bottom: 10px;
@@ -227,179 +227,176 @@
           border: 1px solid #ddd;
           border-radius: 5px;
           background-color: #f5f5f5;
-      }
+        }
 
       .trend-item:hover {
           background-color: #e6f7ff;
           cursor: pointer;
-      }
+        }
 
       .post-actions {
-    margin-top: 10px;
-}
+            margin-top: 10px;
+        }
 
-.like-button {
-    background-color: #228b22;
-    color: white;
-    border: none;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+        .like-button {
+            background-color: #228b22;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
 
-.like-button:hover {
-    background-color: #1c6b1c;
-    transform: scale(1.05);
-}
+        .like-button:hover {
+            background-color: #1c6b1c;
+            transform: scale(1.05);
+        }
 
-.like-button.liked {
-    background-color: #ff6f61;
-    color: white;
-}
-
-
-.comments-section {
-    margin-top: 15px;
-    padding: 10px;
-    border-top: 1px solid #ddd;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-}
+        .like-button.liked {
+            background-color: #ff6f61;
+            color: white;
+        }
 
 
-.comment-input {
-    width: calc(100% - 50px); 
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    margin-bottom: 10px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-}
+        .comments-section {
+            margin-top: 15px;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
 
 
-.add-comment-button {
-    padding: 8px 15px;
-    background-color: #228b22;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-left: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.add-comment-button:hover {
-    background-color: #1c6b1c;
-}
-
-.comments-list {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #555;
-}
+        .comment-input {
+            width: calc(100% - 50px); 
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
 
 
-.comment-item {
-    background-color: #eaf8e9;
-    padding: 8px;
-    margin-bottom: 8px;
-    border-radius: 5px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    word-wrap: break-word; 
-}
+        .add-comment-button {
+            padding: 8px 15px;
+            background-color: #228b22;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-left: 5px;
+            transition: background-color 0.3s ease;
+        }
 
-.comment-item:hover {
-    background-color: #d8f5d9;
-}
+        .add-comment-button:hover {
+            background-color: #1c6b1c;
+        }
 
-
-.auth-buttons {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.auth-button {
-    padding: 10px 15px;
-    background-color: #228b22;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s ease;
-    text-align: center;
-}
-
-.auth-button:hover {
-    background-color: #1c6b1c;
-}
-.image-upload {
-    margin-top: 15px;
-    text-align: center;
-}
-
-.custom-file-upload {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #228b22;
-    color: white;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.custom-file-upload:hover {
-    background-color: #1c6b1c;
-    transform: scale(1.05);
-}
-
-#imageInput {
-    display: none; /* Dosya girdi alanını gizler */
-}
-
-.preview-container {
-    margin-top: 10px;
-    position: relative;
-    display: inline-block;
-}
-
-.image-preview {
-    max-width: 100%;
-    max-height: 200px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.remove-image-button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 50%;
-    font-size: 12px;
-    cursor: pointer;
-    display: none;
-}
-
-.preview-container:hover .remove-image-button {
-    display: inline-block;
-}
+        .comments-list {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
 
 
+        .comment-item {
+            background-color: #eaf8e9;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word; 
+        }
 
-  </style>
+        .comment-item:hover {
+            background-color: #d8f5d9;
+        }
+
+
+        .auth-buttons {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .auth-button {
+            padding: 10px 15px;
+            background-color: #228b22;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+            text-align: center;
+        }
+
+        .auth-button:hover {
+            background-color: #1c6b1c;
+        }
+        .image-upload {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #228b22;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #1c6b1c;
+            transform: scale(1.05);
+        }
+
+        #imageInput {
+            display: none; /* Dosya girdi alanını gizler */
+        }
+
+        .preview-container {
+            margin-top: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .remove-image-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .preview-container:hover .remove-image-button {
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
 
@@ -451,61 +448,61 @@
 </div>
 
 <script>
-  const username = "<%= @username %>";
+    const username = "<%= @username %>";
 
-function loadPosts() {
-    const postsFeed = document.getElementById('postsFeed');
-    postsFeed.innerHTML = ''; // Clear any existing posts
+    function loadPosts() {
+        const postsFeed = document.getElementById('postsFeed');
+        postsFeed.innerHTML = ''; // Clear any existing posts
 
-    const posts = JSON.parse(localStorage.getItem('posts')) || []; // Load posts from localStorage
-    posts.forEach(post => {
-        const postElement = document.createElement('div');
-        postElement.className = 'post';
+        const posts = JSON.parse(localStorage.getItem('posts')) || []; // Load posts from localStorage
+        posts.forEach(post => {
+            const postElement = document.createElement('div');
+            postElement.className = 'post';
 
-        postElement.innerHTML = `
-            <div class="post-header">${post.username}</div>
-            <div>${post.content}</div>
-            <div class="post-time">${post.time}</div>
-        `;
+            postElement.innerHTML = `
+                <div class="post-header">${post.username}</div>
+                <div>${post.content}</div>
+                <div class="post-time">${post.time}</div>
+            `;
 
-        postsFeed.appendChild(postElement);
-    });
-}
-
-function addPost() {
-    const postContent = document.getElementById('postContent').value.trim();
-    if (postContent === '') {
-        alert('Please share your pet moment!');
-        return;
+            postsFeed.appendChild(postElement);
+        });
     }
 
-    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const post = {
-        username: username,
-        content: postContent,
-        time: currentTime
-    };
+    function addPost() {
+        const postContent = document.getElementById('postContent').value.trim();
+        if (postContent === '') {
+            alert('Please share your pet moment!');
+            return;
+        }
 
-    // Save post to localStorage
-    const posts = JSON.parse(localStorage.getItem('posts')) || [];
-    posts.unshift(post); // Add new post at the beginning
-    localStorage.setItem('posts', JSON.stringify(posts));
+        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const post = {
+            username: username,
+            content: postContent,
+            time: currentTime
+        };
 
-    loadPosts(); // Reload the posts to show the latest
+        // Save post to localStorage
+        const posts = JSON.parse(localStorage.getItem('posts')) || [];
+        posts.unshift(post); // Add new post at the beginning
+        localStorage.setItem('posts', JSON.stringify(posts));
 
-    // Clear the input and reset the char count
-    document.getElementById('postContent').value = '';
-    document.getElementById('charCount').textContent = '0/350'; 
-}
+        loadPosts(); // Reload the posts to show the latest
 
-function updateCharCount() {
-    const postContent = document.getElementById('postContent').value;
-    const charCount = postContent.length;
-    document.getElementById('charCount').textContent = `${charCount}/350`;
-}
+        // Clear the input and reset the char count
+        document.getElementById('postContent').value = '';
+        document.getElementById('charCount').textContent = '0/350'; 
+    }
 
-// Load posts when the page loads
-window.onload = loadPosts;
+    function updateCharCount() {
+        const postContent = document.getElementById('postContent').value;
+        const charCount = postContent.length;
+        document.getElementById('charCount').textContent = `${charCount}/350`;
+    }
+
+    // Load posts when the page loads
+    window.onload = loadPosts;
 
 </script>
 
