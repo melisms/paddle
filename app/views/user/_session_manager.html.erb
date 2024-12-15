@@ -1,7 +1,7 @@
 <% if current_user %>
    <div class="menu">
         <a href="#">🏠 Home</a>
-        <a href="#">🐾 Profile</a>
+        <%= link_to "🐾 Profile", users_profile_path, class: 'auth' %>
         <a href="#">💌 Messages</a>
         <%= link_to "⚙️ Settings", edit_user_registration_path, class: 'auth' %>
         <%= button_to "🔓 Logout", destroy_user_session_path, method: :delete, class: 'auth-button' %>

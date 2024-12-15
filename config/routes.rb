@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+  get "users/profile"
   resources :posts
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: "users/sessions",
+    registrations: "users/registrations"
+  }
   mount RailsAdmin::Engine => "/admin", as: "rails_admin"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -15,7 +19,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :posts do
-    resources :comments, only: [:create]
-    resources :likes, only: [:create, :destroy]
+    resources :comments, only: [ :create ]
+    resources :likes, only: [ :create, :destroy ]
   end
 end
