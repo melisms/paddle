@@ -121,6 +121,8 @@ GEM
       warden (~> 1.2.3)
     drb (2.2.1)
     erubi (1.13.0)
+    ffi (1.17.0-arm64-darwin)
+    ffi (1.17.0-x64-mingw-ucrt)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.6)
@@ -274,6 +276,8 @@ GEM
       rubocop-rails
     ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     securerandom (0.3.2)
     selenium-webdriver (4.27.0)
       base64 (~> 0.2)
@@ -345,6 +349,7 @@ DEPENDENCIES
   rails (~> 7.2.2)
   rails_admin
   rubocop-rails-omakase
+  sassc (~> 2.4)
   selenium-webdriver
   sprockets-rails
   sqlite3 (>= 1.4)

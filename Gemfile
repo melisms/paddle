@@ -62,3 +62,5 @@ gem "cssbundling-rails"
 gem "devise"
 gem "cancancan", "~> 3.0"
 gem "database_cleaner-active_record"
+
+gem "sassc", "~> 2.4"
