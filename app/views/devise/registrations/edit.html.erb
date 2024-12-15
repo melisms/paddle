@@ -41,4 +41,4 @@
 
 <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
 
-<%= link_to "Back", "#", onclick: "history.go(-2); return false;" %>
+<%= link_to "Back", root_path %>
