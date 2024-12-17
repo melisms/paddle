@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Form Section (left section) */
+        .left-section {
+            flex: 3; /* 30% of the width */
+            padding: 2rem;
+            background-color: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Right Section (Image) */
+        .right-section {
+            flex: 7; /* 70% of the width */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('<%= asset_path("dogs.jpg") %>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Form styling */
+        .field {
+            margin-bottom: 1rem;
+        }
+
+        .field label {
+            font-weight: bold;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .actions {
+            margin-top: 1rem;
+        }
+
+        .actions input[type="submit"] {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .actions input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        /* Styling for the remember me checkbox */
+        .field input[type="checkbox"] {
+            margin-top: 0.5rem;
+            width: 20px;  /* Make checkbox a small square */
+            height: 20px;
+        }
+
+        .secondary-btn {
+            background-color: #0275d8;
+            color: white;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .secondary-btn:hover {
+            background-color: #025aa5;
+        }
+
+        /* Image styling */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Alert styling */
+        .alert {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .alert.small {
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="left-section">
+
+        <!-- Display alert message if there is any error -->
+        <% if flash[:alert] %>
+            <div class="alert small">
+                <%= flash[:alert] %>
+            </div>
+        <% end %>
+
+
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="field">
+                <%= f.label :email %><br />
+                <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            </div>
+
+            <div class="field">
+                <%= f.label :password %><br />
+                <%= f.password_field :password, autocomplete: "current-password" %>
+            </div>
+
+            <% if devise_mapping.rememberable? %>
+                <div class="field">
+                    <%= f.check_box :remember_me %>
+                    <%= f.label :remember_me %>
+                </div>
+            <% end %>
+
+            <div class="actions">
+                <%= f.submit "Log in" %>
+            </div>
+        <% end %>
+
+        <!-- Sign-Up Button in the same format as Log In -->
+        <%= link_to "Sign up", new_registration_path(resource_name), class: "secondary-btn" %>
+
+        <%= render "devise/shared/links" %>
+    </div>
+
+    <div class="right-section">
+        <img src="<%= asset_path('dogs.jpg') %>" alt="Dog Image">
+    </div>
+</body>
+</html>

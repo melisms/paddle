@@ -4,6 +4,9 @@
     "sass": "^1.81.0"
   },
   "scripts": {
-    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build:css": "sass ./app/assets/stylesheets/rails_admin.scss:./app/assets/builds/rails_admin.css --no-source-map --load-path=node_modules"
+  },
+  "devDependencies": {
+    "@types/rails__ujs": "^6.0.4"
   }
 }
