@@ -5,9 +5,9 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
-      redirect_to post_path(@post), notice: 'Comment added!'
+      redirect_to post_path(@post), notice: "Comment added!"
     else
-      redirect_to post_path(@post), alert: 'Failed to add comment.'
+      redirect_to post_path(@post), alert: "Failed to add comment."
     end
   end
 
