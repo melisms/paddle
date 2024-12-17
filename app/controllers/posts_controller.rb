@@ -2,9 +2,14 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :check_post_owner_or_admin, only: %i[edit update destroy]
+  before_action :set_user
   # GET /posts or /posts.json
   def index
     @posts = Post.all
+  end
+
+  def set_user
+    @user = current_user
   end
 
   # GET /posts/1 or /posts/1.json
