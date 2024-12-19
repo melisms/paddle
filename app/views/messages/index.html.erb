@@ -1,0 +1,16 @@
+<h1>Messages</h1>
+
+<h2>Unread Messages</h2>
+<% @received_messages.each do |message| %>
+  <div>
+    <%= message.sender.username %>: <%= message.content %>
+    <%= link_to "View", message_path(message) %>
+  </div>
+<% end %>
+
+<h2>Sent Messages</h2>
+<% @sent_messages.each do |message| %>
+  <div>
+    To <%= message.recipient.username %>: <%= message.content %>
+  </div>
+<% end %>
