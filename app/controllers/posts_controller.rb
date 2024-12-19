@@ -79,7 +79,7 @@ class PostsController < ApplicationController
     # Ensure that only the post owner or an admin can edit, update or destroy a post
     def check_post_owner_or_admin
       if @post.user != current_user && !current_user.admin?
-        redirect_to posts_path, alert: "You are not authorized to perform this action."
+        redirect_to root_path, alert: "You are not authorized to perform this action."
       end
     end
 end
