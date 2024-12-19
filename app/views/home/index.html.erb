@@ -74,7 +74,7 @@
           font-size: 16px;
         }
 
-      .post-input button {
+      .post-input button, .post-input .btn-primary {
           margin-top: 10px;
           background-color: #228b22;
           color: white;
@@ -85,7 +85,7 @@
           transition: 0.3s ease;
         }
 
-      .post-input button:hover {
+      .post-input button:hover, .post-input .btn-primary:hover {
           background-color: #1c6b1c;
         }
 
@@ -414,11 +414,22 @@
 
   <div class="main-content">
     <div class="post-input">
-      <textarea id="postContent" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()"></textarea>
-      <div class="char-count" id="charCount">0/350</div>
-      <button onclick="addPost()">Post</button>
+      <%= form_with(model: @post, url: posts_path, method: :post, local: true) do |form| %>
+        <textarea id="postContent" name="post[body]" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()" class="form-control"></textarea>
+        <div class="char-count" id="charCount">0/350</div>
+        <%= form.submit "Post", class: "btn btn-primary" %>
+      <% end %>
     </div>
-    <div class="posts-feed" id="postsFeed"></div>
+    <div class="posts-feed" id="postsFeed">
+      <% @posts.each do |post| %>
+        <div class="post">
+          <div class="post-header"><%= post.user.username %></div>
+          <div><%= post.body %></div>
+          <div class="post-time"><%= post.created_at.strftime('%b %d, %Y %H:%M') %></div>
+          <%= link_to "Show this post", post %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
   <div class="right-bar">
@@ -450,60 +461,13 @@
 <script>
     const username = "<%= @username %>";
 
-    function loadPosts() {
-        const postsFeed = document.getElementById('postsFeed');
-        postsFeed.innerHTML = ''; // Clear any existing posts
-
-        const posts = JSON.parse(localStorage.getItem('posts')) || []; // Load posts from localStorage
-        posts.forEach(post => {
-            const postElement = document.createElement('div');
-            postElement.className = 'post';
-
-            postElement.innerHTML = `
-                <div class="post-header">${post.username}</div>
-                <div>${post.content}</div>
-                <div class="post-time">${post.time}</div>
-            `;
-
-            postsFeed.appendChild(postElement);
-        });
-    }
-
-    function addPost() {
-        const postContent = document.getElementById('postContent').value.trim();
-        if (postContent === '') {
-            alert('Please share your pet moment!');
-            return;
-        }
-
-        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        const post = {
-            username: username,
-            content: postContent,
-            time: currentTime
-        };
-
-        // Save post to localStorage
-        const posts = JSON.parse(localStorage.getItem('posts')) || [];
-        posts.unshift(post); // Add new post at the beginning
-        localStorage.setItem('posts', JSON.stringify(posts));
-
-        loadPosts(); // Reload the posts to show the latest
-
-        // Clear the input and reset the char count
-        document.getElementById('postContent').value = '';
-        document.getElementById('charCount').textContent = '0/350'; 
-    }
-
     function updateCharCount() {
         const postContent = document.getElementById('postContent').value;
         const charCount = postContent.length;
-        document.getElementById('charCount').textContent = `${charCount}/350`;
+        const maxChars = 350;
+
+        document.getElementById('charCount').textContent = `${charCount}/${maxChars}`;
     }
-
-    // Load posts when the page loads
-    window.onload = loadPosts;
-
 </script>
 
 </body>
