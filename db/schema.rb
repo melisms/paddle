@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_19_130509) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_19_180708) do
   create_table "chats", force: :cascade do |t|
     t.integer "sender_id", null: false
     t.integer "receiver_id", null: false
@@ -46,6 +46,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_19_130509) do
     t.boolean "read"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "chat_id"
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
   end
 
   create_table "posts", force: :cascade do |t|
