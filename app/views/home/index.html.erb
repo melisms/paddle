@@ -426,6 +426,7 @@
           <div class="post-header"><%= post.user.username %></div>
           <div><%= post.body %></div>
           <div class="post-time"><%= post.created_at.strftime('%b %d, %Y %H:%M') %></div>
+          <%= link_to "Show this post", post %>
         </div>
       <% end %>
     </div>
