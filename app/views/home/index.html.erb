@@ -417,7 +417,7 @@
       <%= form_with(model: @post, url: posts_path, method: :post, local: true) do |form| %>
         <textarea id="postContent" name="post[body]" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()" class="form-control"></textarea>
         <div class="char-count" id="charCount">0/350</div>
-        <%= form.submit "Post", class: "btn btn-primary" %>
+        <%= form.submit "Post", class: "btn btn-primary", id: "postButton", disabled: true %>
       <% end %>
     </div>
     <div class="posts-feed" id="postsFeed">
@@ -467,6 +467,13 @@
         const maxChars = 350;
 
         document.getElementById('charCount').textContent = `${charCount}/${maxChars}`;
+
+        const postButton = document.getElementById('postButton');
+        if (charCount > 0) {
+          postButton.disabled = false; // Enable the button if there's text
+        } else {
+          postButton.disabled = true; // Disable the button if textarea is empty
+        }
     }
 </script>
 
