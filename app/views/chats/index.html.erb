@@ -1,0 +1,20 @@
+<h1>Your Chats</h1>
+
+<% if @chats.empty? %>
+  <p>You don't have any chats yet. Start a new one!</p>
+<% else %>
+  <ul>
+    <% @chats.each do |chat| %>
+      <li>
+        <%= link_to "Chat with #{chat.receiver.username}", chat_path(chat) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2>Start a New Chat</h2>
+
+<%= form_with model: Chat.new, url: chats_path, local: true do |form| %>
+  <%= form.select :receiver_id, User.where.not(id: current_user.id).pluck(:username, :id), prompt: "Select a user to chat with" %>
+  <%= form.submit "Start Chat" %>
+<% end %>

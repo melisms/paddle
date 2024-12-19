@@ -1,28 +1,38 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_chat
 
+  # Create a new message in the current chat
   def create
-    @message = current_user.sent_messages.new(message_params)
+    @message = @chat.messages.new(message_params)
+    @message.sender = current_user
+    @message.recipient = (@message.sender == @chat.sender ? @chat.receiver : @chat.sender)
+
     if @message.save
-      redirect_to conversations_path, notice: "Message sent successfully."
+      redirect_to chat_messages_path(@chat)
     else
-      render :new
+      render 'chats/show'
     end
   end
 
+  # Display all messages in the current chat
   def index
-    @received_messages = current_user.received_messages.unread
-    @sent_messages = current_user.sent_messages
+    @messages = @chat.messages.order(created_at: :asc)
   end
 
+  # Show a single message in the chat (optional depending on your use case)
   def show
-    @message = Message.find(params[:id])
-    @message.update(read: true)
+    @message = @chat.messages.find(params[:id])
   end
 
   private
 
+  def set_chat
+    @chat = Chat.find(params[:chat_id])
+  end
+
   def message_params
-    params.require(:message).permit(:recipient_id, :content)
+    params.require(:message).permit(:content)
   end
 end
+
