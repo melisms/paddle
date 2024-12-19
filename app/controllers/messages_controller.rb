@@ -6,12 +6,12 @@ class MessagesController < ApplicationController
   def create
     @message = @chat.messages.new(message_params)
     @message.sender = current_user
-    @message.recipient = (@message.sender == @chat.sender ? @chat.receiver : @chat.sender)
+    @message.receiver = (@message.sender == @chat.sender ? @chat.receiver : @chat.sender)
 
     if @message.save
       redirect_to chat_messages_path(@chat)
     else
-      render 'chats/show'
+      render "chats/show"
     end
   end
 
@@ -35,4 +35,3 @@ class MessagesController < ApplicationController
     params.require(:message).permit(:content)
   end
 end
-
