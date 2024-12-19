@@ -3,5 +3,6 @@ class HomeController < ApplicationController
   def index
     @username = current_user.username
     @posts = Post.all.order(created_at: :desc)
+    @post = Post.new
   end
 end
