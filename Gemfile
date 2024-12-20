@@ -66,3 +66,4 @@ gem "cancancan", "~> 3.0"
 gem "database_cleaner-active_record"
 
 gem "sassc", "~> 2.4"
+gem 'ransack', '~> 4.2', '>= 4.2.1'
