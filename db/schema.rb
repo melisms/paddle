@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_02_125131) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_19_180708) do
+  create_table "chats", force: :cascade do |t|
+    t.integer "sender_id", null: false
+    t.integer "receiver_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["receiver_id"], name: "index_chats_on_receiver_id"
+    t.index ["sender_id"], name: "index_chats_on_sender_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.integer "user_id", null: false
@@ -28,6 +37,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_02_125131) do
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_likes_on_post_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "sender_id"
+    t.integer "receiver_id"
+    t.text "content"
+    t.boolean "read"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "chat_id"
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -53,6 +73,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_02_125131) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "chats", "users", column: "receiver_id"
+  add_foreign_key "chats", "users", column: "sender_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "posts"
