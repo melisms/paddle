@@ -1,0 +1,4 @@
+<%= form_with model: @chat, url: chats_path, local: true do |form| %>
+  <%= form.select :receiver_id, User.where.not(id: current_user.id).pluck(:username, :id) %>
+  <%= form.submit "Start Chat" %>
+<% end %>

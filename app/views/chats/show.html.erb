@@ -1,0 +1,14 @@
+<h1>Chat with <%= @chat.receiver.username %></h1>
+
+<div id="messages">
+  <% @messages.each do |message| %>
+    <div>
+      <strong><%= message.sender.username %>:</strong> <%= message.content %>
+    </div>
+  <% end %>
+</div>
+
+<%= form_with model: @message, url: chat_messages_path(@chat), local: true do |form| %>
+  <%= form.text_area :content, placeholder: "Type a message..." %>
+  <%= form.submit "Send" %>
+<% end %>

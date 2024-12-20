@@ -6,3 +6,6 @@
 //= link application.css
 //= link tailwind.css
 //= link application.js
+// app/assets/config/manifest.js
+//= link index.css
+//= link index.js

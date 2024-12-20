@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "search", to: "search#index"
   get "users/profile"
   resources :posts
   devise_for :users, controllers: {
@@ -17,6 +18,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+
+  resources :chats, only: [ :index, :show, :create ] do
+    resources :messages, only: [ :create, :index, :show ]
+  end
 
   resources :posts do
     resources :comments, only: [ :create ]
