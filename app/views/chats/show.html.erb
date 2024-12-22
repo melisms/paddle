@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat with <%= @chat.receiver.username %></title>
   <style>
+    /* Global Styles */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -12,32 +13,35 @@
       background-color: #f7f7f7;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      height: 100vh;
     }
 
     h1 {
-      margin-top: 20px;
+      text-align: center;
+      margin: 20px 0;
       color: #333;
     }
 
+    /* Full-Screen Chat Container */
     #messages {
-      width: 100%;
-      max-width: 600px;
-      height: 400px;
-      overflow-y: scroll;
+      flex: 1;
+      overflow-y: auto;
       background: #fff;
       border: 1px solid #ddd;
       border-radius: 8px;
-      padding: 10px;
+      padding: 20px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
+      margin: 0 auto;
+      width: 90%;
+      max-width: 1000px;
     }
 
     .message-item {
-      margin: 5px 0;
-      padding: 10px;
+      margin: 10px 0;
+      padding: 15px;
       border-radius: 20px;
       max-width: 70%;
+      word-wrap: break-word;
     }
 
     .message-item.sent {
@@ -50,38 +54,52 @@
       background-color: #e8e8e8;
     }
 
+    /* Message Input Form */
     .message-form {
-      width: 100%;
-      max-width: 600px;
+      width: 90%;
+      max-width: 1000px;
+      margin: 20px auto;
       display: flex;
       gap: 10px;
     }
 
     .message-input {
       flex: 1;
-      padding: 10px;
+      padding: 15px;
       border: 1px solid #ccc;
       border-radius: 20px;
+      font-size: 16px;
     }
 
     .btn-send {
-      padding: 10px 20px;
+      padding: 15px 25px;
       background-color: #00796b;
       color: white;
       border: none;
       border-radius: 20px;
       cursor: pointer;
+      font-size: 16px;
       transition: background-color 0.3s ease;
     }
 
     .btn-send:hover {
       background-color: #005a4c;
     }
+
+    /* Full Height Scroll Behavior */
+    html, body {
+      overflow: hidden; /* Disable page scrolling */
+    }
+
+    #messages {
+      height: calc(100vh - 160px); /* Adjust based on header and form height */
+    }
   </style>
 </head>
 <body>
   <h1>Chat with <%= @chat.receiver.username %></h1>
 
+  <!-- Messages Container -->
   <div id="messages">
     <% @messages.each do |message| %>
       <div class="message-item <%= message.sender == current_user ? 'sent' : 'received' %>">
@@ -90,17 +108,18 @@
     <% end %>
   </div>
 
+  <!-- Message Input Form -->
   <%= form_with model: @message, url: chat_messages_path(@chat), local: true, html: { class: "message-form" } do |form| %>
     <%= form.text_area :content, placeholder: "Type a message...", class: "message-input", rows: 1 %>
     <%= form.submit "Send", class: "btn-send" %>
   <% end %>
 
   <script>
-  
+    // Scroll to the bottom of the messages container on load
     const messagesDiv = document.getElementById('messages');
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-
+    // Prevent newline on pressing Enter in the message input
     const messageInput = document.querySelector('.message-input');
     messageInput.addEventListener('keypress', function (e) {
       if (e.key === 'Enter') {
@@ -111,5 +130,3 @@
   </script>
 </body>
 </html>
-
-
