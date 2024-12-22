@@ -3,18 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <input type="text" id="search-messages" placeholder="Search messages..." class="search-input" />
-
   <title>Your Chats</title>
+
   <%= stylesheet_link_tag 'index', media: 'all', 'data-turbo-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
 
   <style>
-    /* Arama kutusu stilini geliştiriyoruz */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .search-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
     .search-input {
       padding: 12px;
-      margin: 10px 0;
+      margin: 20px 0;
       width: 100%;
       max-width: 600px;
       border: 1px solid #ccc;
@@ -28,198 +49,154 @@
       outline: none;
     }
 
-    /* Ana flex düzenini ayarlayalım */
-    .main-container {
+    .sections {
       display: flex;
       justify-content: space-between;
-      gap: 40px;
-      margin-bottom: 30px;
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
     }
 
-    /* Section stilleri */
     .section {
-      width: 48%;
+      flex: 1;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    /* Başlıkları stilize edelim */
-    .chat-header h1, .chat-header h2 {
-      font-family: 'Arial', sans-serif;
+    h1, h2 {
+      margin: 0 0 20px;
       color: #00796b;
-      margin: 0;
+      text-align: center;
     }
 
-    .chat-header h1 {
-      font-size: 36px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .chat-header h2 {
-      font-size: 28px;
-      font-weight: 500;
-      color: #004d40;
-    }
-
-    /* Sohbet listesi ve öğelerinin stilini düzenleyelim */
     .chat-list {
-      list-style-type: none;
+      list-style: none;
       padding: 0;
     }
 
     .chat-item {
-      padding: 12px;
-      border: 1px solid #ddd;
-      margin: 10px 0;
-      border-radius: 5px;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      cursor: pointer;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .chat-item:hover {
-      background-color: #f1f1f1;
-      transform: scale(1.05);
+      background-color: #f0f0f0;
     }
 
-    .chat-item.active {
-      background-color: #e0f2f1;
-    }
-
-    /* Sohbet linkinin stilini düzenleyelim */
     .chat-link {
       text-decoration: none;
       color: #00796b;
-      font-size: 18px;
+      font-weight: bold;
     }
 
-    /* Formun stilini iyileştirelim */
+    .chat-last-message {
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
     .form-control {
       width: 100%;
-      max-width: 600px;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 5px;
+      padding: 10px;
       border: 1px solid #ccc;
-      font-size: 16px;
-      transition: border 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 4px;
     }
 
-    /* Form elemanlarına focus durumu ekleyelim */
-    .form-control:focus {
-      border-color: #00796b;
-      box-shadow: 0 0 5px rgba(0, 121, 107, 0.3);
-      outline: none;
-    }
-
-    /* Buton stilini düzenleyelim */
     .btn-primary {
+      padding: 10px 20px;
       background-color: #00796b;
-      color: white;
-      padding: 12px 25px;
+      color: #fff;
       border: none;
-      border-radius: 5px;
-      font-size: 16px;
+      border-radius: 4px;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
     }
 
     .btn-primary:hover {
-      background-color: #004d40;
-      transform: scale(1.05);
+      background-color: #005a4c;
     }
 
-    /* Seçim kutusu stilini düzenleyelim */
-    select.form-control {
-      padding: 12px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      width: 100%;
-      max-width: 600px;
-      transition: border 0.3s ease, box-shadow 0.3s ease;
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-
-    select.form-control:focus {
-      border-color: #00796b;
-      box-shadow: 0 0 5px rgba(0, 121, 107, 0.3);
-      outline: none;
-    }
-
-    /* Yeni chat başlığı ve form arasındaki boşlukları ayarlayalım */
-    .new-chat-form {
-      margin-top: 20px;
-    }
-
   </style>
 </head>
 <body>
   <div class="main-container">
-    <!-- Your Chats Section -->
-    <section class="section">
-      <h1>Your Chats</h1>
+    <!-- Search Bar -->
+    <div class="search-container">
+      <input 
+        type="text" 
+        id="search-messages" 
+        placeholder="Search messages..." 
+        class="search-input" 
+      />
+    </div>
 
-      <% if @chats.empty? %>
-        <p>You don't have any chats yet. Start a new one by selecting a user below!</p>
-      <% else %>
-        <ul class="chat-list">
-          <% @chats.each do |chat| %>
-            <li class="chat-item" data-chat-id="<%= chat.id %>">
-              <%= link_to "Chat with #{chat.receiver.username}", chat_path(chat), class: "chat-link" %>
-              <span class="chat-last-message">
-                <% if chat.messages.any? %>
-                  <%= truncate(chat.messages.last.content, length: 30) %>
-                <% else %>
-                  No messages yet
-                <% end %>
-              </span>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    </section>
+    <!-- Chats and New Chat Sections -->
+    <div class="sections">
+      <!-- Your Chats Section -->
+      <section class="section">
+        <h1>Your Chats</h1>
 
-    <!-- Start a New Chat Section -->
-    <section class="section">
-      <h2>Start a New Chat</h2>
+        <% if @chats.empty? %>
+          <p>You don't have any chats yet. Start a new one by selecting a user below!</p>
+        <% else %>
+          <ul class="chat-list">
+            <% @chats.each do |chat| %>
+              <li class="chat-item" data-chat-id="<%= chat.id %>">
+                <%= link_to "Chat with #{chat.receiver.username}", chat_path(chat), class: "chat-link" %>
+                <span class="chat-last-message">
+                  <% if chat.messages.any? %>
+                    <%= truncate(chat.messages.last.content, length: 30) %>
+                  <% else %>
+                    No messages yet
+                  <% end %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </section>
 
-      <%= form_with model: Chat.new, url: chats_path, local: true, html: { class: "new-chat-form" } do |form| %>
-        <div class="form-group">
-          <%= form.label :receiver_id, "Select a user to chat with" %>
-          <%= form.select :receiver_id, User.where.not(id: current_user.id).pluck(:username, :id), prompt: "Choose a user", class: "form-control" %>
-        </div>
-        <%= form.submit "Start Chat", class: "btn-primary" %>
-      <% end %>
-    </section>
+      <!-- Start a New Chat Section -->
+      <section class="section">
+        <h2>Start a New Chat</h2>
+
+        <%= form_with model: Chat.new, url: chats_path, local: true, html: { class: "form-container" } do |form| %>
+          <div class="form-group">
+            <%= form.label :receiver_id, "Select a user to chat with" %>
+            <%= form.select :receiver_id, User.where.not(id: current_user.id).pluck(:username, :id), prompt: "Choose a user", class: "form-control" %>
+          </div>
+          <%= form.submit "Start Chat", class: "btn-primary" %>
+        <% end %>
+      </section>
+    </div>
   </div>
 
   <script>
-    // Sohbet öğesine tıklama işlevselliği
-    document.querySelectorAll('.chat-item').forEach(item => {
-      item.addEventListener('click', function() {
-        document.querySelectorAll('.chat-item').forEach(chat => chat.classList.remove('active'));
-        this.classList.add('active');
-      });
-    });
-
-    // Formu göndermeden önce kullanıcıyı uyar
-    const form = document.querySelector('.new-chat-form');
-    form.addEventListener('submit', function(event) {
-      const userSelect = form.querySelector('select[name="chat[receiver_id]"]');
-      if (userSelect.value === "") {
-        event.preventDefault();
-        alert("Please select a user to start a chat!");
-      }
-    });
-
-    // Arama kutusu fonksiyonu
+    // Search Functionality
     document.getElementById('search-messages').addEventListener('input', function() {
       const query = this.value.toLowerCase();
       const messages = document.querySelectorAll('.chat-item');
+
       messages.forEach(function(message) {
         const content = message.textContent.toLowerCase();
         message.style.display = content.includes(query) ? '' : 'none';
       });
     });
   </script>
-
 </body>
 </html>
