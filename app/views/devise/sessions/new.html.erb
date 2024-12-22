@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
         /* Genel Sayfa Stili */
         body {
@@ -47,14 +48,27 @@
             text-align: center;
         }
 
+
         .left-section .field {
             margin-bottom: 15px;
             width: 100%;
-            text-align: center;
+            position: relative;
+            text-align: left;
+        }
+
+
+        .left-section .field i{
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #aaa;
         }
 
         .left-section .field label {
-            font-size: 20px;
+            display: block; /* Yazıyı kutunun üstüne taşır */
+            font-size: 16px;
             font-weight: bold;
             margin-bottom: 5px;
         }
@@ -62,8 +76,10 @@
         .left-section .field input {
             width: 100%;
             padding: 10px;
+            padding-left: 35px;
             border-radius: 5px;
             border: 1px solid #ccc;
+            font-size: 16px;
         }
 
         .left-section .remember-me {
@@ -160,13 +176,19 @@
             <!-- Giriş Formu -->
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                 <div class="field">
-                    <%= f.label :email %><br />
-                    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                    <label for="email">Email</label>
+                    <div style="position: relative;">
+                        <i class='bx bx-user' style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #aaa;"></i>
+                        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                    </div>
                 </div>
 
                 <div class="field">
-                    <%= f.label :password %><br />
-                    <%= f.password_field :password, autocomplete: "current-password" %>
+                    <label for="password">Password</label>
+                    <div style="position: relative;">
+                        <i class='bx bx-lock' style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #aaa;"></i>
+                        <%= f.password_field :password, autocomplete: "current-password" %>
+                    </div>
                 </div>
 
                 <% if devise_mapping.rememberable? %>
