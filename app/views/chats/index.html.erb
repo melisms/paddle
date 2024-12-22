@@ -145,9 +145,8 @@
       />
     </div>
 
-    <!-- Chats and New Chat Sections -->
     <div class="sections">
-      <!-- Your Chats Section -->
+
       <section class="section">
         <h1>Your Chats</h1>
 
@@ -171,7 +170,6 @@
         <% end %>
       </section>
 
-      <!-- Start a New Chat Section -->
       <section class="section">
         <h2>Start a New Chat</h2>
 
@@ -187,7 +185,7 @@
   </div>
 
   <script>
-    // Search Functionality
+
     document.getElementById('search-messages').addEventListener('input', function() {
       const query = this.value.toLowerCase();
       const messages = document.querySelectorAll('.chat-item');
