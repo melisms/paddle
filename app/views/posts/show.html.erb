@@ -130,6 +130,18 @@
         <%= button_to "Destroy this post", @post, method: :delete, data: { confirm: "Are you sure?" } %>
       </div>
 
+      <% if @post.media.attached? %>
+        <div class="post-media">
+          <% @post.media.each do |media| %>
+            <% if media.image? %>
+              <%= image_tag media, class: 'post-image', alt: 'Post Image', style: 'max-width:100%; margin: 10px 0;' %>
+            <% elsif media.video? %>
+              <%= video_tag media, class: 'post-video', controls: true, style: 'max-width:100%; margin: 10px 0;' %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+
       <!-- Comments -->
       <div class="comments-section">
         <h3>Comments</h3>

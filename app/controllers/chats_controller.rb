@@ -19,6 +19,12 @@ class ChatsController < ApplicationController
     @chat = Chat.new(chat_params)
     @chat.sender = current_user
 
+    if Chat.exists?(sender_id: current_user.id, receiver_id: @chat.receiver_id) ||
+      Chat.exists?(sender_id: @chat.receiver_id, receiver_id: current_user.id)
+     flash[:alert] = "You already have an active chat with this user."
+     redirect_to chats_path and return
+    end
+
     if @chat.save
       redirect_to chat_path(@chat)
     else

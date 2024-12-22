@@ -73,7 +73,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:body)
+      params.require(:post).permit(:body, media: [])
     end
 
     # Ensure that only the post owner or an admin can edit, update or destroy a post

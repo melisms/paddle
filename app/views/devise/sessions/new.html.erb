@@ -144,10 +144,17 @@
 
         .left-section .signup-btn{
             background-color: #28a745;
+            text-align: center;
+            color: black;
+            text-decoration: none;
+            width: 225px;
+            align-items: center;
+            margin-left: 120px;
         }
 
         .left-section .signup-btn:hover {
             background-color: #218838;
+            transform: scale(1.05);
         }
 
         /* Sağ Bölüm Stili */
@@ -205,7 +212,7 @@
 
             <!-- Sign Up Butonu -->
             <div class="actions">
-                <%= link_to "Sign up", new_registration_path(resource_name), class: "signup-btn" %>
+                <%= link_to "Sign up", new_registration_path(resource_name), class: "signup-btn" %><br />
             </div>
 
             <%= render "devise/shared/links" %>
