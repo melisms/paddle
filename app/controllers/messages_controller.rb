@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
     @message.receiver = (@message.sender == @chat.sender ? @chat.receiver : @chat.sender)
 
     if @message.save
-      redirect_to chat_messages_path(@chat)
+      redirect_to chat_path(@chat)
     else
       render "chats/show"
     end
