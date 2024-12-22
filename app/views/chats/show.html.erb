@@ -7,10 +7,10 @@
   <style>
     /* Global Styles */
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f7f7f7;
+      background-color: #f5f5f5;
       display: flex;
       flex-direction: column;
       height: 100vh;
@@ -19,7 +19,8 @@
     h1 {
       text-align: center;
       margin: 20px 0;
-      color: #333;
+      color: #004d40; /* Dark green for heading */
+      font-size: 32px;
     }
 
     /* Full-Screen Chat Container */
@@ -28,36 +29,39 @@
       overflow-y: auto;
       background: #fff;
       border: 1px solid #ddd;
-      border-radius: 8px;
+      border-radius: 12px;
       padding: 20px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       margin: 0 auto;
       width: 90%;
-      max-width: 1000px;
+      max-width: 900px;
     }
 
     .message-item {
-      margin: 10px 0;
+      margin: 15px 0;
       padding: 15px;
       border-radius: 20px;
       max-width: 70%;
       word-wrap: break-word;
+      font-size: 16px;
     }
 
     .message-item.sent {
-      background-color: #d1ffd1;
+      background-color: #c8e6c9; /* Light green for sent messages */
       margin-left: auto;
       text-align: right;
+      color: #004d40;
     }
 
     .message-item.received {
-      background-color: #e8e8e8;
+      background-color: #e8f5e9; /* Light greenish gray for received messages */
+      color: #333;
     }
 
     /* Message Input Form */
     .message-form {
       width: 90%;
-      max-width: 1000px;
+      max-width: 900px;
       margin: 20px auto;
       display: flex;
       gap: 10px;
@@ -69,11 +73,20 @@
       border: 1px solid #ccc;
       border-radius: 20px;
       font-size: 16px;
+      background-color: #fafafa;
+      color: #333;
+      resize: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .message-input:focus {
+      border-color: #00796b; /* Focus color */
+      outline: none;
     }
 
     .btn-send {
       padding: 15px 25px;
-      background-color: #00796b;
+      background-color: #00796b; /* Teal green for the send button */
       color: white;
       border: none;
       border-radius: 20px;
@@ -83,7 +96,7 @@
     }
 
     .btn-send:hover {
-      background-color: #005a4c;
+      background-color: #004d40; /* Darker green for hover */
     }
 
     /* Full Height Scroll Behavior */
@@ -93,6 +106,22 @@
 
     #messages {
       height: calc(100vh - 160px); /* Adjust based on header and form height */
+    }
+
+    /* Custom Scrollbar */
+    #messages::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    #messages::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.15);
+      border-radius: 12px;
+    }
+
+    /* Button and Input Field Animation */
+    .btn-send:focus, .message-input:focus {
+      transition: all 0.3s ease;
+      transform: scale(1.05);
     }
   </style>
 </head>
@@ -122,8 +151,8 @@
     // Prevent newline on pressing Enter in the message input
     const messageInput = document.querySelector('.message-input');
     messageInput.addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') {
-        e.preventDefault(); // Prevent newline
+      if (e.key === 'Enter' && !e.shiftKey) {  // Allow Shift + Enter for new line
+        e.preventDefault(); // Prevent form submission
         document.querySelector('.message-form').submit();
       }
     });

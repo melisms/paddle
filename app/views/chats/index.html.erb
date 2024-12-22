@@ -19,11 +19,25 @@
       color: #333;
     }
 
+    .header {
+      background-color: #00796b;
+      padding: 30px 0;
+      text-align: left; /* Sol tarafa hizaladım */
+      padding-left: 20px; /* Tam sol köşeye yapışmasın diye sağa kaydırdım */
+    }
+
+    .header .logo a {
+      text-decoration: none;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
     .main-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
+      padding: 80px 20px 20px;
     }
 
     .search-container {
@@ -134,6 +148,13 @@
   </style>
 </head>
 <body>
+
+  <div class="header">
+    <div class="logo">
+      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
+    </div>
+  </div>
+
   <div class="main-container">
     <!-- Search Bar -->
     <div class="search-container">
@@ -146,7 +167,6 @@
     </div>
 
     <div class="sections">
-
       <section class="section">
         <h1>Your Chats</h1>
 
@@ -185,7 +205,6 @@
   </div>
 
   <script>
-
     document.getElementById('search-messages').addEventListener('input', function() {
       const query = this.value.toLowerCase();
       const messages = document.querySelectorAll('.chat-item');
@@ -196,5 +215,7 @@
       });
     });
   </script>
+
 </body>
 </html>
+
