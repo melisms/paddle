@@ -120,3 +120,101 @@ body {
     text-align: center;
   }
   
+  /* Sayfa Başlıkları ve Genel Düzen */
+h1 {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Mesaj Alanı */
+  #messages {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+  
+  .message-item {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background-color: #f1f1f1;
+    font-size: 1em;
+  }
+  
+  .message-item.sent {
+    background-color: #e0f7fa;  /* Kullanıcıya ait mesajlar farklı renkte */
+    text-align: right;  /* Kullanıcının mesajları sağa hizalanacak */
+  }
+  
+  .message-item strong {
+    color: #00796b;
+    font-weight: bold;
+  }
+  
+  .message-item p {
+    margin: 5px 0;
+  }
+  
+  /* Form Düzeni */
+  .message-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .message-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+    color: #333;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    height: 100px;
+    resize: none;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .message-input:focus {
+    border-color: #00796b;
+    outline: none;
+  }
+  
+  .btn-send {
+    background-color: #00796b;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+    align-self: flex-end;
+  }
+  
+  .btn-send:hover {
+    background-color: #004d40;
+  }
+  
+  /* Mesaj Alanı için Scrollbar */
+  #messages::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  #messages::-webkit-scrollbar-thumb {
+    background-color: #00796b;
+    border-radius: 10px;
+  }
+  
+  #messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
