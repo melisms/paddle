@@ -96,11 +96,11 @@
   <% end %>
 
   <script>
-    // Auto-scroll to the bottom of the messages
+  
     const messagesDiv = document.getElementById('messages');
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-    // Handle form submission with Enter key
+
     const messageInput = document.querySelector('.message-input');
     messageInput.addEventListener('keypress', function (e) {
       if (e.key === 'Enter') {
