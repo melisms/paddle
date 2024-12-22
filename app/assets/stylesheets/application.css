@@ -1,1 +1,80 @@
-@import "application.scss";
+/* Genel stil ayarları */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+  }
+  
+  h1, h2 {
+    color: #333;
+  }
+  
+  .chat-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  
+  .chat-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .chat-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .chat-item.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .chat-link {
+    font-weight: bold;
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .chat-link:hover {
+    text-decoration: underline;
+  }
+  
+  .chat-last-message {
+    font-size: 0.9em;
+    color: gray;
+  }
+  
+  .new-chat-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .new-chat-form .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .new-chat-form .btn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .new-chat-form .btn:hover {
+    background-color: #0056b3;
+  }
+  
