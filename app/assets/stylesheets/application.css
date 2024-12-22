@@ -1,80 +1,122 @@
-/* Genel stil ayarları */
-
+/* Genel Sayfa Düzeni */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fa;
     margin: 0;
     padding: 0;
-    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
   
-  h1, h2 {
+  h1 {
     color: #333;
+    font-size: 2.5em;
+    margin-bottom: 20px;
   }
   
+  h2 {
+    color: #333;
+    font-size: 1.8em;
+    margin-top: 40px;
+  }
+  
+  /* Chat Listesi ve Chat Öğeleri */
   .chat-list {
     list-style-type: none;
     padding: 0;
-    margin-top: 20px;
+    max-width: 600px;
+    width: 100%;
+    margin-bottom: 30px;
   }
   
   .chat-item {
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    background-color: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
   }
   
   .chat-item:hover {
-    background-color: #f0f0f0;
+    transform: scale(1.03);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
   
   .chat-item.active {
-    background-color: #007bff;
-    color: white;
+    background-color: #e0f7fa;
+    border-left: 5px solid #00796b;
   }
   
   .chat-link {
     font-weight: bold;
+    color: #00796b;
     text-decoration: none;
-    color: #007bff;
-  }
-  
-  .chat-link:hover {
-    text-decoration: underline;
+    font-size: 1.2em;
   }
   
   .chat-last-message {
-    font-size: 0.9em;
-    color: gray;
+    display: block;
+    color: #777;
+    font-size: 0.95em;
+    margin-top: 8px;
   }
   
-  .new-chat-form .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .new-chat-form .form-control {
+  /* Form ve Buton Düzeni */
+  .new-chat-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    max-width: 600px;
   }
   
-  .new-chat-form .btn {
-    margin-top: 10px;
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-control {
     width: 100%;
-    padding: 10px;
-    background-color: #007bff;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+    color: #333;
+    box-sizing: border-box;
+  }
+  
+  .form-control:focus {
+    border-color: #00796b;
+    outline: none;
+  }
+  
+  .btn {
+    background-color: #00796b;
     color: white;
+    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
   }
   
-  .new-chat-form .btn:hover {
-    background-color: #0056b3;
+  .btn:hover {
+    background-color: #004d40;
+  }
+  
+  /* Alert (Mesaj Başlatma Hatası) */
+  .alert {
+    background-color: #ffeb3b;
+    color: #555;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    margin-top: 20px;
+    text-align: center;
   }
   

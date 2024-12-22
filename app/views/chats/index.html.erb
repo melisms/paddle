@@ -4,14 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Chats</title>
+  <%= stylesheet_link_tag 'index', media: 'all', 'data-turbo-track': 'reload' %>
 
-  <!-- Sayfanın her sayfasında geçerli olacak stil dosyasını buraya dahil edebilirsiniz -->
-  <%= stylesheet_link_tag 'index', media: 'all', 'data-turbo-track': 'reload' %> <!-- Rails style link tag -->
 
-  <!-- JavaScript dosyasını dahil etme -->
   <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
 
-  <!-- Fav icon (isteğe bağlı) -->
+
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -46,15 +44,14 @@
     <%= form.submit "Start Chat", class: "btn btn-primary" %>
   <% end %>
 
-  <!-- Sayfaya özgü JavaScript kodları -->
   <script>
-    // Sohbete tıklanıldığında, sadece o sohbeti vurgulamak
+
     document.querySelectorAll('.chat-item').forEach(item => {
       item.addEventListener('click', function() {
-        // Tüm sohbet öğelerinin vurgusunu kaldır
+
         document.querySelectorAll('.chat-item').forEach(chat => chat.classList.remove('active'));
 
-        // Tıklanan sohbet öğesine 'active' sınıfını ekle
+        
         this.classList.add('active');
       });
     });
