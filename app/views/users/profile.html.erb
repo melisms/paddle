@@ -90,8 +90,7 @@
   <div class="profile-container">
     <div class="profile-header">
       <h1><%= @user.username %>'s Posts</h1>
-      <p>Email: <%= @user.email %></p>
-      <p>Total Posts: <%= @user.posts.count %></p>
+      <p>Posts: <%= @user.posts.count %></p>
     </div>
 
     <% if @user.posts.any? %>
