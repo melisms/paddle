@@ -14,13 +14,11 @@
     }
 
     .layout {
-      display: grid;
-      flex-direction: column;
       width: 100%;
-      max-width: 1600px;
-      height: 100vh;
+      max-width: 1200px;
+      padding: 20px;
       box-sizing: border-box;
-      margin-top: 70px; /* Adjust for fixed header */
+      margin-top: 90px; /* Adjust for fixed header */
     }
 
     .header {
@@ -36,6 +34,7 @@
       left: 0;
       z-index: 10;
       height: 70px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     .header .logo {
@@ -48,19 +47,31 @@
       border: 1px solid #ddd;
       border-radius: 10px;
       padding: 20px;
-      margin: 20px;
+      margin-bottom: 20px;
       background-color: #eaf8e9;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     .post h2 {
-      font-size: 24px;
+      font-size: 20px;
       color: #228b22;
+      margin-bottom: 10px;
     }
 
     .post p {
       font-size: 16px;
       color: #555;
+      line-height: 1.5;
+    }
+
+    .post-media img,
+    .post-media video {
+      max-width: 100%;
+      max-height: 400px;
+      display: block;
+      margin: 10px auto;
+      border-radius: 8px;
+      object-fit: cover;
     }
 
     .post-actions {
@@ -103,6 +114,31 @@
     .comment-item:hover {
       background-color: #d8f5d9;
     }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      resize: none;
+    }
+
+    input[type="submit"] {
+      background-color: #228b22;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #1c6b1c;
+    }
   </style>
 </head>
 <body>
@@ -114,33 +150,31 @@
       <h2><%= @post.user.username %></h2>
       <p><%= @post.body %></p>
 
-      <!-- Likes -->
-      <div>
-        <p><%= pluralize(@post.likes.count, 'like') %></p>
-        <% if @post.likes.exists?(user: current_user) %>
-          <%= button_to '💔', post_like_path(@post, @post.likes.find_by(user: current_user)), method: :delete %>
-        <% else %>
-          <%= button_to '❤️', post_likes_path(@post), method: :post %>
-        <% end %>
-        <!-- you need to change this!!!!! -->
-        <%= link_to "Edit this post", edit_post_path(@post) %>
-        <%= link_to "Back to post", root_path %>
-
-
-        <%= button_to "Destroy this post", @post, method: :delete, data: { confirm: "Are you sure?" } %>
-      </div>
-
+      <!-- Media Section -->
       <% if @post.media.attached? %>
         <div class="post-media">
           <% @post.media.each do |media| %>
             <% if media.image? %>
-              <%= image_tag media, class: 'post-image', alt: 'Post Image', style: 'max-width:100%; margin: 10px 0;' %>
+              <%= image_tag media, class: 'post-image', alt: 'Post Image' %>
             <% elsif media.video? %>
-              <%= video_tag media, class: 'post-video', controls: true, style: 'max-width:100%; margin: 10px 0;' %>
+              <%= video_tag media, class: 'post-video', controls: true %>
             <% end %>
           <% end %>
         </div>
       <% end %>
+
+      <!-- Likes -->
+      <div class="post-actions">
+        <p><%= pluralize(@post.likes.count, 'like') %></p>
+        <% if @post.likes.exists?(user: current_user) %>
+          <%= button_to '💔 Unlike', post_like_path(@post, @post.likes.find_by(user: current_user)), method: :delete %>
+        <% else %>
+          <%= button_to '❤️ Like', post_likes_path(@post), method: :post %>
+        <% end %>
+        <%= link_to "Edit this post", edit_post_path(@post) %> |
+        <%= link_to "Back to posts", root_path %> |
+        <%= button_to "Destroy this post", @post, method: :delete, data: { confirm: "Are you sure?" } %>
+      </div>
 
       <!-- Comments -->
       <div class="comments-section">
