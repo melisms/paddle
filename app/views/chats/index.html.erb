@@ -176,7 +176,7 @@
           <ul class="chat-list">
             <% @chats.each do |chat| %>
               <li class="chat-item" data-chat-id="<%= chat.id %>">
-                <%= link_to "Chat with #{chat.receiver.username}", chat_path(chat), class: "chat-link" %>
+                <%= link_to "Chat with #{chat.sender == current_user ? chat.receiver.username : chat.sender.username}", chat_path(chat), class: "chat-link" %>
                 <span class="chat-last-message">
                   <% if chat.messages.any? %>
                     <%= truncate(chat.messages.last.content, length: 30) %>
