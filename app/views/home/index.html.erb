@@ -11,7 +11,17 @@
   <div class="logo">
     <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
   </div>
+  <div class="search-bar">
+    <form action="/search" method="get" class="search-form">
+      <input type="text" placeholder="Search..." name="q" class="search-input">
+      <button type="submit" class="search-button">
+        🔍
+      </button>
+    </form>
+  </div>
 </div>
+
+
 
 <div class="layout">
 
@@ -40,9 +50,7 @@
   </div>
 
   <div class="right-bar">
-    <div>
-      <%= render 'search/form'%>
-    </div>
+   
 
     <div class="explore">
       <h3>Explore</h3>
