@@ -1,0 +1,8 @@
+<h1>Posts tagged with ##<%= @tag.name %></h1>
+
+<% @posts.each do |post| %>
+  <div>
+    <h3><%= post.user.name %></h3>
+    <p><%= post.body %></p>
+  </div>
+<% end %>
