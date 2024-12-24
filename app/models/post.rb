@@ -5,5 +5,8 @@ class Post < ApplicationRecord
     has_many :likes, dependent: :destroy
   
     has_many_attached :media
+    def self.ransackable_attributes(auth_object = nil)
+      ["body"]
+    end
   end
   
