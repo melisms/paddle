@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= @user.username %>'s Profile</title>
 
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -19,6 +20,7 @@
       padding: 20px;
       color: white;
       text-align: center;
+      font-size: 20px;
     }
 
     .profile-container {
@@ -33,6 +35,7 @@
     .profile-header {
       text-align: center;
       margin-bottom: 20px;
+      font-size: 24px;
     }
 
     .profile-header h1 {
@@ -56,6 +59,10 @@
 
     .post .post-body {
       margin-bottom: 10px;
+      word-wrap: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
     }
 
     .post img {
@@ -80,6 +87,24 @@
       text-decoration: underline;
     }
   </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Postları hedef alıyoruz.
+      const posts = document.querySelectorAll('.post-body');
+      const maxLength = 76;
+
+      posts.forEach(function(postBody) {
+        const postText = postBody.innerText;
+        
+        // Metin 76 karakterden uzun ise, kesip "..." ekliyoruz.
+        if (postText.length > maxLength) {
+          postBody.innerText = postText.substring(0, maxLength) + '...';
+        }
+      });
+    });
+  </script>
+
 </head>
 <body>
 
@@ -97,7 +122,7 @@
       <ul class="posts">
         <% @user.posts.each do |post| %>
           <li class="post">
-            <div class="post-body">
+            <div class="post-body" id="post-<%= post.id %>">
               <%= post.body %>
             </div>
 
@@ -114,6 +139,7 @@
               <%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure you want to delete this post?' }, class: 'delete-link' %>
             </div>
           </li>
+
         <% end %>
       </ul>
     <% else %>
