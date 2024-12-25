@@ -24,4 +24,8 @@ class Post < ApplicationRecord
     # Associate tags with the post
     self.tags = hashtag_names.map { |name| Tag.find_or_create_by(name: name) }
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [ "body" ]
+  end
 end
