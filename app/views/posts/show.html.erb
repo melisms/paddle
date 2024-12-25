@@ -11,6 +11,8 @@
       background-color: #f0f8f0;
       display: flex;
       justify-content: center;
+      flex-direction: column;
+      overflow-y: auto;
     }
 
     .layout {
@@ -18,12 +20,15 @@
       max-width: 1200px;
       padding: 20px;
       box-sizing: border-box;
-      margin-top: 90px; /* Adjust for fixed header */
+      margin-top: 90px;
+      flex-grow: 1;
+      overflow: auto;
+      max-height: calc(100vh - 90px);
     }
 
     .header {
       width: 100%;
-      background-color: #228b22;
+      background-color: #005b4f;
       color: white;
       padding: 15px 20px;
       display: flex;
@@ -35,6 +40,7 @@
       z-index: 10;
       height: 70px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      margin-bottom: 90px;
     }
 
     .header .logo {
@@ -50,18 +56,33 @@
       margin-bottom: 20px;
       background-color: #eaf8e9;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 500px;
+      overflow: auto; /* İçerik taşarsa kaydırma çubuğu ekler */
+      resize: none;
+      position: fixed;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      overflow-y: auto;
     }
 
     .post h2 {
       font-size: 20px;
       color: #228b22;
       margin-bottom: 10px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     .post p {
       font-size: 16px;
       color: #555;
       line-height: 1.5;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .post-media img,
@@ -76,6 +97,8 @@
 
     .post-actions {
       margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
     }
 
     .like-button {
@@ -95,6 +118,20 @@
       transform: scale(1.05);
     }
 
+    .post-actions a,
+    .post-actions button {
+      margin-right: 10px;
+    }
+
+    /* Edit and Destroy buttons visibility */
+    .edit-destroy-buttons {
+      display: none;
+    }
+
+    .edit-destroy-buttons.visible {
+      display: inline-block;
+    }
+
     .comments-section {
       margin-top: 25px;
       padding: 15px;
@@ -109,13 +146,15 @@
       margin-bottom: 12px;
       border-radius: 5px;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      max-width: 100%;
+      overflow-wrap: break-word;
     }
 
     .comment-item:hover {
       background-color: #d8f5d9;
     }
 
-    textarea {
+    .comment-textarea {
       width: 100%;
       height: 80px;
       padding: 10px;
@@ -123,6 +162,11 @@
       border: 1px solid #ccc;
       box-sizing: border-box;
       resize: none;
+    }
+
+    .comment-textarea:focus {
+      outline: none;
+      border-color: #228b22;
     }
 
     input[type="submit"] {
@@ -139,11 +183,27 @@
     input[type="submit"]:hover {
       background-color: #1c6b1c;
     }
+
+    /* Back to Posts button */
+    .back-to-posts {
+      display: block;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #228b22;
+      text-decoration: none;
+    }
+
+    .back-to-posts:hover {
+      text-decoration: underline;
+    }
   </style>
+  
 </head>
 <body>
   <div class="header">
-    <div class="logo">Paddle</div>
+    <div class="logo">
+      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
+    </div>
   </div>
   <div class="layout">
     <div class="post">
@@ -171,10 +231,16 @@
         <% else %>
           <%= button_to '❤️ Like', post_likes_path(@post), method: :post %>
         <% end %>
-        <%= link_to "Edit this post", edit_post_path(@post) %> |
-        <%= link_to "Back to posts", root_path %> |
-        <%= button_to "Destroy this post", @post, method: :delete, data: { confirm: "Are you sure?" } %>
+
+        <!-- Edit and Destroy buttons, visible only to the post's user -->
+        <div class="edit-destroy-buttons <%= 'visible' if current_user == @post.user %>">
+          <%= link_to "Edit this post", edit_post_path(@post) %> |
+          <%= button_to "Destroy this post", @post, method: :delete, data: { confirm: "Are you sure?" } %>
+        </div>
       </div>
+
+      <!-- Back to posts -->
+      <%= link_to "Back to posts", root_path, class: 'back-to-posts' %>
 
       <!-- Comments -->
       <div class="comments-section">
@@ -190,7 +256,7 @@
         <!-- Add a Comment -->
         <%= form_with model: [@post, @comment], local: true do |form| %>
           <p>
-            <%= form.text_area :body, placeholder: 'Add a comment...' %>
+            <%= form.text_area :body, placeholder: 'Add a comment...', class: 'comment-textarea' %>
           </p>
           <p>
             <%= form.submit 'Comment' %>
