@@ -40,14 +40,22 @@
     </div>
     <div class="posts-feed" id="postsFeed">
       <% @posts.each do |post| %>
-        <div class="post">
-          <div class="post-header">
-            <%= link_to post.user.username, user_profile_path(post.user.username), class: "username-link" %>
-          </div>
-          <div><%= post.body %></div>
-          <div class="post-time"><%= post.created_at.strftime('%b %d, %Y %H:%M') %></div>
-          <%= link_to "Show this post", post %>
-        </div>
+    <div class="post">
+      <div class="post-header">
+        <%= link_to post.user.username, user_profile_path(post.user.username), class: "username-link" %>
+      </div>
+      <div class="post-body">
+        <%= simple_format(post.body.gsub(/#\w+/) do |hashtag|
+              link_to hashtag, tag_path(name: hashtag[1..]), class: "hashtag"
+            end.html_safe) %>
+      </div>
+      <div class="post-time">
+        <%= post.created_at.strftime('%b %d, %Y %H:%M') %>
+      </div>
+      <%= link_to "Show this post", post, class: "post-link" %>
+    </div>
+
+
       <% end %>
     </div>
   </div>

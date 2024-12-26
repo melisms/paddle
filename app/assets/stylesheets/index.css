@@ -463,3 +463,13 @@
 .custom-file-upload:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
+
+a.hashtag {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a.hashtag:hover {
+  text-decoration: underline;
+}
+

@@ -48,4 +48,6 @@ Rails.application.routes.draw do
       delete :unfollow
     end
   end
+  resources :tags, only: [:show], param: :name
+
 end

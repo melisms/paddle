@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   before_action :set_user
 
   def index
-    @posts = Post.all
+    @posts = Post.includes(:tags).order(created_at: :desc)
   end
 
   def show
