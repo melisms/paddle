@@ -123,6 +123,42 @@
       transition: all 0.3s ease;
       transform: scale(1.05);
     }
+    /* Hide the default file input */
+    .hidden-file-input {
+      display: none;
+    }
+
+    /* Style the custom button */
+    .upload-btn {
+      display: inline-block;
+      background-color: #00796b; /* Teal green */
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    .upload-btn:hover {
+      background-color: #004d40; /* Darker green */
+    }
+
+    .image-preview {
+      margin-top: 10px;
+      text-align: center;
+      border: 1px dashed #ccc;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .image-preview img {
+      max-width: 50%;
+      max-height: 50px;
+      margin-top: 5px;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -133,13 +169,25 @@
     <% @messages.each do |message| %>
       <div class="message-item <%= message.sender == current_user ? 'sent' : 'received' %>">
         <strong><%= message.sender.username %>:</strong> <%= message.content %>
+        <% if message.image.attached? %>
+          <div>
+            <%= image_tag url_for(message.image), alt: "Message image", class: "chat-image" %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
 
   <!-- Message Input Form -->
-  <%= form_with model: @message, url: chat_messages_path(@chat), local: true, html: { class: "message-form" } do |form| %>
+  <%= form_with model: @message, url: chat_messages_path(@chat), local: true, html: { class: "message-form", multipart: true } do |form| %>
     <%= form.text_area :content, placeholder: "Type a message...", class: "message-input", rows: 1 %>
+    <div class="custom-file-upload">
+      <label for="file-upload" class="upload-btn">📎</label>
+      <%= form.file_field :image, id: "file-upload", accept: "image/*", class: "hidden-file-input" %>
+    </div>
+    <div id="image-preview" class="image-preview">
+      <p>No image selected</p>
+    </div>
     <%= form.submit "Send", class: "btn-send" %>
   <% end %>
 
@@ -154,6 +202,27 @@
       if (e.key === 'Enter' && !e.shiftKey) {  // Allow Shift + Enter for new line
         e.preventDefault(); // Prevent form submission
         document.querySelector('.message-form').submit();
+      }
+    });
+
+    document.getElementById('file-upload').addEventListener('change', function () {
+      const previewContainer = document.getElementById('image-preview');
+      const file = this.files[0];
+
+      // Clear previous content
+      previewContainer.innerHTML = '';
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.alt = "Image Preview";
+          previewContainer.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        previewContainer.innerHTML = '<p>No image selected</p>';
       }
     });
   </script>
