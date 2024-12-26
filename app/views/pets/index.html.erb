@@ -1,0 +1,11 @@
+<h1>Adopt a Pet</h1>
+
+<%= link_to 'Add New Pet', new_pet_path %>
+
+<% @pets.each do |pet| %>
+  <div>
+    <h2><%= pet.name %> - <%= pet.pet_type.capitalize %></h2>
+    <p>Location: <%= pet.location %></p>
+    <%= link_to 'View Details', pet_path(pet) %>
+  </div>
+<% end %>

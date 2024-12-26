@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_26_124135) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_26_161654) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -88,6 +88,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_26_124135) do
     t.index ["chat_id"], name: "index_messages_on_chat_id"
   end
 
+  create_table "pets", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.string "pet_type"
+    t.string "breed"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_pets_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -136,6 +147,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_26_124135) do
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
+  add_foreign_key "pets", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "taggings", "posts"
   add_foreign_key "taggings", "tags"
