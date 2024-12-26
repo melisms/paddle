@@ -15,7 +15,13 @@ class PetsController < ApplicationController
   end
 
   def index
+    @query = params[:q] || {}
     @pets = Pet.all
+
+    # Filter by location if a location is provided in the query
+    if @query[:location].present?
+      @pets = @pets.where(location: @query[:location])
+    end
   end
 
   def show

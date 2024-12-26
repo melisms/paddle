@@ -1,11 +1,19 @@
-<h1>Adopt a Pet</h1>
+<h1>Pets Available for Adoption</h1>
 
-<%= link_to 'Add New Pet', new_pet_path %>
-
-<% @pets.each do |pet| %>
-  <div>
-    <h2><%= pet.name %> - <%= pet.pet_type.capitalize %></h2>
-    <p>Location: <%= pet.location %></p>
-    <%= link_to 'View Details', pet_path(pet) %>
-  </div>
+<%= form_with(url: pets_path, method: :get, local: true) do %>
+  <%= label_tag :location, "Filter by Location" %>
+  <%= select_tag :location, options_for_select(Pet::CITIES, params[:location]), include_blank: "All Cities" %>
+  <%= submit_tag "Filter" %>
 <% end %>
+
+<div class="pets-list">
+  <% @pets.each do |pet| %>
+    <div class="pet">
+      <h2><%= pet.name %></h2>
+      <p><%= pet.location %></p>
+      <p><%= pet.pet_type %> | <%= pet.breed %></p>
+      <%= image_tag pet.image if pet.image.attached? %>
+      <%= link_to "Adopt", pet_path(pet) %>
+    </div>
+  <% end %>
+</div>

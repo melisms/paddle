@@ -2,5 +2,15 @@
 
 <p><strong>Location:</strong> <%= @pet.location %></p>
 <p><strong>Breed:</strong> <%= @pet.breed if ['cat', 'dog'].include?(@pet.pet_type) %></p>
+<p><strong>Age:</strong> <%= @pet.age %></p>
+
+
+<% if @pet.image.attached? %>
+  <div>
+    <%= image_tag @pet.image, alt: "#{@pet.name}'s image", class: "pet-image" %>
+  </div>
+<% else %>
+  <p>No image available for this pet.</p>
+<% end %>
 
 <%= link_to 'Back to Pets List', pets_path %>

@@ -18,7 +18,14 @@
 
   <div>
     <%= form.label :location %>
-    <%= form.text_field :location %>
+    <%= form.select :location, Pet::CITIES %> <!-- Dropdown for location -->
+  </div>
+
+  <div class="field">
+    <%= form.label :age %>
+    <%= form.select :age, options_for_select([
+      "0-3 months", "3-6 months", "6-12 months", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
+    ]) %>
   </div>
 
   <div>
@@ -29,6 +36,11 @@
   <div>
     <%= form.label :breed %>
     <%= form.text_field :breed %>
+  </div>
+
+  <div>
+    <%= form.label :image, "Upload a picture of your pet" %>
+    <%= form.file_field :image %>
   </div>
 
   <div>
