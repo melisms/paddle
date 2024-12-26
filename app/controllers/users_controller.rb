@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
   # Edit profile page
   def edit_profile
+    @user = current_user
   end
 
   # Update profile
