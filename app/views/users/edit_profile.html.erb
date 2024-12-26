@@ -5,7 +5,7 @@
     <div class="form-group">
       <%= f.label :profile_picture, "Profile Picture" %><br>
       <% if @user.profile_picture.attached? %>
-        <%= image_tag url_for(@user.profile_picture.variant(resize_to_fit: [150, 150])), class: "profile-picture-preview" %><br>
+        <%= image_tag url_for(@user.profile_picture), class: "profile-picture-preview" %><br>
       <% end %>
       <%= f.file_field :profile_picture %>
     </div>
