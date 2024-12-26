@@ -156,8 +156,13 @@
     </div>
 
     <%= link_to "Edit Profile", edit_profile_path, class: "button" %>
-
-
+    <div>
+    <% if current_user.following?(@user) %>
+      <%= button_to 'Unfollow', unfollow_user_path(@user), method: :delete, class: "btn-unfollow" %>
+    <% else %>
+      <%= button_to 'Follow', follow_user_path(@user), method: :post, class: "btn-follow" %>
+    <% end %>
+    </div>
     <div class="profile-header">
       <h1><%= @user.username %>'s Posts</h1>
       <p>Posts: <%= @user.posts.count %></p>
