@@ -12,13 +12,14 @@
     <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
   </div>
   <div class="search-bar">
-    <form action="/search" method="get" class="search-form">
-      <input type="text" placeholder="Search..." name="q" class="search-input">
-      <button type="submit" class="search-button">
-        🔍
-      </button>
-    </form>
+    <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
+      <%= f.search_field :body_i_cont_any,
+        placeholder: "Search...",
+        class: "search-input" %>
+      <%= f.submit "🔍", class: "search-button" %>
+    <% end %>
   </div>
+
 </div>
 
 
