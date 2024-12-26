@@ -15,9 +15,10 @@ class Pet < ApplicationRecord
     'Karaman', 'Kırıkkale', 'Batman', 'Şırnak', 'Bartın', 'Ardahan', 'Iğdır', 'Kilis', 'Osmaniye', 'Düzce'
   ]
 
+  AGES = ["0-3 months", "3-6 months", "6-12 months", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12+"]
+  validates :age, inclusion: { in: AGES, message: "%{value} is not a valid age" }
   validates :name, presence: true
   validates :location, presence: true, inclusion: { in: CITIES, message: "%{value} is not a valid city in Turkey" }
   validates :pet_type, presence: true, inclusion: { in: ['cat', 'dog', 'other'] }
   validates :breed, presence: true, if: -> { ['cat', 'dog'].include?(pet_type) }
-  validates :age, inclusion: { in: ["0-3 months", "3-6 months", "6-12 months", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"], message: "%{value} is not a valid age" }
 end

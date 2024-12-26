@@ -22,11 +22,10 @@
   </div>
 
   <div class="field">
-    <%= form.label :age %>
-    <%= form.select :age, options_for_select([
-      "0-3 months", "3-6 months", "6-12 months", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
-    ]) %>
+    <%= form.label :age, "Age" %>
+    <%= form.select :age, Pet::AGES, { prompt: "Select age" }, selected: @pet.age %>
   </div>
+
 
   <div>
     <%= form.label :pet_type %>
