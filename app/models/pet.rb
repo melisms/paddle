@@ -20,5 +20,6 @@ class Pet < ApplicationRecord
   validates :name, presence: true
   validates :location, presence: true, inclusion: { in: CITIES, message: "%{value} is not a valid city in Turkey" }
   validates :pet_type, presence: true, inclusion: { in: ['cat', 'dog', 'other'] }
+  validates :description, presence: true, length: { maximum: 500 }
   validates :breed, presence: true, if: -> { ['cat', 'dog'].include?(pet_type) }
 end

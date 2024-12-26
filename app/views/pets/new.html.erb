@@ -38,6 +38,11 @@
   </div>
 
   <div>
+    <%= form.label :description, "Description" %>
+    <%= form.text_area :description, rows: 4, cols: 50 %> <!-- Textarea for description -->
+  </div>
+
+  <div>
     <%= form.label :image, "Upload a picture of your pet" %>
     <%= form.file_field :image %>
   </div>

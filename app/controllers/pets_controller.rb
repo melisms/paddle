@@ -19,8 +19,10 @@ class PetsController < ApplicationController
     @pets = Pet.all
 
     # Filter by location if a location is provided in the query
-    if @query[:location].present?
-      @pets = @pets.where(location: @query[:location])
+    if params[:location].present?
+      @pets = Pet.where(location: params[:location])
+    else
+      @pets = Pet.all
     end
   end
 
@@ -31,6 +33,6 @@ class PetsController < ApplicationController
   private
 
   def pet_params
-    params.require(:pet).permit(:name, :location, :age, :pet_type, :breed)
+    params.require(:pet).permit(:name, :location, :age, :pet_type, :breed, :description)
   end
 end

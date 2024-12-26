@@ -1,8 +1,11 @@
 <h1><%= @pet.name %> - <%= @pet.pet_type.capitalize %></h1>
 
-<p><strong>Location:</strong> <%= @pet.location %></p>
-<p><strong>Breed:</strong> <%= @pet.breed if ['cat', 'dog'].include?(@pet.pet_type) %></p>
+<p><%= @pet.location %></p>
+<p><%= @pet.pet_type %> | <%= @pet.breed %></p>
 <p><strong>Age:</strong> <%= @pet.age %></p>
+<p><strong>Description:</strong> <%= @pet.description %></p> <!-- Display description -->
+<%= image_tag @pet.image if @pet.image.attached? %>
+
 
 
 <% if @pet.image.attached? %>

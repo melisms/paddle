@@ -8,14 +8,18 @@
   <%= submit_tag "Filter" %>
 <% end %>
 
+
 <div class="pets-list">
   <% @pets.each do |pet| %>
     <div class="pet">
       <h2><%= pet.name %></h2>
       <p><%= pet.location %></p>
+      <p><%= pet.age %></p>
       <p><%= pet.pet_type %> | <%= pet.breed %></p>
+      <p><strong>Description:</strong> <%= pet.description %></p> <!-- Display description -->
       <%= image_tag pet.image if pet.image.attached? %>
       <%= link_to "Adopt", pet_path(pet) %>
     </div>
   <% end %>
 </div>
+
