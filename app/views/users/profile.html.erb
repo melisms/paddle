@@ -139,7 +139,7 @@
   <div class="profile-container">
     <div class="profile-picture">
       <% if @user.profile_picture.attached? %>
-        <%= image_tag url_for(@user.profile_picture.variant(resize_to_fit: [150, 150])), class: "profile-picture" %>
+        <%= image_tag url_for(@user.profile_picture), class: "profile-picture" %>
       <% else %>
         <p>No profile picture uploaded.</p>
       <% end %>
