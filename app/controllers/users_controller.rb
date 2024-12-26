@@ -1,17 +1,14 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:profile, :update]
 
-  # Display the profile
   def profile
-    # The @user instance variable is already set by the `set_user` before_action
   end
 
-  # Update the profile
   def update
-    if @user.update(user_params)
-      redirect_to profile_path, notice: "Profile picture updated successfully."
+    if @user == current_user && @user.update(user_params)
+      redirect_to users_profile_path, notice: 'Profile updated successfully.'
     else
-      render :profile, alert: "Unable to update profile picture."
+      render :profile, alert: 'Unable to update profile.'
     end
   end
 
@@ -22,6 +19,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:profile_picture)
+    params.require(:user).permit(:profile_picture, :profile_description)
   end
 end

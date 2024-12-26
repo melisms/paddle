@@ -145,16 +145,14 @@
       <% end %>
     </div>
 
-    <% if @user == current_user %>
-      <div class="profile-form">
-        <%= form_with model: @user, url: profile_path, method: :patch, local: true do |f| %>
-          <%= f.label :profile_picture, "Change Profile Picture" %>
-          <%= f.file_field :profile_picture %>
-          <br>
-          <%= f.submit "Update Profile Picture", class: "button" %>
-        <% end %>
-      </div>
-    <% end %>
+    <div class="profile-description">
+      <% if @user.profile_description.present? %>
+        <p><strong>Description:</strong> <%= @user.profile_description %></p>
+      <% else %>
+        <p>This user doesn't add a description yet.</p>
+      <% end %>
+    </div>
+
 
     <div class="profile-header">
       <h1><%= @user.username %>'s Posts</h1>

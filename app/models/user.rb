@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   validates :email, uniqueness: true
   validates :username, presence: true, uniqueness: true
+  validates :profile_description, length: { maximum: 500 }
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   has_many :posts, dependent: :destroy
