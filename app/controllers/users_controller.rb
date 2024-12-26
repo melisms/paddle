@@ -1,14 +1,21 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:profile, :update]
+  before_action :set_user, only: [:profile, :edit_profile, :update_profile]
 
+  # Profile display
   def profile
   end
 
-  def update
-    if @user == current_user && @user.update(user_params)
-      redirect_to users_profile_path, notice: 'Profile updated successfully.'
+  # Edit profile page
+  def edit_profile
+  end
+
+  # Update profile
+  def update_profile
+    if @user.update(user_params)
+      redirect_to profile_path, notice: 'Profile updated successfully.'
     else
-      render :profile, alert: 'Unable to update profile.'
+      flash.now[:alert] = 'Unable to update your profile.'
+      render :edit_profile
     end
   end
 

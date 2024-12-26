@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   get "search", to: "search#index"
   get "profile", to: "users#profile", as: "profile"
   patch "profile", to: "users#update"
+  get 'profile/edit', to: 'users#edit_profile', as: 'edit_profile'
+  patch 'profile/edit', to: 'users#update_profile', as: 'update_profile'
+
   resources :posts do
     resources :comments, only: [:create]
     resources :likes, only: [:create, :destroy]

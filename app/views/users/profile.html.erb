@@ -139,11 +139,13 @@
   <div class="profile-container">
     <div class="profile-picture">
       <% if @user.profile_picture.attached? %>
-        <%= image_tag @user.profile_picture.variant(resize_to_fit: [150, 150]), class: "profile-picture" %>
+        <%= image_tag url_for(@user.profile_picture.variant(resize_to_fit: [150, 150])), class: "profile-picture" %>
       <% else %>
         <p>No profile picture uploaded.</p>
       <% end %>
     </div>
+
+
 
     <div class="profile-description">
       <% if @user.profile_description.present? %>
@@ -152,6 +154,8 @@
         <p>This user doesn't add a description yet.</p>
       <% end %>
     </div>
+
+    <%= link_to "Edit Profile", edit_profile_path, class: "button" %>
 
 
     <div class="profile-header">
