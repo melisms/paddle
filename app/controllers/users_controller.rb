@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
   # Update profile
   def update_profile
+    @user = current_user unless @user
     if @user.update(user_params)
       redirect_to profile_path, notice: "Profile updated successfully."
     else
