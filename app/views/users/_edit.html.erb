@@ -1,0 +1,11 @@
+<%= form_with model: @user, local: true do |f| %>
+  <div>
+    <%= f.label :profile_picture, "Upload Profile Picture" %>
+    <%= f.file_field :profile_picture %>
+  </div>
+
+  <div>
+    <%= f.submit "Save Changes" %>
+  </div>
+<% end %>
+

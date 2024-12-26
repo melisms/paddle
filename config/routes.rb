@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   get "search", to: "search#index"
-  get "users/profile"
+  get "profile", to: "users#profile", as: "profile"
+  patch "profile", to: "users#update"
+  resources :posts do
+    resources :comments, only: [:create]
+    resources :likes, only: [:create, :destroy]
+  end
   resources :posts
   devise_for :users, controllers: {
     sessions: "users/sessions",

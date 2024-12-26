@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_one_attached :profile_picture
+
 
   # Chat associations
   has_many :sent_chats, class_name: "Chat", foreign_key: "sender_id", dependent: :destroy
@@ -15,6 +17,7 @@ class User < ApplicationRecord
   has_many :received_messages, class_name: "Message", foreign_key: "receiver_id", dependent: :destroy
 
   enum :role, [ :user, :admin ]
+
 
   after_initialize :set_default_role, if: :new_record?
   def all_chats
