@@ -16,7 +16,7 @@ class Pet < ApplicationRecord
   ]
 
   AGES = ["0-3 months", "3-6 months", "6-12 months", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12+"]
-  validates :age, inclusion: { in: AGES, message: "%{value} is not a valid age" }
+  validates :age, presence: true, inclusion: { in: AGES, message: "%{value} is not a valid age" }
   validates :name, presence: true
   validates :location, presence: true, inclusion: { in: CITIES, message: "%{value} is not a valid city in Turkey" }
   validates :pet_type, presence: true, inclusion: { in: ['cat', 'dog', 'other'] }

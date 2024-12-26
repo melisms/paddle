@@ -21,9 +21,9 @@
     <%= form.select :location, Pet::CITIES %> <!-- Dropdown for location -->
   </div>
 
-  <div class="field">
+  <div>
     <%= form.label :age, "Age" %>
-    <%= form.select :age, Pet::AGES, { prompt: "Select age" }, selected: @pet.age %>
+    <%= form.select :age, Pet::AGES %>
   </div>
 
 
