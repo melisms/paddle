@@ -42,7 +42,7 @@ Rails.application.routes.draw do
   end
 
   resources :tags, only: [ :show ], param: :name
-  resources :users, only: [ :show ] do
+  resources :users, param: :username, only: [ :show ] do
     member do
       post :follow
       delete :unfollow

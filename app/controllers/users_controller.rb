@@ -29,27 +29,26 @@ class UsersController < ApplicationController
 
   def follow
     if current_user.follow(@user)
-      redirect_to profile_path, notice: "You are now following #{@user.username}."
+      redirect_to user_profile_path(@user.username), notice: "You are now following #{@user.username}."
     else
-      redirect_to profile_path, alert: "Something went wrong while following #{@user.username}."
+      redirect_to user_profile_path(@user.username), alert: "Something went wrong while following #{@user.username}."
     end
   end
   def unfollow
     if current_user.unfollow(@user)
-      redirect_to profile_path, notice: "You have unfollowed #{@user.username}."
+      redirect_to user_profile_path(@user.username), notice: "You have unfollowed #{@user.username}."
     else
-      redirect_to profile_path, alert: "Something went wrong while unfollowing #{@user.username}."
+      redirect_to user_profile_path(@user.username), alert: "Something went wrong while unfollowing #{@user.username}."
     end
   end
 
   private
 
   def set_user
-    @user = current_user
+    @user = User.find_by(username: params[:username])
   end
 
   def user_params
     params.require(:user).permit(:profile_picture, :profile_description)
   end
-  
 end

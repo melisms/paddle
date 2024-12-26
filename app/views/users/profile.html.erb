@@ -142,9 +142,9 @@
       <%= link_to "Edit Profile", edit_profile_path, class: "button" %>
     <% else %>
       <% if current_user.following?(@user) %>
-        <%= button_to 'Unfollow', unfollow_user_path(@user), method: :delete, class: "btn-unfollow" %>
+        <%= button_to 'Unfollow', unfollow_user_path(@user.username), method: :delete, class: "btn-unfollow" %>
       <% else %>
-        <%= button_to 'Follow', follow_user_path(@user), method: :post, class: "btn-follow" %>
+        <%= button_to 'Follow', follow_user_path(@user.username), method: :post, class: "btn-follow" %>
       <% end %>
     <% end %>
 

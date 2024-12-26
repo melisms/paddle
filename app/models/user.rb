@@ -29,7 +29,9 @@ class User < ApplicationRecord
     Chat.where("sender_id = ? OR receiver_id = ?", id, id)
   end
   def follow(user)
-    following.create(followed_id: user.id)
+    unless following.exists?(followed_id: user.id)
+      following.create(followed_id: user.id)
+    end
   end
 
   def unfollow(user)
@@ -37,10 +39,9 @@ class User < ApplicationRecord
   end
 
   def following?(user)
-    followed_users.include?(user)
+    following.exists?(followed_id: user.id)
   end
   def set_default_role
     self.role ||= :user
   end
-
 end
