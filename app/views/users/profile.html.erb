@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= @user.username %>'s Profile</title>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -115,25 +114,10 @@
       background-color: #00594c;
     }
   </style>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const posts = document.querySelectorAll('.post-body');
-      const maxLength = 76;
-
-      posts.forEach(function(postBody) {
-        const postText = postBody.innerText;
-        if (postText.length > maxLength) {
-          postBody.innerText = postText.substring(0, maxLength) + '...';
-        }
-      });
-    });
-  </script>
-
 </head>
 <body>
   <div class="header">
-    <h1>Welcome, <%= @user.username %></h1>
+    <h1><%= @user.username %>'s Profile</h1>
   </div>
 
   <div class="profile-container">
@@ -145,24 +129,26 @@
       <% end %>
     </div>
 
-
-
     <div class="profile-description">
       <% if @user.profile_description.present? %>
         <p><strong>Description:</strong> <%= @user.profile_description %></p>
       <% else %>
-        <p>This user doesn't add a description yet.</p>
+        <p>This user hasn't added a description yet.</p>
       <% end %>
     </div>
 
-    <%= link_to "Edit Profile", edit_profile_path, class: "button" %>
-    <div>
-    <% if current_user.following?(@user) %>
-      <%= button_to 'Unfollow', unfollow_user_path(@user), method: :delete, class: "btn-unfollow" %>
+    <!-- Conditional Buttons -->
+    <% if current_user == @user %>
+      <%= link_to "Edit Profile", edit_profile_path, class: "button" %>
     <% else %>
-      <%= button_to 'Follow', follow_user_path(@user), method: :post, class: "btn-follow" %>
+      <% if current_user.following?(@user) %>
+        <%= button_to 'Unfollow', unfollow_user_path(@user), method: :delete, class: "btn-unfollow" %>
+      <% else %>
+        <%= button_to 'Follow', follow_user_path(@user), method: :post, class: "btn-follow" %>
+      <% end %>
     <% end %>
-    </div>
+
+    <!-- Posts Section -->
     <div class="profile-header">
       <h1><%= @user.username %>'s Posts</h1>
       <p>Posts: <%= @user.posts.count %></p>

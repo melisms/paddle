@@ -3,6 +3,14 @@ class UsersController < ApplicationController
 
   # Profile display
   def profile
+    if params[:username].present?
+      @user = User.find_by(username: params[:username])
+      if @user.nil?
+        redirect_to root_path, alert: "User not found"
+      end
+    else
+      @user = current_user
+    end
   end
 
   # Edit profile page
@@ -43,4 +51,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:profile_picture, :profile_description)
   end
+  
 end

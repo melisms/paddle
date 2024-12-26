@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   patch "profile", to: "users#update"
   get "profile/edit", to: "users#edit_profile", as: "edit_profile"
   patch "profile/edit", to: "users#update_profile", as: "update_profile"
+  get "/users/:username", to: "users#profile", as: "user_profile"
+
 
   resources :posts do
     resources :comments, only: [ :create ]
