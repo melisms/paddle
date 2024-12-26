@@ -24,6 +24,8 @@ class User < ApplicationRecord
   has_many :followed_users, through: :followers, source: :follower
   has_many :followers_users, through: :following, source: :followed
 
+  has_many :pets, dependent: :destroy
+
   after_initialize :set_default_role, if: :new_record?
   def all_chats
     Chat.where("sender_id = ? OR receiver_id = ?", id, id)

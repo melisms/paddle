@@ -1,5 +1,7 @@
 <h1>Pets Available for Adoption</h1>
 
+<%= link_to "Add a New Pet", new_pet_path, class: "btn btn-primary" %> <!-- Add this link -->
+
 <%= form_with(url: pets_path, method: :get, local: true) do %>
   <%= label_tag :location, "Filter by Location" %>
   <%= select_tag :location, options_for_select(Pet::CITIES, params[:location]), include_blank: "All Cities" %>
