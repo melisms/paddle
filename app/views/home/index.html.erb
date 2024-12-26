@@ -40,7 +40,9 @@
     <div class="posts-feed" id="postsFeed">
       <% @posts.each do |post| %>
         <div class="post">
-          <div class="post-header"><%= post.user.username %></div>
+          <div class="post-header">
+            <%= link_to post.user.username, user_profile_path(post.user.username), class: "username-link" %>
+          </div>
           <div><%= post.body %></div>
           <div class="post-time"><%= post.created_at.strftime('%b %d, %Y %H:%M') %></div>
           <%= link_to "Show this post", post %>
