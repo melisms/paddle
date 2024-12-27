@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
   def show
-    @tag = Tag.find_by(name: params[:name])
+    @tag = Tag.find_by(name: params[:name].downcase)
     if @tag
       @posts = @tag.posts
     else
@@ -8,4 +8,5 @@ class TagsController < ApplicationController
       flash[:alert] = "Tag not found."
     end
   end
+  
 end
