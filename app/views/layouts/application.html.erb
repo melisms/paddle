@@ -1,118 +1,117 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+  <title><%= content_for(:title) || "Paddle" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-<style>
+  <%= yield :head %>
 
-.part {
-  width: 100%;
-  background-color: #00796b;
-  color: rgb(0, 0, 0);
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  height: 70px;
-  box-sizing: border-box;
-}
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/icon.png">
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
 
-.logo {
-  flex: 1; 
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
+  <style>
+    .part {
+      width: 100%;
+      background-color: #00796b;
+      color: rgb(0, 0, 0);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      height: 70px;
+      box-sizing: border-box;
+    }
 
-.search-bar {
-  flex: 3; 
+    .logo {
+      flex: 1;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
 
-  justify-content: center;
-  height: 100%;
-}
+    .search-bar {
+      flex: 3;
+      justify-content: center;
+      height: 100%;
+    }
 
-.search-form {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  max-width: 800px; 
-  position: relative;
-}
+    .search-form {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 800px;
+      position: relative;
+    }
 
-.search-input {
-  width: 100%; 
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  border-radius: 50px 0 0 50px;
-  font-size: 16px;
-  outline: none;
-}
+    .search-input {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 50px 0 0 50px;
+      font-size: 16px;
+      outline: none;
+    }
 
-.search-button {
-  background-color: #005b4f;
-  border: none;
-  color: white;
-  font-size: 18px;
-  padding: 0 15px;
-  border-radius: 0 50px 50px 0; 
-  cursor: pointer;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease;
-}
+    .search-button {
+      background-color: #005b4f;
+      border: none;
+      color: white;
+      font-size: 18px;
+      padding: 0 15px;
+      border-radius: 0 50px 50px 0;
+      cursor: pointer;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
 
-.search-button:hover {
-  background-color: #004239;
-}
+    .search-button:hover {
+      background-color: #004239;
+    }
 
-.search-button:focus {
-  outline: none;
-}
-</style>
-  <head>
-    <title><%= content_for(:title) || "Paddle" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    .search-button:focus {
+      outline: none;
+    }
+  </style>
+</head>
 
-    <%= yield :head %>
-
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
-
-  <body>
+<body>
   <div class="part">
-  <div class="logo">
-    <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
-  </div>
-  <div class="search-bar">
-    <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
-      <%= f.search_field :body_i_cont_any,
-        placeholder: "Search...",
-        class: "search-input" %>
-      <%= f.submit "🔍", class: "search-button" %>
-    <% end %>
-  </div>
+    <div class="logo">
+      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
+    </div>
+    <div class="search-bar">
+      <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
+        <%= f.search_field :body_i_cont_any,
+          placeholder: "Search...",
+          class: "search-input" %>
+        <%= f.submit "🔍", class: "search-button" %>
+      <% end %>
+    </div>
   </div>
 
-    <header>
+  <header>
     <%= render 'layouts/alerts' %>
-    </header>
-    <main>
+  </header>
+  <main>
     <%= yield %>
-    </main>
-  </body>
+  </main>
+</body>
+
 </html>
+
 

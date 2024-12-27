@@ -13,41 +13,15 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
       background-color: #e8f5e9;
       color: #333;
     }
-
-    .header {
-  background-color: #00796b;
-  padding: 30px 0;
-  text-align: left; 
-  padding-left: 20px;
-  position: relative;  /* Bu, yazının üst kısımda görünmesini sağlayabilir */
-}
-
-    .header .logo a {
-  text-decoration: none;
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-    .header .header-text {
-  position: absolute;
-  top: 10px; /* Üstten biraz boşluk bırakabilirsiniz */
-  left: 20px; /* Soldan biraz boşluk bırakabilirsiniz */
-  color: white;
-  font-size: 20px;
-}
-
-
+    
     .main-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 80px 20px 20px;
+      padding: 120px 20px 20px;
     }
 
     .search-container {
@@ -57,9 +31,9 @@
       margin-bottom: 20px;
     }
 
-    .search-input {
+    .search-inside {
       padding: 12px;
-      margin: 20px 0;
+      margin:  0;
       width: 100%;
       max-width: 600px;
       border: 1px solid #ccc;
@@ -68,7 +42,7 @@
       transition: border 0.3s ease;
     }
 
-    .search-input:focus {
+    .search-inside:focus {
       border-color: #00796b;
       outline: none;
     }
@@ -159,24 +133,13 @@
 </head>
 <body>
 
-  <div class="header">
-  <div class="logo">
-    <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
-  </div>
-  <div class="header-text">
-    Your Message Portal
-  </div>
-</div>
-
-
   <div class="main-container">
-    <!-- Search Bar -->
     <div class="search-container">
       <input 
         type="text" 
         id="search-messages" 
         placeholder="Search messages..." 
-        class="search-input" 
+        class="search-inside" 
       />
     </div>
 
