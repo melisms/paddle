@@ -11,6 +11,7 @@
   <div class="left-bar">
     <%= render 'user/session_manager' %>
   </div>
+  
   <div class="main-content">
     <div class="post-input">
       <%= form_with(model: @post, url: posts_path, method: :post, local: true) do |form| %>

@@ -8,7 +8,7 @@
 
 .main-content {
   flex-grow: 1;
-  background-color:rgb(243, 245, 243);
+  background-color:rgb(255, 255, 255);
   padding: 20px;
   padding-top: 80px; 
   overflow-y: auto;
@@ -17,7 +17,7 @@
 
 .left-bar, .right-bar {
   width: 20%;
-  background-color:rgb(237, 244, 238);
+  background-color:rgb(255, 255, 255);
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
@@ -107,7 +107,7 @@
 
 .left-bar {
     width: 25%;
-    background-color:rgb(243, 245, 243);
+    background-color:rgb(255, 255, 255);
     border-right: 1px solid #ddd;
     padding: 20px;
     box-sizing: border-box;
@@ -137,7 +137,7 @@
 
 .right-bar {
     width: 25%;
-    background-color:rgb(243, 245, 243);
+    background-color:rgb(255, 255, 255);
     border-left: 1px solid #ddd;
     padding: 20px;
     box-sizing: border-box;
