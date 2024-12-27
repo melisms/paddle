@@ -98,7 +98,8 @@
     .post-actions {
       margin-top: 20px;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;  /* Butonları sola hizala */
+      flex-direction: column;  /* Like sayısı ve butonlar alt alta gelsin */
     }
 
     .like-button {
@@ -111,6 +112,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      margin-top: 5px; /* Like butonuna üstten biraz boşluk ekleyelim */
     }
 
     .like-button:hover {
@@ -123,13 +125,27 @@
       margin-right: 10px;
     }
 
-    /* Edit and Destroy buttons visibility */
     .edit-destroy-buttons {
       display: none;
+      gap: 10px;
     }
 
     .edit-destroy-buttons.visible {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .edit-destroy-buttons.visible button,
+    .edit-destroy-buttons.visible a {
       display: inline-block;
+    }
+
+    @media (max-width: 768px) {
+      .edit-destroy-buttons.visible {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
 
     .comments-section {
@@ -140,27 +156,55 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+    }
+
+    /* Yorumların görünümü */
     .comment-item {
-      background-color: #eaf8e9;
+      background-color: #f1f8f1;
       padding: 8px;
-      margin-bottom: 12px;
       border-radius: 5px;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-      max-width: 100%;
       overflow-wrap: break-word;
     }
 
-    .comment-item:hover {
-      background-color: #d8f5d9;
+    .comment-item strong {
+      color: #333;
+    }
+
+    /* Yorum listesi */
+    .comments-list {
+      height: 145px; /* Sabit bir yükseklik */
+      overflow-y: auto; /* Kaydırma çubuğu ekler */
+      border: 1px solid #ccc; /* Daha belirgin bir görünüm için */
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #fff;
+    }
+
+    /* Yorum ekleme formu */
+    .comment-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      box-sizing: border-box;
     }
 
     .comment-textarea {
       width: 100%;
-      height: 80px;
+      height: 60px;
       padding: 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
-      box-sizing: border-box;
       resize: none;
     }
 
@@ -168,6 +212,21 @@
       outline: none;
       border-color: #228b22;
     }
+
+    .comment-submit {
+      align-self: flex-end;
+      padding: 10px 15px;
+      background-color: #228b22;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .comment-submit:hover {
+      background-color: #1e7c1e;
+    }
+
 
     input[type="submit"] {
       background-color: #228b22;
@@ -245,22 +304,22 @@
       <!-- Comments -->
       <div class="comments-section">
         <h3>Comments</h3>
-        <ul>
-          <% @post.comments.each do |comment| %>
-            <li class="comment-item">
-              <strong><%= comment.user.username %>:</strong> <%= comment.body %>
-            </li>
-          <% end %>
-        </ul>
+        <div class="comments-list">
+          <ul>
+            <% @post.comments.each do |comment| %>
+              <li class="comment-item">
+                <strong><%= comment.user.username %>:</strong> <%= comment.body %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
 
         <!-- Add a Comment -->
         <%= form_with model: [@post, @comment], local: true do |form| %>
-          <p>
+          <div class="comment-form">
             <%= form.text_area :body, placeholder: 'Add a comment...', class: 'comment-textarea' %>
-          </p>
-          <p>
-            <%= form.submit 'Comment' %>
-          </p>
+            <%= form.submit 'Comment', class: 'comment-submit' %>
+          </div>
         <% end %>
       </div>
     </div>
