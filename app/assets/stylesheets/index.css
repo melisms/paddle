@@ -30,7 +30,6 @@
 
 .search-bar {
   flex: 3; 
-
   justify-content: center;
   height: 100%;
 }
@@ -74,8 +73,6 @@
 .search-button:focus {
   outline: none;
 }
-
-
 
 .main-content {
   flex-grow: 1;
