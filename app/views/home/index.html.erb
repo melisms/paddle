@@ -6,12 +6,25 @@
   <%= stylesheet_link_tag 'index', media: 'all', 'data-turbo-track': 'reload' %>
 </head>
 <body>
+  <div class="part">
+    <div class="logo">
+      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
+    </div>
+    <div class="search-bar">
+      <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
+        <%= f.search_field :body_i_cont_any,
+          placeholder: "Search...",
+          class: "search-input" %>
+        <%= f.submit "🔍", class: "search-button" %>
+      <% end %>
+    </div>
+  </div>
 <div class="layout">
 
   <div class="left-bar">
     <%= render 'user/session_manager' %>
   </div>
-  
+
   <div class="main-content">
     <div class="post-input">
       <%= form_with(model: @post, url: posts_path, method: :post, local: true) do |form| %>
