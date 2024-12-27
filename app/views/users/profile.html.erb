@@ -140,11 +140,23 @@
     <!-- Conditional Buttons -->
     <% if current_user == @user %>
       <%= link_to "Edit Profile", edit_profile_path, class: "button" %>
-      <p><%= @user.followers_count %> Followers</p>
-      <p><%= @user.following_count %> Following</p> 
+       <p>
+        <%= @user.followers_count %> Followers | 
+        <%= link_to 'View Followers', followers_user_path(@user.username) %>
+      </p>
+      <p>
+        <%= @user.following_count %> Following | 
+        <%= link_to 'View Following', following_user_path(@user.username) %>
+      </p>
     <% else %>
-      <p><%= @user.followers_count %> Followers</p>
-      <p><%= @user.following_count %> Following</p> 
+      <p>
+        <%= @user.followers_count %> Followers | 
+        <%= link_to 'View Followers', followers_user_path(@user.username) %>
+      </p>
+      <p>
+        <%= @user.following_count %> Following | 
+        <%= link_to 'View Following', following_user_path(@user.username) %>
+      </p>
       <% if current_user.following?(@user) %>
         <%= button_to 'Unfollow', unfollow_user_path(@user.username), method: :delete, class: "btn-unfollow" %>
       <% else %>

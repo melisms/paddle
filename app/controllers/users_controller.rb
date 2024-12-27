@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [ :profile, :edit_profile, :update_profile, :follow, :unfollow ]
+  before_action :set_user, only: [ :profile, :edit_profile, :update_profile, :follow, :unfollow, :followers, :following ]
 
   # Profile display
   def profile
@@ -43,7 +43,12 @@ class UsersController < ApplicationController
       redirect_to user_profile_path(@user.username), alert: "Something went wrong while unfollowing #{@user.username}."
     end
   end
-
+  def followers
+    @followers = @user.followed_users
+  end
+  def following
+    @following = @user.followers_users
+  end
   private
 
   def set_user
