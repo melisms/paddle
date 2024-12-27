@@ -5,114 +5,153 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= @user.username %>'s Profile</title>
   <style>
+/* Genel stil ayarları */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      background-color: #f0f0f0;
       color: #333;
     }
 
     .header {
-      background-color: #00796b;
+      background-color: #007bff;
+      color: #fff;
       padding: 20px;
-      color: white;
       text-align: center;
-      font-size: 20px;
     }
 
     .profile-container {
+      width: 80%;
       max-width: 800px;
       margin: 20px auto;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-picture {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-picture img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-description {
+      text-align: center;
+      font-size: 16px;
+      margin: 20px 0;
+    }
+
+    .profile-follow-info p {
+      font-size: 14px;
+      margin: 5px 0;
+      text-align: center;
+    }
+
+    .profile-follow-info a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .profile-follow-info a:hover {
+      text-decoration: underline;
+    }
+
+    .button, .btn-follow, .btn-unfollow, .edit-link, .delete-link {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 14px;
+      color: #fff;
+      background-color: #007bff;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover, .btn-follow:hover, .btn-unfollow:hover, .edit-link:hover, .delete-link:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-follow {
+      background-color: #28a745;
+    }
+
+    .btn-unfollow {
+      background-color: #dc3545;
+    }
+
+    .edit-link {
+      background-color: #ffc107;
+    }
+
+    .delete-link {
+      background-color: #dc3545;
     }
 
     .profile-header {
       text-align: center;
-      margin-bottom: 20px;
-      font-size: 24px;
-    }
-
-    .profile-header h1 {
-      margin: 0;
-      color: #00796b;
+      margin-top: 30px;
+      font-size: 20px;
     }
 
     .posts {
-      list-style: none;
+      list-style-type: none;
       padding: 0;
     }
 
     .post {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      padding: 20px;
-      background-color: #fff;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .post .post-body {
+      background-color: #fafafa;
+      padding: 15px;
       margin-bottom: 10px;
-      word-wrap: break-word;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: normal;
-    }
-
-    .post img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-
-    .actions {
-      margin-top: 10px;
-    }
-
-    .actions a {
-      margin-right: 10px;
-      text-decoration: none;
-      color: #00796b;
-      font-weight: bold;
-    }
-
-    .actions a:hover {
-      text-decoration: underline;
-    }
-
-    .profile-picture img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .profile-form {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .profile-form input[type="file"] {
-      margin-bottom: 10px;
-    }
-
-    .profile-form button {
-      background-color: #00796b;
-      color: white;
-      border: none;
-      padding: 10px 15px;
       border-radius: 5px;
-      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    .profile-form button:hover {
-      background-color: #00594c;
+    .post-body {
+      margin-bottom: 10px;
     }
+
+    .post-media img {
+      width: 100%;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    /* Responsive Tasarım */
+    @media (max-width: 768px) {
+      .profile-container {
+        width: 90%;
+      }
+
+      .profile-picture {
+        width: 100px;
+        height: 100px;
+      }
+
+      .profile-description {
+        font-size: 14px;
+      }
+
+      .button, .btn-follow, .btn-unfollow, .edit-link, .delete-link {
+        font-size: 12px;
+        padding: 8px 16px;
+      }
+    }
+
   </style>
 </head>
 <body>
