@@ -16,30 +16,30 @@ class ChatsController < ApplicationController
 
   # Create a new chat with the current user as the sender and another user as the receiver
   def create
-    receiver = User.find(params[:chat][:user_id]) # Find the user to chat with
-  
+    receiver = User.find(params[:chat][:user_id] || params[:chat][:receiver_id]) # Find the user to chat with
+
     # Ensure there's only one chat between the two users
     existing_chat = Chat.find_by(
       sender_id: current_user.id, receiver_id: receiver.id
     ) || Chat.find_by(
       sender_id: receiver.id, receiver_id: current_user.id
     )
-  
+
     if existing_chat
       flash[:alert] = "You already have an active chat with this user."
       redirect_to chat_path(existing_chat) and return
     end
-  
+
     # Create a new chat
     @chat = Chat.new(sender: current_user, receiver: receiver)
-  
+
     if @chat.save
       redirect_to chat_path(@chat)
     else
       redirect_to chats_path, alert: "Unable to start chat."
     end
   end
-  
+
 
   private
 
