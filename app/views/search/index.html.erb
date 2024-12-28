@@ -32,6 +32,9 @@
               <%= simple_format(post.body.gsub(/#\w+/) do |hashtag| 
                     link_to hashtag, tag_path(name: hashtag[1..]), class: "hashtag"
                   end.html_safe) %>
+            <div class="post-time">
+              <%= post.created_at.strftime('%b %d, %Y %H:%M') %>
+            </div>
             </div>
           <% end %>
         </div>
@@ -230,6 +233,13 @@
     color: #555;
     line-height: 1.5; /* Better text spacing */
   }
+
+  .post-time {
+  font-size: 0.8em; /* Makes the text smaller */
+  color: #999; /* Lighter color to make it less noticeable */
+  margin-top: 10px; /* Adds space above the date/time */
+  font-weight: normal; /* Makes the text weight lighter */
+}
 
   /* Style for the hashtags inside the post body */
   .hashtag {
