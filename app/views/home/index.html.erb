@@ -4,6 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag 'index', media: 'all', 'data-turbo-track': 'reload' %>
+
+  <script>
+  function updateCharCount() {
+    var textarea = document.getElementById('postContent');
+    var charCount = document.getElementById('charCount');
+    var maxLength = textarea.getAttribute('maxlength');
+    var currentLength = textarea.value.length;
+    charCount.textContent = currentLength + '/' + maxLength;
+
+    
+    var submitButton = document.getElementById('postButton');
+    submitButton.disabled = currentLength === 0;
+  }
+</script>
+
 </head>
 <body>
   <div class="part">
@@ -26,12 +41,12 @@
     </div>
 
     <div class="main-content">
-      <div class="post-input">
-        <%= form_with(model: @post, url: posts_path, method: :post, local: true, html: { multipart: true }) do |form| %>
-          <!-- Post Content Textarea -->
-          <textarea id="postContent" name="post[body]" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()" class="form-control"></textarea>
-          <div class="char-count" id="charCount">0/350</div>
-
+         <div class="post-input">
+      <%= form_with(model: @post, url: posts_path, method: :post, local: true) do |form| %>
+        <textarea id="postContent" name="post[body]" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()" class="form-control"></textarea>
+        <div class="char-count" id="charCount">0/350</div>
+        <%= form.submit "Post", class: "btn btn-primary", id: "postButton", disabled: true %>
+    
           <!-- Photo Upload Section -->
           <div class="photo-upload">
             <label for="postPhoto" class="photo-label">Upload a photo:</label>
