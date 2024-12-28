@@ -1,33 +1,49 @@
 <h1 class="text-center">Search Content</h1>
+
 <div class="part">
-    <div class="logo">
-      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
-    </div>
-    <div class="search-bar">
-      <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
-        <%= f.search_field :body_i_cont_any,
-          placeholder: "Search...",
-          class: "search-input" %>
-        <%= f.submit "🔍", class: "search-button" %>
-      <% end %>
-    </div>
+  <div class="logo">
+    <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
   </div>
 
+  <div class="search-bar">
+    <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
+      <%= f.search_field :body_i_cont_any,
+        placeholder: "Search...",
+        class: "search-input" %>
+      <%= f.submit "🔍", class: "search-button" %>
+    <% end %>
+  </div>
+</div>
+
 <div class="container">
-  <table class="table table-dark table-striped">
-    <thead>
-      <tr>
-        <th><%= sort_link(@query, :body, "Posts") %></th>
-      </tr>
-    </thead>
-    <tbody>
+  <h2>Search Results</h2>
+
+  <!-- Posts Results -->
+  <h3>Posts</h3>
+  <% if @posts.present? %>
+    <div class="posts-feed" id="postsFeed">
       <% @posts.each do |post| %>
-        <tr>
-          <td><%= post.body.truncate_words(25) %></td>
-        </tr>
+        <div class="post">
+          <!-- Make the whole post clickable -->
+          <%= link_to post, class: "post-link" do %>
+            <!-- Post Header with Username Link -->
+            <div class="post-header">
+              <%= post.user.username %>
+            </div>
+          
+            <!-- Post Body with Hashtags -->
+            <div class="post-body">
+              <%= simple_format(post.body.gsub(/#\w+/) do |hashtag| 
+                    link_to hashtag, tag_path(name: hashtag[1..]), class: "hashtag"
+                  end.html_safe) %>
+            </div>
+          <% end %>
+        </div>
       <% end %>
-    </tbody>
-  </table>
+    </div>
+  <% else %>
+    <p>No posts found.</p>
+  <% end %>
 </div>
 
 <style>
@@ -113,65 +129,127 @@
     }
   }
 
-   .part {
-   width: 100%;
-   background-color: #00796b;
-   color: rgb(0, 0, 0);
-   padding: 15px 20px;
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   position: fixed;
-   top: 0;
-   left: 0;
-   z-index: 10;
-   height: 70px;
-   box-sizing: border-box;
- }
- .logo {
-   flex: 1;
-   font-size: 24px;
-   font-weight: bold;
-   letter-spacing: 2px;
- }
- .search-bar {
-   flex: 3;
-   justify-content: center;
-   height: 100%;
- }
- .search-form {
-   display: flex;
-   align-items: center;
-   width: 100%;
-   max-width: 800px;
-   position: relative;
- }
- .search-input {
-   width: 100%;
-   padding: 10px 15px;
-   border: 1px solid #ddd;
-   border-radius: 50px 0 0 50px;
-   font-size: 16px;
-   outline: none;
- }
- .search-button {
-   background-color: #005b4f;
-   border: none;
-   color: white;
-   font-size: 18px;
-   padding: 0 15px;
-   border-radius: 0 50px 50px 0;
-   cursor: pointer;
-   height: 100%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   transition: background-color 0.3s ease;
- }
- .search-button:hover {
-   background-color: #004239;
- }
- .search-button:focus {
-   outline: none;
- }
+  .part {
+    width: 100%;
+    background-color: #00796b;
+    color: rgb(0, 0, 0);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    height: 70px;
+    box-sizing: border-box;
+  }
+   
+  .logo {
+    flex: 1;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+
+  .search-bar {
+    flex: 3;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .search-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 50px 0 0 50px;
+    font-size: 16px;
+    outline: none;
+  }
+
+  .search-button {
+    background-color: #005b4f;
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 0 15px;
+    border-radius: 0 50px 50px 0;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .search-button:hover {
+    background-color: #004239;
+  }
+
+  .search-button:focus {
+    outline: none;
+  }
+
+  /* Style for the posts feed */
+  .posts-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Add spacing between posts */
+  }
+
+  /* Style for each post */
+  .post {
+    background-color: #f8f9fa; /* Light gray background */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 16px; /* Padding inside the post */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a shadow */
+    transition: transform 0.2s, box-shadow 0.2s; /* Smooth hover effect */
+  }
+
+  /* Hover effect for the post */
+  .post:hover {
+    transform: translateY(-5px); /* Slight lift */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+  }
+
+  /* Style for the post header (username link) */
+  .post-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  /* Style for the post body */
+  .post-body {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5; /* Better text spacing */
+  }
+
+  /* Style for the hashtags inside the post body */
+  .hashtag {
+    color: #007bff; /* Blue color for hashtags */
+    text-decoration: none; /* Remove underline */
+  }
+
+  .hashtag:hover {
+    text-decoration: underline; /* Underline on hover for hashtags */
+  }
+
+  /* Style for the clickable post link (no button, just the post itself) */
+  .post-link {
+    display: block; /* Make the whole post clickable */
+    text-decoration: none; /* Remove underline from the whole post */
+    color: inherit; /* Inherit the color from the post */
+  }
+
 </style>
