@@ -33,11 +33,9 @@
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
-  </div>
-
-  <div class="actions">
+  </div> 
     <%= f.submit "Update", class: "btn-submit" %>
-  </div>
+
 <% end %>
 
 <div class="account-action">
@@ -68,7 +66,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 500px;
-    margin: 80px auto 20px auto;
+    margin: 65px auto 20px auto;
   }
 
   .account-action {
@@ -124,14 +122,28 @@
 
   .back-link {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 15px;
+    padding: 10px 20px;
     text-decoration: none;
-    color: #007bff;
-  }
+    background-color: #00796b;
+    color: white; 
+    font-size: 16px; 
+    font-weight: bold; 
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+}
 
   .back-link:hover {
-    text-decoration: underline;
-  }
+    background-color: #005b4f; 
+    transform: scale(1.05); 
+    text-decoration: none; 
+}
+
+  .back-link:focus {
+    outline: 2px dashed #005b4f; 
+    outline-offset: 4px;
+}
 
   .part {
     width: 100%;
