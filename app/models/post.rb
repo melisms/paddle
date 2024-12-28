@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   validates :body, presence: true, length: { minimum: 1, maximum: 350 }
 
   belongs_to :user
+  has_one_attached :photo
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many_attached :media

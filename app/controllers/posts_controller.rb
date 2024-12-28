@@ -64,7 +64,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:body, media: [])
+    params.require(:post).permit(:body, :photo)
   end
 
   def check_post_owner_or_admin

@@ -1,4 +1,4 @@
-ı<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -19,62 +19,73 @@
       <% end %>
     </div>
   </div>
-<div class="layout">
 
-  <div class="left-bar">
-    <%= render 'user/session_manager' %>
-  </div>
-
-  <div class="main-content">
-    <div class="post-input">
-      <%= form_with(model: @post, url: posts_path, method: :post, local: true) do |form| %>
-        <textarea id="postContent" name="post[body]" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()" class="form-control"></textarea>
-        <div class="char-count" id="charCount">0/350</div>
-        <%= form.submit "Post", class: "btn btn-primary", id: "postButton", disabled: true %>
-      <% end %>
+  <div class="layout">
+    <div class="left-bar">
+      <%= render 'user/session_manager' %>
     </div>
-    <div class="posts-feed" id="postsFeed">
-      <% @posts.each do |post| %>
-    <div class="post">
-      <div class="post-header">
-        <%= link_to post.user.username, user_profile_path(post.user.username), class: "username-link" %>
+
+    <div class="main-content">
+      <div class="post-input">
+        <%= form_with(model: @post, url: posts_path, method: :post, local: true, html: { multipart: true }) do |form| %>
+          <!-- Post Content Textarea -->
+          <textarea id="postContent" name="post[body]" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()" class="form-control"></textarea>
+          <div class="char-count" id="charCount">0/350</div>
+
+          <!-- Photo Upload Section -->
+          <div class="photo-upload">
+            <label for="postPhoto" class="photo-label">Upload a photo:</label>
+            <%= form.file_field :photo, id: "postPhoto", class: "form-control-file" %>
+          </div>
+
+          <!-- Submit Button -->
+          <%= form.submit "Post", class: "btn btn-primary", id: "postButton", disabled: true %>
+        <% end %>
       </div>
-      <div class="post-body">
-        <%= simple_format(post.body.gsub(/#\w+/) do |hashtag|
-              link_to hashtag, tag_path(name: hashtag[1..]), class: "hashtag"
-            end.html_safe) %>
+
+      <div class="posts-feed" id="postsFeed">
+        <% @posts.each do |post| %>
+          <div class="post">
+            <div class="post-header">
+              <%= link_to post.user.username, user_profile_path(post.user.username), class: "username-link" %>
+            </div>
+            <div class="post-body">
+              <%= simple_format(post.body.gsub(/#\w+/) do |hashtag| 
+                    link_to hashtag, tag_path(name: hashtag[1..]), class: "hashtag"
+                  end.html_safe) %>
+            </div>
+
+            <!-- Photo Display Area -->
+            <% if post.photo.attached? %>
+              <div class="post-photo">
+                <%= image_tag(post.photo, class: "post-image") %>
+              </div>
+            <% end %>
+
+            <div class="post-time">
+              <%= post.created_at.strftime('%b %d, %Y %H:%M') %>
+            </div>
+            <%= link_to "Show this post", post, class: "post-link" %>
+          </div>
+        <% end %>
       </div>
-      <div class="post-time">
-        <%= post.created_at.strftime('%b %d, %Y %H:%M') %>
-      </div>
-      <%= link_to "Show this post", post, class: "post-link" %>
     </div>
 
+    <div class="right-bar">
+      <div class="explore">
+        <h3>Explore</h3>
+        <div class="explore-item">🐶 #CuteAnimals</div>
+        <div class="explore-item">🐱 #PetAdoption</div>
+        <div class="explore-item">🐾 #PetsOfTheDay</div>
+      </div>
 
-      <% end %>
+      <div class="trending">
+        <h3>Trending Topics</h3>
+        <div class="trend-item">🐕 #DogLovers</div>
+        <div class="trend-item">🐈 #CatVideos</div>
+        <div class="trend-item">🐦 #BirdWatching</div>
+      </div>
     </div>
   </div>
-
-  <div class="right-bar">
-
-
-    <div class="explore">
-      <h3>Explore</h3>
-      <div class="explore-item">🐶 #CuteAnimals</div>
-      <div class="explore-item">🐱 #PetAdoption</div>
-      <div class="explore-item">🐾 #PetsOfTheDay</div>
-    </div>
-
-    <div class="trending">
-      <h3>Trending Topics</h3>
-      <div class="trend-item">🐕 #DogLovers</div>
-      <div class="trend-item">🐈 #CatVideos</div>
-      <div class="trend-item">🐦 #BirdWatching</div>
-    </div>
-  </div>
-
-</div>
-<%= javascript_include_tag 'index', 'data-turbo-track': 'reload' %>
-
 </body>
 </html>
