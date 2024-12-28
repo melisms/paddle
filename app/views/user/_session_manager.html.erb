@@ -1,6 +1,6 @@
 <% if current_user %>
    <div class="menu">
-        <a href="#">🏠 Home</a>
+        <%= link_to "🏠 Home", root_path, class: 'auth' %>
         <%= link_to "🐾 Profile", profile_path, class: 'auth' %>
         <%= link_to "💌 Messages", chats_path, class: 'auth' %>
         <%= link_to "⚙️ Settings", edit_user_registration_path, class: 'auth' %>
