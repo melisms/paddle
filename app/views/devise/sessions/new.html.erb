@@ -7,79 +7,106 @@
     <title>Login Page</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
-        /* Genel Sayfa Stili */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+        .container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: rgb(255, 242, 222);
+            gap: 20px; /* Space between left and right sections */
+            padding: 20px;
+            background-color: rgb(210, 188, 156);
         }
 
-        /* Ana Konteyner Stili */
-        .container {
-            display: flex;
-            height: 600px;
-            width: 1000px;
-            border: 1px solid white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Sol Bölüm Stili */
         .left-section {
             flex: 1;
+            max-width: 500px; /* Left section width */
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: rgb(167, 224, 200);
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .left-section .alert {
-            background-color: #ffcccc;
-            color: #b30000;
-            padding: 10px;
-            border-radius: 5px;
+        .right-section {
+            flex: 1;
+            max-width: 500px; /* Right section width */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .right-section img {
+            max-width: 100%;
+            height: auto; /* Maintains image aspect ratio */
+            border-radius: 10px;
+        }
+
+        .field {
+            position: relative;
+        }
+
+        .field, .actions {
             margin-bottom: 15px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 10px 10px 10px 35px; /* Add padding to the left for the icon */
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;  
+            align-items: center;     
+            justify-content: center; 
+            gap: 10px;               
+        }
+
+        .actions input.login-btn {
+            background-color: #00796b;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 200px;
+        }
+
+        .actions input.login-btn:hover {
+            background-color: #005b4f;
+        }
+
+        .actions .signup-btn {
+            background-color: #00796b;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 200px;
             text-align: center;
         }
 
-
-        .left-section .field {
-            margin-bottom: 15px;
-            width: 100%;
-            position: relative;
-            text-align: left;
-        }
-
-
-        .left-section .field i{
-            position: absolute;
-            left: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            color: #aaa;
-        }
-
-        .left-section .field label {
-            display: block; /* Yazıyı kutunun üstüne taşır */
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .left-section .field input {
-            width: 100%;
-            padding: 10px;
-            padding-left: 35px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 16px;
+        .actions .signup-btn:hover {
+            background-color: #005b4f;
         }
 
         .left-section .remember-me {
@@ -87,64 +114,22 @@
             align-items: center;
             justify-content: flex-start;
             margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .left-section .remember-me input {
             margin-right: 5px;
+	    }
+
+        .alert {
+            padding: 10px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-radius: 5px;
+            margin-bottom: 15px;
         }
 
-        .left-section .actions {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-        }
 
-        .left-section .actions button {
-            text-align: center;
-            padding: 12px;
-            border: none;
-            border-radius: 12px; /* Daha belirgin köşe yumuşatması */
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease; /* Yumuşak geçiş ve transform ekledim */
-        }
-
-        .left-section .actions .login-btn {
-            background-color: #28a745;
-            border-radius: 8px;
-        }
-
-        .left-section .actions .login-btn:hover {
-            background-color: #218838;
-            transform: scale(1.05); /* Hover durumunda buton biraz büyüsün */
-        }
-
-        .left-section .signup-btn{
-            text-align: center;
-            background-color: #28a745;
-            border-radius: 8px;
-        }
-
-        .left-section .signup-btn:hover {
-            background-color: #218838;
-            transform: scale(1.05);
-        }
-
-        /* Sağ Bölüm Stili */
-        .right-section {
-            flex: 1;
-            background-color: #eaeaea;
-        }
-
-        .right-section img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
     </style>
 </head>
 <body>
