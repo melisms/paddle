@@ -51,7 +51,7 @@
     <%= form.submit "Add Pet", class: "btn-submit" %>
   </div>
 <% end %>
-
+<%= link_to "Back", root_path, class: "back-link" %>
 <style>
   .page-title {
     text-align: center;
@@ -121,5 +121,22 @@
 
   .btn-submit:hover {
     background-color: #004d40;
+  }
+
+  .back-link {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #00796b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  .back-link:hover {
+    background-color: #00796b;
   }
 </style>

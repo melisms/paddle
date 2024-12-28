@@ -17,10 +17,11 @@
 
   <div class="action-buttons">
     <%= button_to "Chat with Owner", chats_path(chat: { user_id: @owner.id }), method: :post, class: "btn btn-chat" %>
+    <br>
     <%= link_to 'Back to Pets List', pets_path, class: "btn btn-back" %>
   </div>
 </div>
-
+<%= link_to "Back", root_path, class: "back-link" %>
 <style>
 
   .pet-name {
@@ -105,6 +106,23 @@
     background-color: #ddd;
     color: #2C6B5F;
     border-color: #2C6B5F;
+  }
+
+  .back-link {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #00796b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  .back-link:hover {
+    background-color: #00796b;
   }
 
 </style>
