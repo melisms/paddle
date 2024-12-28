@@ -291,3 +291,54 @@ a.hashtag:hover {
  .search-button:focus {
    outline: none;
  }
+
+.photo-upload {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.photo-label {
+  font-weight: bold;
+  font-size: 16px;
+  color: #00796b;
+  margin-bottom: 8px;
+}
+
+.form-control-file {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  font-size: 14px;
+  color: #555;
+}
+
+.form-control-file:hover {
+  background-color: #e0e0e0;
+}
+
+.form-control-file:focus {
+  outline: none;
+  border-color: #00796b;
+  box-shadow: 0 0 5px rgba(0, 123, 123, 0.5);
+}
+
+.post-photo {
+  margin-top: 15px;
+}
+
+.post-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.photo-upload {
+  margin-top: 20px;
+}
