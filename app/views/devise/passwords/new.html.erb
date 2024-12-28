@@ -1,5 +1,135 @@
 <h2>Forgot your password?</h2>
 
+<style>
+
+body {
+  font-family: Arial, sans-serif;
+  background-color:rgb(142, 214, 165); /* Hafif bir arka plan rengi */
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color:rgb(255, 255, 255);
+  text-align: center;
+}
+
+form {
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+.field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #495057;
+}
+
+.field input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.field input[type="email"]:focus {
+  border-color: #80bdff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
+}
+
+.actions {
+  text-align: center;
+}
+
+.actions input[type="submit"] {
+  background-color: #005b4f;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.actions input[type="submit"]:hover {
+  background-color: #005b4f;
+}
+
+.devise-links {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.devise-links a {
+  color: #005b4f;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.devise-links a:hover {
+  text-decoration: underline;
+}
+
+.actions input[type="submit"],
+.log-in-btn {
+  background-color: #005b4f;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  display: inline-block; /* Linkin buton gibi görünmesi için */
+}
+
+.actions input[type="submit"]:hover,
+.log-in-btn:hover {
+  background-color: #00796b;
+}
+
+.log-in-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.log-in-container a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Gereksiz log in metnini gizlemek için */
+.devise-links {
+  display: none;
+}
+
+
+</style>
+
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -13,4 +143,6 @@
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<div class="log-in-container">
+  <a href="<%= new_session_path(resource_name) %>" class="log-in-btn">Log In</a>
+</div>
