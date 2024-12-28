@@ -6,19 +6,29 @@
   <%= stylesheet_link_tag 'index', media: 'all', 'data-turbo-track': 'reload' %>
 
   <script>
-  function updateCharCount() {
-    var textarea = document.getElementById('postContent');
-    var charCount = document.getElementById('charCount');
-    var maxLength = textarea.getAttribute('maxlength');
-    var currentLength = textarea.value.length;
-    charCount.textContent = currentLength + '/' + maxLength;
+    function updateCharCount() {
+      var textarea = document.getElementById('postContent');
+      var charCount = document.getElementById('charCount');
+      var maxLength = textarea.getAttribute('maxlength');
+      var currentLength = textarea.value.length;
+      charCount.textContent = currentLength + '/' + maxLength;
 
-    
-    var submitButton = document.getElementById('postButton');
-    submitButton.disabled = currentLength === 0;
-  }
-</script>
+      updatePostButton();
+    }
 
+    function updatePostButton() {
+      var postButton = document.getElementById('postButton');
+      var postContent = document.getElementById('postContent').value.trim();
+      var photo = document.getElementById('postPhoto').files.length;
+
+      // Enable button only if there is text or a photo
+      if (postContent.length > 0 || photo > 0) {
+        postButton.disabled = false;
+      } else {
+        postButton.disabled = true;
+      }
+    }
+  </script>
 </head>
 <body>
   <div class="part">
@@ -27,9 +37,7 @@
     </div>
     <div class="search-bar">
       <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
-        <%= f.search_field :body_i_cont_any,
-          placeholder: "Search...",
-          class: "search-input" %>
+        <%= f.search_field :body_i_cont_any, placeholder: "Search...", class: "search-input" %>
         <%= f.submit "🔍", class: "search-button" %>
       <% end %>
     </div>
@@ -41,21 +49,21 @@
     </div>
 
     <div class="main-content">
-         <div class="post-input">
-      <%= form_with(model: @post, url: posts_path, method: :post, local: true) do |form| %>
-        <textarea id="postContent" name="post[body]" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()" class="form-control"></textarea>
-        <div class="char-count" id="charCount">0/350</div>
-        <%= form.submit "Post", class: "btn btn-primary", id: "postButton", disabled: true %>
-    
-          <!-- Photo Upload Section -->
-          <div class="photo-upload">
-            <label for="postPhoto" class="photo-label">Upload a photo:</label>
-            <%= form.file_field :photo, id: "postPhoto", class: "form-control-file" %>
-          </div>
+      <div class="post-input">
+        <%= form_with(model: @post, url: posts_path, method: :post, local: true) do |form| %>
+  <textarea id="postContent" name="post[body]" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()" class="form-control"></textarea>
+  <div class="char-count" id="charCount">0/350</div>
 
-          <!-- Submit Button -->
-          <%= form.submit "Post", class: "btn btn-primary", id: "postButton", disabled: true %>
-        <% end %>
+  
+  <div class="photo-upload">
+    <label for="postPhoto" class="photo-label">Upload a photo:</label>
+    <%= form.file_field :photo, id: "postPhoto", class: "form-control-file", html: { onchange: "updatePostButton()" } %>
+  </div>
+
+  
+  <%= form.submit "Post", class: "btn btn-primary", id: "postButton", disabled: true %>
+<% end %>
+
       </div>
 
       <div class="posts-feed" id="postsFeed">
