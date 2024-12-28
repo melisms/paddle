@@ -1,25 +1,168 @@
-<h1>Pets Available for Adoption</h1>
+<h1 class="page-title">🐾 Pets Available for Adoption 🐾</h1>
 
-<%= link_to "Add a New Pet", new_pet_path, class: "btn btn-primary" %> <!-- Add this link -->
+<div class="actions">
+  <%= link_to "Add a New Pet", new_pet_path, class: "btn btn-primary add-pet-button" %>
+</div>
 
-<%= form_with(url: pets_path, method: :get, local: true) do %>
-  <%= label_tag :location, "Filter by Location" %>
-  <%= select_tag :location, options_for_select(Pet::CITIES, params[:location]), include_blank: "All Cities" %>
-  <%= submit_tag "Filter" %>
-<% end %>
-
+<div class="filter-form">
+  <%= form_with(url: pets_path, method: :get, local: true) do %>
+    <%= label_tag :location, "Filter by Location", class: "filter-label" %>
+    <%= select_tag :location, options_for_select(Pet::CITIES, params[:location]), include_blank: "All Cities", class: "filter-select" %>
+    <%= submit_tag "Filter", class: "filter-button" %>
+  <% end %>
+</div>
 
 <div class="pets-list">
   <% @pets.each do |pet| %>
-    <div class="pet">
-      <h2><%= pet.name %></h2>
-      <p><%= pet.location %></p>
-      <p><%= pet.age %></p>
-      <p><%= pet.pet_type %> | <%= pet.breed %></p>
-      <p><strong>Description:</strong> <%= pet.description %></p> <!-- Display description -->
-      <%= image_tag pet.image if pet.image.attached? %>
-      <%= link_to "Adopt", pet_path(pet) %>
+    <div class="pet-card">
+      <%= image_tag pet.image, class: "pet-image" if pet.image.attached? %>
+      <div class="pet-info">
+        <h2 class="pet-name"><%= pet.name %></h2>
+        <p class="pet-details"><strong>Location:</strong> <%= pet.location %></p>
+        <p class="pet-details"><strong>Age:</strong> <%= pet.age %></p>
+        <p class="pet-details"><strong>Type:</strong> <%= pet.pet_type %> | <%= pet.breed %></p>
+        <p class="pet-description"><strong>Description:</strong> <%= pet.description %></p>
+        <%= link_to "Adopt Me ❤️", pet_path(pet), class: "adopt-button" %>
+      </div>
     </div>
   <% end %>
 </div>
 
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+
+  .page-title {
+    text-align: center;
+    font-size: 36px;
+    color: #00796b;
+    margin: 20px 0;
+  }
+
+  .actions {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .add-pet-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+
+  .add-pet-button:hover {
+    background-color: #388e3c;
+  }
+
+  .filter-form {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .filter-label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .filter-select {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+
+  .filter-button {
+    background-color: #00796b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .filter-button:hover {
+    background-color: #004d40;
+  }
+
+  .pets-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+
+  .pet-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .pet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .pet-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .pet-info {
+    padding: 15px;
+  }
+
+  .pet-name {
+    font-size: 24px;
+    color: #00796b;
+    margin: 10px 0;
+  }
+
+  .pet-details {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+  }
+
+  .pet-description {
+    font-size: 14px;
+    color: #666;
+    margin: 10px 0;
+  }
+
+  .adopt-button {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #ff5722;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  .adopt-button:hover {
+    background-color: #e64a19;
+  }
+</style>
