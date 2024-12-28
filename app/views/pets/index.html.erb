@@ -25,8 +25,11 @@
         <%= link_to "Adopt Me ❤️", pet_path(pet), class: "adopt-button" %>
       </div>
     </div>
+
+    
   <% end %>
 </div>
+<%= link_to "Back", root_path, class: "back-link" %>
 
 <style>
   body {
@@ -36,6 +39,8 @@
     line-height: 1.6;
     margin: 0;
     padding: 0;
+    position: relative;
+    min-height: 100vh;
   }
 
   .page-title {
@@ -164,5 +169,22 @@
 
   .adopt-button:hover {
     background-color: #e64a19;
+  }
+
+  .back-link {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: #00796b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  .back-link:hover {
+    background-color: #00796b;
   }
 </style>
