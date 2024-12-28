@@ -35,6 +35,8 @@
       margin: 0 auto;
       width: 90%;
       max-width: 900px;
+      margin-top: 20px; /* Added space from the top */
+      height: calc(100vh - 200px); /* Adjust the height based on the header and input box */
     }
 
     .message-item {
@@ -96,19 +98,14 @@
     }
 
     .btn-send:hover {
-      background-color: #004d40; /* Darker green for hover */
+      background-color: #004d40;
     }
 
-    /* Full Height Scroll Behavior */
-    html, body {
-      overflow: hidden; /* Disable page scrolling */
-    }
-
+  
     #messages {
-      height: calc(100vh - 160px); /* Adjust based on header and form height */
+      height: calc(100vh - 160px); 
     }
 
-    /* Custom Scrollbar */
     #messages::-webkit-scrollbar {
       width: 10px;
     }
@@ -118,12 +115,12 @@
       border-radius: 12px;
     }
 
-    /* Button and Input Field Animation */
+
     .btn-send:focus, .message-input:focus {
       transition: all 0.3s ease;
       transform: scale(1.05);
     }
-    /* Hide the default file input */
+
     .hidden-file-input {
       display: none;
     }
@@ -166,9 +163,45 @@
       opacity: 0.6; /* Reduce opacity to make it look inactive */
       box-shadow: none; /* Remove any shadow effect for disabled state */
     }
+
+    /* Fix the header part */
+    .part {
+      width: 100%;
+      background-color: #00796b;
+      color: rgb(0, 0, 0);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      height: 70px;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      flex: 1;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    /* Create space below the header */
+    body {
+      padding-top: 90px; /* Added space below the fixed header */
+    }
   </style>
 </head>
 <body>
+
+  <div class="part">
+    <div class="logo">
+      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
+    </div>
+  </div>
+
   <h1>Chat with <%= @chat.receiver.username %></h1>
 
   <!-- Messages Container -->
