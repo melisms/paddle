@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= @user.username %>'s Profile</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title><%= content_for(:title) || "Paddle" %></title>
   <style>
 /* Genel stil ayarları */
     body {
@@ -14,12 +15,75 @@
       color: #333;
     }
 
-    .header {
-      background-color: #007bff;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
+    .part {
+      width: 100%;
+      background-color: #00796b;
+      color: rgb(0, 0, 0);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      height: 70px;
+      box-sizing: border-box;
     }
+
+    .logo {
+      flex: 1;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .search-bar {
+      flex: 3;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .search-form {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 800px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 50px 0 0 50px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search-button {
+      background-color: #005b4f;
+      border: none;
+      color: white;
+      font-size: 18px;
+      padding: 0 15px;
+      border-radius: 0 50px 50px 0;
+      cursor: pointer;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-button:hover {
+      background-color: #004239;
+    }
+
+    .search-button:focus {
+      outline: none;
+    }
+
 
     .profile-container {
       width: 80%;
@@ -29,6 +93,7 @@
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 35px;
     }
 
     .profile-picture {
@@ -41,6 +106,15 @@
       justify-content: center;
       align-items: center;
     }
+
+    .profile-header {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: solid black;
+    }
+
 
     .profile-picture img {
       width: 100%;
@@ -71,7 +145,7 @@
 
     .button, .btn-follow, .btn-unfollow, .edit-link, .delete-link {
       display: inline-block;
-      padding: 10px 20px;
+      padding: 7px 15px;
       font-size: 14px;
       color: #fff;
       background-color: #007bff;
@@ -104,7 +178,8 @@
 
     .profile-header {
       text-align: center;
-      margin-top: 30px;
+      margin-top: 45px;
+      margin-bottom: 20px;
       font-size: 20px;
     }
 
@@ -123,6 +198,16 @@
 
     .post-body {
       margin-bottom: 10px;
+    }
+
+    .post p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.5;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .post-media img {
@@ -155,11 +240,28 @@
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1><%= @user.username %>'s Profile</h1>
+
+  <div class="part">
+    <div class="logo">
+      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
+    </div>
+    <div class="search-bar">
+      <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
+        <%= f.search_field :body_i_cont_any,
+          placeholder: "Search...",
+          class: "search-input" %>
+        <%= f.submit "🔍", class: "search-button" %>
+      <% end %>
+    </div>
   </div>
 
+
+
   <div class="profile-container">
+    <div class="profile-header">
+      <h1><%= @user.username %>'s Profile</h1>
+    </div>
+
     <div class="profile-picture">
       <% if @user.profile_picture.attached? %>
         <%= image_tag url_for(@user.profile_picture), class: "profile-picture" %>
@@ -214,7 +316,7 @@
         <% @user.posts.each do |post| %>
           <li class="post">
             <div class="post-body" id="post-<%= post.id %>">
-              <%= post.body %>
+              <p><%= post.body %></p>
             </div>
 
             <% if post.media.attached? %>
