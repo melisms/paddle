@@ -1,17 +1,110 @@
-<h1><%= @pet.name %></h1>
-<p>Location: <%= @pet.location %></p>
-<p>Age: <%= @pet.age %></p>
-<p>Type: <%= @pet.pet_type %></p>
-<p>Breed: <%= @pet.breed %></p>
-<p><strong>Description:</strong> <%= @pet.description %></p>
+<h1 class="pet-name"><%= @pet.name %></h1>
 
-<% if @pet.image.attached? %>
-  <div>
-    <%= image_tag @pet.image %>
+<div class="pet-details">
+  <p><strong>Location:</strong> <%= @pet.location %></p>
+  <p><strong>Age:</strong> <%= @pet.age %></p>
+  <p><strong>Type:</strong> <%= @pet.pet_type %></p>
+  <p><strong>Breed:</strong> <%= @pet.breed %></p>
+  <p><strong>Description:</strong> <%= @pet.description %></p>
+
+  <% if @pet.image.attached? %>
+    <div class="pet-image">
+      <%= image_tag @pet.image, alt: @pet.name, class: "img-fluid shadow-lg" %>
+    </div>
+  <% end %>
+
+  <p><strong>Owner:</strong> <%= @owner.username %></p>
+
+  <div class="action-buttons">
+    <%= button_to "Chat with Owner", chats_path(chat: { user_id: @owner.id }), method: :post, class: "btn btn-chat" %>
+    <%= link_to 'Back to Pets List', pets_path, class: "btn btn-back" %>
   </div>
-<% end %>
+</div>
 
-<p><strong>Owner:</strong> <%= @owner.username %></p> <!-- Display owner's name -->
+<style>
 
-<%= button_to "Chat with Owner", chats_path(chat: { user_id: @owner.id }), method: :post, class: "btn btn-primary" %>
-<%= link_to 'Back to Pets List', pets_path %>
+  .pet-name {
+    text-align: center;
+    font-size: 40px;
+    color: #2C6B5F;
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .pet-details {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #f7f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+  }
+
+  .pet-details p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+
+  .pet-details p strong {
+    color: #2C6B5F;
+    font-weight: bold;
+  }
+
+  /* Resim Stili */
+  .pet-image {
+    text-align: center;
+    margin-top: 25px;
+  }
+
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .action-buttons {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .btn {
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    margin: 0 10px;
+  }
+  .btn-chat {
+    background-color: #2C6B5F;
+    color: white;
+    border: none;
+  }
+
+  .btn-chat:hover {
+    background-color: #1e4f42;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Back Butonu */
+  .btn-back {
+    background-color: #f1f1f1;
+    color: #333;
+    border: 2px solid #ddd;
+  }
+
+  .btn-back:hover {
+    background-color: #ddd;
+    color: #2C6B5F;
+    border-color: #2C6B5F;
+  }
+
+</style>
