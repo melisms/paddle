@@ -1,3 +1,108 @@
+<style>
+    /* Genel Ayarlar */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .edit-profile-page {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* Form Grupları */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      background-color: #f9f9f9;
+      box-sizing: border-box;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    .profile-picture-preview {
+      max-width: 150px;
+      max-height: 150px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* Butonlar */
+    .form-actions {
+      text-align: center;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background-color: #00796b;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+
+    .button:active {
+      background-color: #398439;
+    }
+
+    /* Responsive Tasarım */
+    @media (max-width: 768px) {
+      .edit-profile-page {
+        margin: 20px;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        font-size: 16px;
+      }
+    }
+
+</style>
+
 <div class="edit-profile-page">
   <h1>Edit Your Profile</h1>
 
