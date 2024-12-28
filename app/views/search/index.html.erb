@@ -1,20 +1,17 @@
 <h1 class="text-center">Search Content</h1>
-
 <div class="part">
-  <div class="logo">
-    <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
-  </div>
-
-  <div class="search-bar">
-    <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
-      <%= f.search_field :body_i_cont_any,
-        placeholder: "Search...",
-        class: "search-input" %>
-      <%= f.submit "🔍", class: "search-button" %>
-    <% end %>
-  </div>
+    <div class="logo">
+      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
+    </div>
+    <div class="search-bar">
+      <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
+        <%= f.search_field :body_or_user_username_cont_any, 
+          placeholder: "Search posts or users...", 
+          class: "search-input" %>
+        <%= f.submit "🔍", class: "search-button" %>
+      <% end %>
+    </div>
 </div>
-
 <div class="container">
   <h2>Search Results</h2>
 
