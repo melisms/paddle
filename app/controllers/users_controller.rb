@@ -49,6 +49,16 @@ class UsersController < ApplicationController
   def following
     @following = @user.followers_users
   end
+  def create
+    @user = User.new(user_params)
+
+    if @user.save
+      UserMailer.welcome_email(@user).deliver_later  # Use deliver_later for background jobs (Async)
+      redirect_to @user, notice: "User was successfully created."
+    else
+      render :new
+    end
+  end
   private
 
   def set_user

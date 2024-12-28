@@ -50,6 +50,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "letter_opener_web"
 end
 
 group :test do
@@ -66,4 +67,4 @@ gem "cancancan", "~> 3.0"
 gem "database_cleaner-active_record"
 
 gem "sassc", "~> 2.4"
-gem 'ransack', '~> 4.2', '>= 4.2.1'
+gem "ransack", "~> 4.2", ">= 4.2.1"
