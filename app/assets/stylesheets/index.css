@@ -334,16 +334,14 @@ a.hashtag:hover {
 }
 
 .post-image {
-  max-width: 100%; 
-  max-height: 300px; 
-  width: auto; 
-  height: auto; 
+  width: 400px; 
+  height: 300px; 
   object-fit: cover; 
   border-radius: 5px; 
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
 
 .photo-upload {
   margin-top: 20px;
 }
+
