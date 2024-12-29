@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
 
   def index
     # Fetch notifications for the current user
-    @notifications = current_user.notifications
+    @notifications = current_user.notifications.includes(event: :record)
   end
 
   def mark_as_read
