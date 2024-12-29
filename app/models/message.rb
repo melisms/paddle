@@ -9,4 +9,15 @@ class Message < ApplicationRecord
   validates :receiver_id, presence: true
 
   scope :unread, -> { where(read: false) }
+
+  after_create :notify_receiver
+
+  private
+
+  def notify_receiver
+    # Avoid notifying the sender about their own message
+    return if sender == receiver
+
+    MessageNotification.with(message: self).deliver_later(receiver)
+  end
 end
