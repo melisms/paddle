@@ -55,19 +55,16 @@
     <div class="main-content">
       <div class="post-input">
         <%= form_with(model: @post, url: posts_path, method: :post, local: true) do |form| %>
-  <textarea id="postContent" name="post[body]" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()" class="form-control"></textarea>
-  <div class="char-count" id="charCount">0/350</div>
+          <textarea id="postContent" name="post[body]" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()" class="form-control"></textarea>
+          <div class="char-count" id="charCount">0/350</div>
 
-  
-  <div class="photo-upload">
-    <label for="postPhoto" class="photo-label">Upload a photo:</label>
-    <%= form.file_field :photo, id: "postPhoto", class: "form-control-file", onchange: "updatePostButton()" %>
-  </div>
+          <div class="photo-upload">
+            <label for="postPhoto" class="photo-label">Upload a photo:</label>
+            <%= form.file_field :photo, id: "postPhoto", class: "form-control-file", onchange: "updatePostButton()" %>
+          </div>
 
-  
-  <%= form.submit "Post", class: "btn btn-primary", id: "postButton", disabled: true %>
-<% end %>
-
+          <%= form.submit "Post", class: "btn btn-primary", id: "postButton", disabled: true %>
+        <% end %>
       </div>
 
       <div class="posts-feed" id="postsFeed">
@@ -88,6 +85,21 @@
               </div>
             <% end %>
 
+            <!-- Beğeni ve Yorum Sayıları -->
+            <div class="post-actions">
+              <p><%= pluralize(post.likes.count, 'like') %> | <%= pluralize(post.comments.count, 'comment') %></p>
+
+              <!-- Beğeni Butonları -->
+              <% if post.likes.exists?(user: current_user) %>
+                <%= button_to '💔 Unlike', post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, class: 'like-button' %>
+              <% else %>
+                <%= button_to '❤️ Like', post_likes_path(post), method: :post, class: 'like-button' %>
+              <% end %>
+
+              <!-- Yorum Linki -->
+              <%= link_to "View Comments", post_path(post), class: "comment-link" %>
+            </div>
+
             <div class="post-time">
               <%= post.created_at.strftime('%b %d, %Y %H:%M') %>
             </div>
@@ -98,20 +110,19 @@
     </div>
 
     <div class="right-bar">
-     <div class="explore">
-  <h3>Explore</h3>
-  <%= link_to "🐶 #CuteAnimals", search_path(q: { body_or_user_username_cont_any: "#CuteAnimals" }), class: "explore-item" %>
-  <%= link_to "🐱 #PetAdoption", search_path(q: { body_or_user_username_cont_any: "#PetAdoption" }), class: "explore-item" %>
-  <%= link_to "🐾 #PetsOfTheDay", search_path(q: { body_or_user_username_cont_any: "#PetsOfTheDay" }), class: "explore-item" %>
-</div>
+      <div class="explore">
+        <h3>Explore</h3>
+        <%= link_to "🐶 #CuteAnimals", search_path(q: { body_or_user_username_cont_any: "#CuteAnimals" }), class: "explore-item" %>
+        <%= link_to "🐱 #PetAdoption", search_path(q: { body_or_user_username_cont_any: "#PetAdoption" }), class: "explore-item" %>
+        <%= link_to "🐾 #PetsOfTheDay", search_path(q: { body_or_user_username_cont_any: "#PetsOfTheDay" }), class: "explore-item" %>
+      </div>
 
-<div class="trending">
-  <h3>Trending Topics</h3>
-  <%= link_to "🐕 #DogLovers", search_path(q: { body_or_user_username_cont_any: "#DogLovers" }), class: "trend-item" %>
-  <%= link_to "🐈 #CatVideos", search_path(q: { body_or_user_username_cont_any: "#CatVideos" }), class: "trend-item" %>
-  <%= link_to "🐦 #BirdWatching", search_path(q: { body_or_user_username_cont_any: "#BirdWatching" }), class: "trend-item" %>
-</div>
-
+      <div class="trending">
+        <h3>Trending Topics</h3>
+        <%= link_to "🐕 #DogLovers", search_path(q: { body_or_user_username_cont_any: "#DogLovers" }), class: "trend-item" %>
+        <%= link_to "🐈 #CatVideos", search_path(q: { body_or_user_username_cont_any: "#CatVideos" }), class: "trend-item" %>
+        <%= link_to "🐦 #BirdWatching", search_path(q: { body_or_user_username_cont_any: "#BirdWatching" }), class: "trend-item" %>
+      </div>
     </div>
   </div>
 </body>
