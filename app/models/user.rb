@@ -25,7 +25,7 @@ class User < ApplicationRecord
   has_many :pets, dependent: :destroy
 
   
-  has_many :notifications, as: :receiver, dependent: :destroy
+  has_many :notifications, as: :recipient, dependent: :destroy, class_name: 'Noticed::Notification'
 
 
   after_initialize :set_default_role, if: :new_record?

@@ -13,6 +13,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(params[:id])
+    @notifications = @user.notifications
+  end
+
   def edit_profile
     @user = current_user
   end
