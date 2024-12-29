@@ -57,7 +57,7 @@
       background-color: #eaf8e9;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       width: 500px;
-      overflow: auto; /* İçerik taşarsa kaydırma çubuğu ekler */
+      overflow: auto; 
       resize: none;
       position: fixed;
       top: 90px;
@@ -98,8 +98,8 @@
     .post-actions {
       margin-top: 20px;
       display: flex;
-      justify-content: flex-start;  /* Butonları sola hizala */
-      flex-direction: column;  /* Like sayısı ve butonlar alt alta gelsin */
+      justify-content: flex-start;  
+      flex-direction: column;  
     }
 
     .like-button {
@@ -112,7 +112,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      margin-top: 5px; /* Like butonuna üstten biraz boşluk ekleyelim */
+      margin-top: 5px; 
     }
 
     .like-button:hover {
@@ -166,7 +166,7 @@
       margin-bottom: 10px;
     }
 
-    /* Yorumların görünümü */
+    
     .comment-item {
       background-color: #f1f8f1;
       padding: 8px;
@@ -179,17 +179,17 @@
       color: #333;
     }
 
-    /* Yorum listesi */
+    
     .comments-list {
-      height: 145px; /* Sabit bir yükseklik */
-      overflow-y: auto; /* Kaydırma çubuğu ekler */
-      border: 1px solid #ccc; /* Daha belirgin bir görünüm için */
+      height: 145px; 
+      overflow-y: auto; 
+      border: 1px solid #ccc; 
       padding: 10px;
       border-radius: 5px;
       background-color: #fff;
     }
 
-    /* Yorum ekleme formu */
+    
     .comment-form {
       display: flex;
       flex-direction: column;
@@ -243,7 +243,7 @@
       background-color: #1c6b1c;
     }
 
-    /* Back to Posts button */
+    
     .back-to-posts {
       display: block;
       margin-top: 20px;
@@ -269,7 +269,7 @@
       <h2><%= @post.user.username %></h2>
       <p><%= @post.body %></p>
 
-      <!-- Media Section -->
+      
       <% if @post.media.attached? %>
         <div class="post-media">
           <% @post.media.each do |media| %>
@@ -282,7 +282,7 @@
         </div>
       <% end %>
 
-      <!-- Likes -->
+      
       <div class="post-actions">
         <p><%= pluralize(@post.likes.count, 'like') %></p>
         <% if @post.likes.exists?(user: current_user) %>
@@ -291,17 +291,17 @@
           <%= button_to '❤️ Like', post_likes_path(@post), method: :post %>
         <% end %>
 
-        <!-- Edit and Destroy buttons, visible only to the post's user -->
+        
         <div class="edit-destroy-buttons <%= 'visible' if current_user == @post.user %>">
           <%= link_to "Edit this post", edit_post_path(@post) %> |
           <%= button_to "Destroy this post", @post, method: :delete, data: { confirm: "Are you sure?" } %>
         </div>
       </div>
 
-      <!-- Back to posts -->
+      
       <%= link_to "Back to posts", root_path, class: 'back-to-posts' %>
 
-      <!-- Comments -->
+      
       <div class="comments-section">
         <h3>Comments</h3>
         <div class="comments-list">
@@ -314,7 +314,7 @@
           </ul>
         </div>
 
-        <!-- Add a Comment -->
+       
         <%= form_with model: [@post, @comment], local: true do |form| %>
           <div class="comment-form">
             <%= form.text_area :body, placeholder: 'Add a comment...', class: 'comment-textarea' %>

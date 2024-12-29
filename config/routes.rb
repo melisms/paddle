@@ -36,6 +36,12 @@ Rails.application.routes.draw do
     resources :messages, only: [ :create, :index, :show ]
   end
 
+  resources :notifications, only: [] do
+    member do
+      patch :mark_as_read  # Define the route to mark notifications as read
+    end
+  end
+  
   resources :posts do
     resources :comments, only: [ :create ]
     resources :likes, only: [ :create, :destroy ]
@@ -51,4 +57,7 @@ Rails.application.routes.draw do
     end
   end
   resources :tags, only: [ :show ], param: :name
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end

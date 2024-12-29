@@ -21,7 +21,6 @@
       var postContent = document.getElementById('postContent').value.trim();
       var photo = document.getElementById('postPhoto').files.length;
 
-      // Enable button only if there is text or a photo
       if (postContent.length > 0 || photo > 0) {
         postButton.disabled = false;
       } else {
@@ -37,7 +36,9 @@
     </div>
     <div class="search-bar">
       <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
-        <%= f.search_field :body_i_cont_any, placeholder: "Search...", class: "search-input" %>
+        <%= f.search_field :body_or_user_username_cont_any, 
+          placeholder: "Search posts or users...",
+          class: "search-input" %>
         <%= f.submit "🔍", class: "search-button" %>
       <% end %>
     </div>
@@ -78,7 +79,6 @@
                   end.html_safe) %>
             </div>
 
-            <!-- Photo Display Area -->
             <% if post.photo.attached? %>
               <div class="post-photo">
                 <%= image_tag(post.photo, class: "post-image") %>

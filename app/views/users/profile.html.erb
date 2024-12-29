@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title><%= content_for(:title) || "Paddle" %></title>
   <style>
-/* Genel stil ayarları */
+
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -216,7 +216,7 @@
       margin-top: 10px;
     }
 
-    /* Responsive Tasarım */
+    
     @media (max-width: 768px) {
       .profile-container {
         width: 90%;
@@ -278,7 +278,7 @@
       <% end %>
     </div>
 
-    <!-- Conditional Buttons -->
+    
     <% if current_user == @user %>
       <%= link_to "Edit Profile", edit_profile_path, class: "button" %>
        <p>
@@ -305,7 +305,7 @@
       <% end %>
     <% end %>
 
-    <!-- Posts Section -->
+    
     <div class="profile-header">
       <h1><%= @user.username %>'s Posts</h1>
       <p>Posts: <%= @user.posts.count %></p>
