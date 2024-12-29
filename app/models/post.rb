@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  validates :body, presence: true, length: { minimum: 1, maximum: 350 }
+  validates :body, presence: true, length: { minimum: 1, maximum: 350 }, unless: :photo_attached?
 
   belongs_to :user
   has_one_attached :photo
@@ -25,10 +25,13 @@ class Post < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    [ 'body' ]
+    [ "body" ]
   end
 
   def self.ransackable_associations(auth_object = nil)
     [ "user" ]
+  end
+  def photo_attached?
+    photo.attached?
   end
 end

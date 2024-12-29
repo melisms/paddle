@@ -27,6 +27,9 @@
         postButton.disabled = true;
       }
     }
+    document.addEventListener('DOMContentLoaded', function () {
+      updatePostButton();
+    });
   </script>
 </head>
 <body>
@@ -58,7 +61,7 @@
   
   <div class="photo-upload">
     <label for="postPhoto" class="photo-label">Upload a photo:</label>
-    <%= form.file_field :photo, id: "postPhoto", class: "form-control-file", html: { onchange: "updatePostButton()" } %>
+    <%= form.file_field :photo, id: "postPhoto", class: "form-control-file", onchange: "updatePostButton()" %>
   </div>
 
   
