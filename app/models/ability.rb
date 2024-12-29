@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= User.new # guest user (not logged in)
+    user ||= User.new
 
     if user.admin?
       Rails.logger.debug "Admin user detected: #{user.email}"

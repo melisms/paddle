@@ -9,7 +9,6 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_one_attached :profile_picture
 
-  # Chat associations
   has_many :sent_chats, class_name: "Chat", foreign_key: "sender_id", dependent: :destroy
   has_many :received_chats, class_name: "Chat", foreign_key: "receiver_id", dependent: :destroy
 
@@ -18,7 +17,6 @@ class User < ApplicationRecord
 
   enum :role, [ :user, :admin ]
 
-  # Associations for following and followers
   has_many :followers, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
   has_many :following, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :followers, source: :follower
