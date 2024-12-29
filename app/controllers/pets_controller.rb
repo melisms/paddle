@@ -1,6 +1,7 @@
 class PetsController < ApplicationController
   before_action :authenticate_user!
 
+
   def new
     @pet = Pet.new
   end
@@ -33,7 +34,7 @@ class PetsController < ApplicationController
 
   private
 
-  def pet_params
-    params.require(:pet).permit(:name, :location, :age, :pet_type, :breed, :description)
-  end
+def pet_params
+  params.require(:pet).permit(:name, :location, :age, :pet_type, :breed, :description, :image)
+end
 end
