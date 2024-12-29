@@ -20,14 +20,11 @@
     <div class="posts-feed" id="postsFeed">
       <% @posts.each do |post| %>
         <div class="post">
-          <!-- Make the whole post clickable -->
           <%= link_to post, class: "post-link" do %>
-            <!-- Post Header with Username Link -->
             <div class="post-header">
               <%= post.user.username %>
             </div>
           
-            <!-- Post Body with Hashtags -->
             <div class="post-body">
               <%= simple_format(post.body.gsub(/#\w+/) do |hashtag| 
                     link_to hashtag, tag_path(name: hashtag[1..]), class: "hashtag"
@@ -197,27 +194,26 @@
     outline: none;
   }
 
-  /* Style for the posts feed */
   .posts-feed {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Add spacing between posts */
+    gap: 20px; 
   }
 
-  /* Style for each post */
+
   .post {
-    background-color: #f8f9fa; /* Light gray background */
-    border: 1px solid #ddd; /* Subtle border */
-    border-radius: 8px; /* Rounded corners */
-    padding: 16px; /* Padding inside the post */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a shadow */
-    transition: transform 0.2s, box-shadow 0.2s; /* Smooth hover effect */
+    background-color: #f8f9fa; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    padding: 16px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.2s, box-shadow 0.2s; 
   }
 
-  /* Hover effect for the post */
+
   .post:hover {
-    transform: translateY(-5px); /* Slight lift */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+    transform: translateY(-5px); 
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); 
   }
 
   .post-header {
@@ -226,35 +222,35 @@
     margin-bottom: 8px;
   }
 
-  /* Style for the post body */
+
   .post-body {
     font-size: 16px;
     color: #555;
-    line-height: 1.5; /* Better text spacing */
+    line-height: 1.5; 
   }
 
   .post-time {
-  font-size: 0.8em; /* Makes the text smaller */
-  color: #999; /* Lighter color to make it less noticeable */
-  margin-top: 10px; /* Adds space above the date/time */
-  font-weight: normal; /* Makes the text weight lighter */
+  font-size: 0.8em; 
+  color: #999; 
+  margin-top: 10px; 
+  font-weight: normal; 
 }
 
-  /* Style for the hashtags inside the post body */
+  
   .hashtag {
-    color: #007bff; /* Blue color for hashtags */
-    text-decoration: none; /* Remove underline */
+    color: #007bff; 
+    text-decoration: none; 
   }
 
   .hashtag:hover {
-    text-decoration: underline; /* Underline on hover for hashtags */
+    text-decoration: underline; 
   }
 
-  /* Style for the clickable post link (no button, just the post itself) */
+  
   .post-link {
-    display: block; /* Make the whole post clickable */
-    text-decoration: none; /* Remove underline from the whole post */
-    color: inherit; /* Inherit the color from the post */
+    display: block; 
+    text-decoration: none; 
+    color: inherit; 
   }
 
 </style>

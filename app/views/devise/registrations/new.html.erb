@@ -1,4 +1,4 @@
-<!--<h2>Sign up</h2>>-->
+
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -9,14 +9,14 @@
           justify-content: center;
           align-items: center;
           height: 100vh;
-          gap: 20px; /* Sol ve sağ bölge arasında boşluk */
+          gap: 20px; 
           padding: 20px;
           background-color:rgb(210, 188, 156);
       }
 
       .left-section {
           flex: 1;
-          max-width: 500px; /* Sol bölgenin genişliği */
+          max-width: 500px; 
           padding: 20px;
           background-color: white;
           border-radius: 10px;
@@ -25,7 +25,7 @@
 
       .right-section {
           flex: 1;
-          max-width: 500px; /* Sağ bölgenin genişliği */
+          max-width: 500px; 
           height: 75%;
           display: flex;
           justify-content: center;
@@ -38,7 +38,7 @@
 
       .right-section img {
           max-width: 100%;
-          height: auto; /* Görselin orantısını korur */
+          height: auto; 
           border-radius: 10px;
       }
 
