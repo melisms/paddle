@@ -346,17 +346,17 @@ a.hashtag:hover {
 }
 
 .explore, .trending {
-  margin-bottom: 20px; /* Alt boşluk */
+  margin-bottom: 20px; 
 }
 
 .explore-item, .trend-item {
-  display: block; /* Her linki alt alta sıralar */
-  margin: 5px 0; /* Linkler arasında boşluk */
-  text-decoration: none; /* Linklerin altını çizmesini engeller */
-  color: #333; /* Link renklerini belirler */
+  display: block; 
+  margin: 5px 0; 
+  text-decoration: none; 
+  color: #333; 
 }
 
 .explore h3, .trending h3 {
-  font-size: 1.2em; /* Başlık boyutunu ayarlar */
-  margin-bottom: 10px; /* Başlık ve linkler arasında boşluk */
+  font-size: 1.2em; 
+  margin-bottom: 10px; 
 }

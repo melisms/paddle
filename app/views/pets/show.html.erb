@@ -1,19 +1,21 @@
 <h1 class="pet-name"><%= @pet.name %></h1>
 
 <div class="pet-details">
-  <p><strong>Location:</strong> <%= @pet.location %></p>
-  <p><strong>Age:</strong> <%= @pet.age %></p>
-  <p><strong>Type:</strong> <%= @pet.pet_type %></p>
-  <p><strong>Breed:</strong> <%= @pet.breed %></p>
-  <p><strong>Description:</strong> <%= @pet.description %></p>
-
-  <% if @pet.image.attached? %>
-    <div class="pet-image">
-      <%= image_tag @pet.image, alt: @pet.name, class: "img-fluid shadow-lg" %>
+  <div class="details-container">
+    <div class="pet-info">
+      <p><strong>Location:</strong> <%= @pet.location %></p>
+      <p><strong>Age:</strong> <%= @pet.age %></p>
+      <p><strong>Type:</strong> <%= @pet.pet_type %></p>
+      <p><strong>Breed:</strong> <%= @pet.breed %></p>
+      <p><strong>Description:</strong> <%= @pet.description %></p>
+      <p><strong>Owner:</strong> <%= @owner.username %></p>
     </div>
-  <% end %>
-
-  <p><strong>Owner:</strong> <%= @owner.username %></p>
+    <% if @pet.image.attached? %>
+      <div class="pet-image">
+        <%= image_tag @pet.image, alt: @pet.name, class: "img-fluid shadow-lg" %>
+      </div>
+    <% end %>
+  </div>
 
   <div class="action-buttons">
     <%= button_to "Chat with Owner", chats_path(chat: { user_id: @owner.id }), method: :post, class: "btn btn-chat" %>
@@ -22,15 +24,51 @@
   </div>
 </div>
 <%= link_to "Back", root_path, class: "back-link" %>
-<style>
 
+<style>
   .pet-name {
     text-align: center;
-    font-size: 40px;
+    font-size: 36px;
     color: #2C6B5F;
-    margin-bottom: 25px;
-    font-weight: 700;
-    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+  }
+
+  .details-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .pet-info {
+    flex: 1;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .pet-info p {
+    margin-bottom: 15px;
+  }
+
+  .pet-info p strong {
+    color: #2C6B5F;
+    font-weight: bold;
+  }
+
+  .pet-image {
+    flex: 0 0 300px; /* Resim genişliği sabit */
+    text-align: center;
+  }
+
+  .img-fluid {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 
   .pet-details {
@@ -41,71 +79,40 @@
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     font-family: 'Roboto', sans-serif;
-    color: #333;
-  }
-
-  .pet-details p {
-    font-size: 18px;
-    margin-bottom: 15px;
-    line-height: 1.6;
-  }
-
-  .pet-details p strong {
-    color: #2C6B5F;
-    font-weight: bold;
-  }
-
-
-  .pet-image {
-    text-align: center;
-    margin-top: 25px;
-  }
-
-  .img-fluid {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 
   .action-buttons {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 20px;
   }
 
-  .btn {
-    padding: 12px 25px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 500;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s ease;
-    margin: 0 10px;
-  }
   .btn-chat {
     background-color: #2C6B5F;
     color: white;
-    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
   }
 
   .btn-chat:hover {
     background-color: #1e4f42;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   }
 
-  /* Back Butonu */
   .btn-back {
     background-color: #f1f1f1;
     color: #333;
-    border: 2px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
   }
 
   .btn-back:hover {
     background-color: #ddd;
     color: #2C6B5F;
-    border-color: #2C6B5F;
   }
 
   .back-link {
@@ -118,11 +125,9 @@
     border-radius: 5px;
     text-decoration: none;
     font-size: 16px;
-    transition: background-color 0.3s ease;
   }
 
   .back-link:hover {
-    background-color: #00796b;
+    background-color: #004d40;
   }
-
 </style>
