@@ -13,12 +13,10 @@ class UsersController < ApplicationController
     end
   end
 
-  # Edit profile page
   def edit_profile
     @user = current_user
   end
 
-  # Update profile
   def update_profile
     @user = current_user unless @user
     if @user.update(user_params)
@@ -53,7 +51,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      UserMailer.welcome_email(@user).deliver_later  # Use deliver_later for background jobs (Async)
+      UserMailer.welcome_email(@user).deliver_later
       redirect_to @user, notice: "User was successfully created."
     else
       render :new

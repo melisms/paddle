@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat with <%= @chat.receiver.username %></title>
   <style>
-    /* Global Styles */
     body {
       font-family: 'Arial', sans-serif;
       margin: 0;
@@ -19,11 +18,10 @@
     h1 {
       text-align: center;
       margin: 20px 0;
-      color: #004d40; /* Dark green for heading */
+      color: #004d40;
       font-size: 32px;
     }
 
-    /* Full-Screen Chat Container */
     #messages {
       flex: 1;
       overflow-y: auto;
@@ -35,8 +33,8 @@
       margin: 0 auto;
       width: 90%;
       max-width: 900px;
-      margin-top: 20px; /* Added space from the top */
-      height: calc(100vh - 200px); /* Adjust the height based on the header and input box */
+      margin-top: 20px;
+      height: calc(100vh - 200px);
     }
 
     .message-item {
@@ -49,18 +47,18 @@
     }
 
     .message-item.sent {
-      background-color: #c8e6c9; /* Light green for sent messages */
+      background-color: #c8e6c9;
       margin-left: auto;
       text-align: right;
       color: #004d40;
     }
 
     .message-item.received {
-      background-color: #e8f5e9; /* Light greenish gray for received messages */
+      background-color: #e8f5e9;
       color: #333;
     }
 
-    /* Message Input Form */
+    
     .message-form {
       width: 90%;
       max-width: 900px;
@@ -82,13 +80,13 @@
     }
 
     .message-input:focus {
-      border-color: #00796b; /* Focus color */
+      border-color: #00796b; 
       outline: none;
     }
 
     .btn-send {
       padding: 15px 25px;
-      background-color: #00796b; /* Teal green for the send button */
+      background-color: #00796b; 
       color: white;
       border: none;
       border-radius: 20px;
@@ -125,10 +123,10 @@
       display: none;
     }
 
-    /* Style the custom button */
+    
     .upload-btn {
       display: inline-block;
-      background-color: #00796b; /* Teal green */
+      background-color: #00796b; 
       color: white;
       padding: 10px 20px;
       border-radius: 20px;
@@ -139,7 +137,7 @@
     }
 
     .upload-btn:hover {
-      background-color: #004d40; /* Darker green */
+      background-color: #004d40; 
     }
 
     .image-preview {
@@ -157,14 +155,14 @@
       border-radius: 10px;
     }
     .btn-send:disabled {
-      background-color: #b0bec5; /* Light grey color for disabled button */
-      color: #eceff1; /* Light grey text */
-      cursor: none; /* Indicate that the button is not clickable */
-      opacity: 0.6; /* Reduce opacity to make it look inactive */
-      box-shadow: none; /* Remove any shadow effect for disabled state */
+      background-color: #b0bec5; 
+      color: #eceff1; 
+      cursor: none; 
+      opacity: 0.6; 
+      box-shadow: none; 
     }
 
-    /* Fix the header part */
+    
     .part {
       width: 100%;
       background-color: #00796b;
@@ -188,9 +186,9 @@
       letter-spacing: 2px;
     }
 
-    /* Create space below the header */
+    
     body {
-      padding-top: 90px; /* Added space below the fixed header */
+      padding-top: 90px; 
     }
   </style>
 </head>
@@ -204,7 +202,7 @@
 
   <h1>Chat with <%= @chat.receiver.username %></h1>
 
-  <!-- Messages Container -->
+  
   <div id="messages">
     <% @messages.each do |message| %>
       <div class="message-item <%= message.sender == current_user ? 'sent' : 'received' %>">
@@ -218,7 +216,7 @@
     <% end %>
   </div>
 
-  <!-- Message Input Form -->
+  
   <%= form_with model: @message, url: chat_messages_path(@chat), local: true, html: { class: "message-form", multipart: true } do |form| %>
     <%= form.text_area :content, placeholder: "Type a message...", class: "message-input", rows: 1 %>
     <div class="custom-file-upload">
@@ -232,15 +230,15 @@
   <% end %>
 
   <script>
-    // Scroll to the bottom of the messages container on load
+    
     const messagesDiv = document.getElementById('messages');
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-    // Prevent newline on pressing Enter in the message input
+    
     const messageInput = document.querySelector('.message-input');
     messageInput.addEventListener('keypress', function (e) {
-      if (e.key === 'Enter' && !e.shiftKey) {  // Allow Shift + Enter for new line
-        e.preventDefault(); // Prevent form submission
+      if (e.key === 'Enter' && !e.shiftKey) {  
+        e.preventDefault();
         document.querySelector('.message-form').submit();
       }
     });
@@ -249,7 +247,7 @@
       const previewContainer = document.getElementById('image-preview');
       const file = this.files[0];
 
-      // Clear previous content
+      
       previewContainer.innerHTML = '';
 
       if (file) {
@@ -269,29 +267,29 @@
     const input = document.querySelector('.message-input');
     const sendButton = document.getElementById('send-button');
     const imageInput = document.getElementById('file-upload');
-    const file = imageInput.files[0];  // Check if an image is selected
+    const file = imageInput.files[0]; 
     
-    // Check if the input contains at least one non-whitespace character (including symbols)
+    
     const hasTextOrSymbol = input.value.trim().length > 0;
     
-    // Check if an image is selected
+    
     const hasImage = file !== undefined;
 
-    // Enable the send button if there's any input or an image selected
+    
     if (hasTextOrSymbol || hasImage) {
-      sendButton.disabled = false;  // Enable button
+      sendButton.disabled = false;  
     } else {
-      sendButton.disabled = true;   // Disable button
+      sendButton.disabled = true;   
     }
     }
 
-    // Event listener for input changes
+    
     document.querySelector('.message-input').addEventListener('input', checkInput);
 
-    // Event listener for file selection (image upload)
+    
     document.getElementById('file-upload').addEventListener('change', checkInput);
 
-    // Initial check in case of pre-filled content or image
+   
     checkInput();
   </script>
 </body>
