@@ -98,19 +98,20 @@
     </div>
 
     <div class="right-bar">
-      <div class="explore">
-        <h3>Explore</h3>
-        <div class="explore-item">🐶 #CuteAnimals</div>
-        <div class="explore-item">🐱 #PetAdoption</div>
-        <div class="explore-item">🐾 #PetsOfTheDay</div>
-      </div>
+     <div class="explore">
+  <h3>Explore</h3>
+  <%= link_to "🐶 #CuteAnimals", search_path(q: { body_or_user_username_cont_any: "#CuteAnimals" }), class: "explore-item" %>
+  <%= link_to "🐱 #PetAdoption", search_path(q: { body_or_user_username_cont_any: "#PetAdoption" }), class: "explore-item" %>
+  <%= link_to "🐾 #PetsOfTheDay", search_path(q: { body_or_user_username_cont_any: "#PetsOfTheDay" }), class: "explore-item" %>
+</div>
 
-      <div class="trending">
-        <h3>Trending Topics</h3>
-        <div class="trend-item">🐕 #DogLovers</div>
-        <div class="trend-item">🐈 #CatVideos</div>
-        <div class="trend-item">🐦 #BirdWatching</div>
-      </div>
+<div class="trending">
+  <h3>Trending Topics</h3>
+  <%= link_to "🐕 #DogLovers", search_path(q: { body_or_user_username_cont_any: "#DogLovers" }), class: "trend-item" %>
+  <%= link_to "🐈 #CatVideos", search_path(q: { body_or_user_username_cont_any: "#CatVideos" }), class: "trend-item" %>
+  <%= link_to "🐦 #BirdWatching", search_path(q: { body_or_user_username_cont_any: "#BirdWatching" }), class: "trend-item" %>
+</div>
+
     </div>
   </div>
 </body>
