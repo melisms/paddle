@@ -1,6 +1,95 @@
-<h1><%= @user.username %> is Following</h1>
-<% @following.each do |followed_user| %>
-  <p><%= link_to followed_user.username, user_profile_path(followed_user.username) %></p>
-<% end %>
+<div class="container">
+  <h1><%= @user.username %> is Following</h1>
+  <% @following.each do |followed_user| %>
+    <p><%= link_to followed_user.username, user_profile_path(followed_user.username) %></p>
+  <% end %>
+  <%= link_to 'Back to Profile', user_profile_path(@user.username), class: 'back-link' %>
 
-<%= link_to 'Back to Profile', user_profile_path(@user.username) %>
+</div>
+
+<style>
+  /* Genel Stil */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin: 20px 0;
+    color: #00796b;
+  }
+
+  /* Liste ve Bağlantı Stilleri */
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .container p {
+    margin: 10px 0;
+  }
+
+  .container a {
+    text-decoration: none;
+    color: #005b4f;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  .container a:hover {
+    color: #00796b;
+    text-shadow: 0 0 5px rgba(0, 121, 107, 0.6);
+  }
+
+  /* Geri Dön Linki */
+  .back-link {
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #005b4f;
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 2px solid #00796b;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .back-link:hover {
+    background-color: #f4f4f4;
+    color: white;
+  }
+
+  /* Responsive Tasarım */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    .container {
+      padding: 15px;
+    }
+
+    .container a {
+      font-size: 1rem;
+    }
+
+    .back-link {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+    }
+  }
+
+
+</style>
