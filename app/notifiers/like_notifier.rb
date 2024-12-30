@@ -5,4 +5,3 @@ class LikeNotifier < ApplicationNotifier
     "#{params[:username]} liked your post"
   end
 end
-
