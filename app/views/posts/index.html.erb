@@ -18,8 +18,11 @@
       </p>
     <% end %>
 <% @user.notifications.each do |notification| %>
-  <li><%= notification %></li>
+  <li><%= "#{notification.params[:username]} liked your post" %></li>
 <% end %>
+
+
+
 
 
 </div>
