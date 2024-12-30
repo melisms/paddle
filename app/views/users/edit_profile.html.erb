@@ -83,6 +83,34 @@
       background-color: #398439;
     }
 
+    .back-link {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      text-decoration: none;
+      background-color: #00796b;
+      color: white; 
+      font-size: 16px; 
+      font-weight: bold; 
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-align: center;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+  }
+
+    .back-link:hover {
+      background-color: #005b4f; 
+      transform: scale(1.05); 
+      text-decoration: none; 
+  }
+
+    .back-link:focus {
+      outline: 2px dashed #005b4f; 
+      outline-offset: 4px;
+  }
+
     /* Responsive Tasarım */
     @media (max-width: 768px) {
       .edit-profile-page {
@@ -119,6 +147,8 @@
       <%= f.label :profile_description, "Profile Description" %><br>
       <%= f.text_area :profile_description, rows: 5, cols: 50, placeholder: "Write something about yourself..." %>
     </div>
+
+    <%= link_to "Back", root_path, class: "back-link" %>
 
     <div class="form-actions">
       <%= f.submit "Save Changes", class: "button" %>
