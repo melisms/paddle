@@ -18,8 +18,19 @@
       </p>
     <% end %>
 <% @user.notifications.each do |notification| %>
-  <li><%= "#{notification.params[:username]} liked your post" %></li>
+  <li>
+    <% if notification.params[:message] %>
+      <%= "#{notification.params[:message].sender.username} sent you a message" %>
+    <% elsif notification.params[:comment] %>
+      <%= "#{notification.params[:comment].user.username} commented on your post" %>
+    <% elsif notification.params[:like] %>
+      <%= "#{notification.params[:username]} liked your post" %>
+    <% else %>
+      Unknown notification type
+    <% end %>
+  </li>
 <% end %>
+
 
 
 
