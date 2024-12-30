@@ -389,3 +389,7 @@ a.hashtag:hover {
   color: gray;
   margin-top: 10px;
 }
+
+.like-button[data-liked="true"] {
+  color: red; 
+}
