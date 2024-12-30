@@ -19,7 +19,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  height: %100;
+  height: 100%;
 }
 
 .posts-feed {
@@ -382,4 +382,10 @@ a.hashtag:hover {
 .explore h3, .trending h3 {
   font-size: 1.2em; 
   margin-bottom: 10px; 
+}
+.post-date {
+  text-align: right;
+  font-size: 0.9rem;
+  color: gray;
+  margin-top: 10px;
 }

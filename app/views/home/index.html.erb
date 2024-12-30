@@ -85,25 +85,24 @@
               </div>
             <% end %>
 
-            <!-- Beğeni ve Yorum Sayıları -->
+           
             <div class="post-actions">
               <p><%= pluralize(post.likes.count, 'like') %> | <%= pluralize(post.comments.count, 'comment') %></p>
 
-              <!-- Beğeni Butonları -->
+             
               <% if post.likes.exists?(user: current_user) %>
                 <%= button_to '💔 Unlike', post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, class: 'like-button' %>
               <% else %>
                 <%= button_to '❤️ Like', post_likes_path(post), method: :post, class: 'like-button' %>
               <% end %>
 
-              <!-- Yorum Linki -->
+        
               <%= link_to "View Comments", post_path(post), class: "comment-link" %>
             </div>
 
-            <div class="post-time">
+            <div class="post-time post-date">
               <%= post.created_at.strftime('%b %d, %Y %H:%M') %>
             </div>
-            <%= link_to "Show this post", post, class: "post-link" %>
           </div>
         <% end %>
       </div>
