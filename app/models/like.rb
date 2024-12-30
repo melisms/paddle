@@ -9,6 +9,10 @@ class Like < ApplicationRecord
   private
 
   def send_like_notification
-    LikeNotifier.with(like: self).deliver_later(post.user) # Notify the post owner
+    existing_like = Like.find_by(user_id: self.user_id, post_id: self.post_id)
+
+    if existing_like.nil?
+      LikeNotifier.with(like: self).deliver_later(post.user) # Notify the post owner
+    end
   end
 end
