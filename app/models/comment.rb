@@ -8,10 +8,8 @@ class Comment < ApplicationRecord
   private
 
   def notify_post_owner
-    # Avoid notifying the post's owner if they commented on their own post
     return if post.user == user
 
-    # Directly deliver the notification here
     CommentNotifier.with(comment: self).deliver(post.user)
   end
 

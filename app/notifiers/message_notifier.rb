@@ -1,4 +1,4 @@
-class MessageNotification < ApplicationNotifier
+class MessageNotifier < ApplicationNotifier
   deliver_by :database
 
   def message(_recipient)
