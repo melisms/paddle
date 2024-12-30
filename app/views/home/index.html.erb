@@ -84,8 +84,8 @@
             <div class="post-header">
               <div class="username-wrapper">
                 <div class="profile-picture">
-                  <% if @user && @user.profile_picture.attached? %>
-                    <%= image_tag url_for(@user.profile_picture), class: "profile-picture-small" %>
+                  <% if post.user && post.user.profile_picture.attached? %>
+                    <%= image_tag url_for(post.user.profile_picture), class: "profile-picture-small" %>
                   <% else %>
                     <div class="profile-picture-placeholder"></div>
                   <% end %>
