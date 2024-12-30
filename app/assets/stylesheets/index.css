@@ -95,6 +95,91 @@
   cursor: pointer;
 }
 
+/* Dropdown menu */
+.notifications-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Button for the dropdown */
+.dropdown-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.dropdown-button:hover {
+  background-color: #0056b3;
+}
+
+/* Dropdown content container */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 1;
+  top: 40px; /* Adjusted position */
+  right: 0; /* Ensure it aligns correctly */
+}
+
+/* Dropdown content visible when active */
+.notifications-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Notification list */
+.dropdown-content ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-content li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.dropdown-content li:last-child {
+  border-bottom: none;
+}
+
+/* Read notification styling */
+.dropdown-content li.read {
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
+
+.dropdown-content li a {
+  display: inline-block;
+  margin-top: 5px;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.dropdown-content li a:hover {
+  text-decoration: underline;
+}
+
+/* "No new notifications" text */
+.no-notifications {
+  text-align: center;
+  color: #6c757d;
+  font-size: 14px;
+}
+
 /* Layout and other sections */
 .layout {
  display: flex;
@@ -192,7 +277,6 @@
    object-fit: cover;
    border-radius: 5px;
  }
-
 
 .post-header {
    font-weight: bold;
@@ -292,16 +376,14 @@
      margin-top: 10px;
  }
 
- 
-
- .auth-buttons {
+.auth-buttons {
      margin-top: 20px;
      display: flex;
      flex-direction: column;
      gap: 10px;
  }
 
- .auth-button {
+.auth-button {
      padding: 10px 15px;
      background-color: #00796b;
      color: white;
@@ -314,11 +396,9 @@
      text-align: center;
  }
 
- .auth-button:hover {
+.auth-button:hover {
      background-color: #00796b;
  }
- 
-
 
 a.hashtag {
  color: #007bff;
@@ -327,69 +407,6 @@ a.hashtag {
 
 a.hashtag:hover {
  text-decoration: underline;
-}
-
-
-.part {
-  width: 100%;
-  background-color: #00796b;
-  color: rgb(0, 0, 0);
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  height: 70px;
-  box-sizing: border-box;
-}
-.logo {
-  flex: 1;
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-.search-bar {
-  flex: 3;
-  justify-content: center;
-  height: 100%;
-}
-.search-form {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  max-width: 800px;
-  position: relative;
-}
-.search-input {
-  width: 100%;
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  border-radius: 50px 0 0 50px;
-  font-size: 16px;
-  outline: none;
-}
-.search-button {
-  background-color: #005b4f;
-  border: none;
-  color: white;
-  font-size: 18px;
-  padding: 0 15px;
-  border-radius: 0 50px 50px 0;
-  cursor: pointer;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease;
-}
-.search-button:hover {
-  background-color: #004239;
-}
-.search-button:focus {
-  outline: none;
 }
 
 .photo-upload {
@@ -459,6 +476,7 @@ a.hashtag:hover {
  font-size: 1.2em; 
  margin-bottom: 10px; 
 }
+
 .post-date {
  text-align: right;
  font-size: 0.9rem;
