@@ -1,4 +1,4 @@
-<!-- app/views/notifications/index.html.erb -->
+
 <div class="notifications">
   <h2>Notifications</h2>
   <% if @notifications.any? %>
@@ -12,7 +12,6 @@
           <% elsif notification.params[:like] %>
             <%= "#{notification.params[:like].user.username} liked your post" %>
           <% else %>
-            Unknown notification type
           <% end %>
           
           <!-- Link to mark as read -->
