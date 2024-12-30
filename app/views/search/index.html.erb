@@ -25,7 +25,7 @@
           <%= link_to post, class: "post-link" do %>
             <div class="post-header">
               <div class="username-wrapper">
-                <!-- Kullanıcı Adı ve Profil Fotoğrafı -->
+  
                 <div class="profile-picture">
                   <% if post.user && post.user.profile_picture.attached? %>
                     <%= image_tag url_for(post.user.profile_picture), class: "profile-picture-small" %>
@@ -76,7 +76,7 @@
     text-align: center;
     font-size: 26px;
     color: #264653;
-    margin: 80px auto 30px;
+    margin: 30px auto 30px;
     font-weight: bold;
     text-transform: capitalize;
     letter-spacing: 1.2px;

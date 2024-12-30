@@ -18,7 +18,6 @@
   <div class="post-card">
     <div class="post-header">
       <div class="username-wrapper">
-        <!-- Profil Fotoğrafı -->
         <div class="profile-picture">
           <% if post.user && post.user.profile_picture.attached? %>
             <%= image_tag url_for(post.user.profile_picture), class: "profile-picture-small" %>
