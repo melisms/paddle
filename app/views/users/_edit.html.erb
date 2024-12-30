@@ -1,0 +1,15 @@
+<%= form_with model: @user, local: true do |f| %>
+  <div class="field">
+    <%= f.label :profile_picture %>
+    <%= f.file_field :profile_picture %>
+  </div>
+
+  <div class="field">
+    <%= f.label :profile_description, "Profile Description" %>
+    <%= f.text_area :profile_description, rows: 4, cols: 50 %>
+  </div>
+
+  <%= f.submit "Update Profile", class: "button" %>
+<% end %>
+
+

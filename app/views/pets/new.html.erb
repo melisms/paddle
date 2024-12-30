@@ -1,0 +1,142 @@
+<h1 class="page-title">Add a Pet for Adoption</h1>
+
+<%= form_with(model: @pet, local: true, class: "pet-form") do |form| %>
+  <% if @pet.errors.any? %>
+    <div class="error-messages">
+      <h2>Please fix the following errors:</h2>
+      <ul>
+        <% @pet.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name, "Pet Name" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "Enter pet's name" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :location, "Location" %>
+    <%= form.select :location, Pet::CITIES, { prompt: "Select a location" }, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :age, "Age" %>
+    <%= form.select :age, Pet::AGES, { prompt: "Select age" }, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :pet_type, "Type of Pet" %>
+    <%= form.select :pet_type, ['Cat', 'Dog', 'Other'], { prompt: "Select pet type" }, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :breed, "Breed" %>
+    <%= form.text_field :breed, class: "form-control", placeholder: "Enter breed (if known)" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description, "Description" %>
+    <%= form.text_area :description, rows: 5, class: "form-control", placeholder: "Provide a brief description of the pet" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :image, "Upload a Picture" %>
+    <%= form.file_field :image, class: "form-control-file" %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Add Pet", class: "btn-submit" %>
+  </div>
+<% end %>
+<%= link_to "Back", pets_path, class: "back-link" %>
+<style>
+  .page-title {
+    text-align: center;
+    font-size: 32px;
+    color: #00796b;
+    margin-bottom: 10px;  
+    font-weight: bold;
+  }
+
+  .pet-form {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 40px auto;  
+  }
+
+  .error-messages {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+
+  .error-messages h2 {
+    margin-top: 0;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+
+  .form-control, .form-control-file, .form-control-checkbox {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .form-control-checkbox {
+    width: auto;
+  }
+
+  .form-actions {
+    text-align: center;
+  }
+
+  .btn-submit {
+    background-color: #00796b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .btn-submit:hover {
+    background-color: #004d40;
+  }
+
+  .back-link {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #00796b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  .back-link:hover {
+    background-color: #00796b;
+  }
+</style>

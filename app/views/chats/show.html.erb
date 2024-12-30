@@ -1,14 +1,314 @@
-<h1>Chat with <%= @chat.receiver.username %></h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat with <%= @chat.receiver.username %></title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
 
-<div id="messages">
-  <% @messages.each do |message| %>
-    <div>
-      <strong><%= message.sender.username %>:</strong> <%= message.content %>
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      color: #004d40;
+      font-size: 32px;
+    }
+
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin: 0 auto;
+      width: 90%;
+      max-width: 900px;
+      margin-top: 20px;
+      height: calc(100vh - 200px);
+    }
+
+    .message-item {
+      margin: 15px 0;
+      padding: 15px;
+      border-radius: 20px;
+      max-width: 70%;
+      word-wrap: break-word;
+      font-size: 16px;
+    }
+
+    .message-item.sent {
+      background-color: #c8e6c9;
+      margin-left: auto;
+      text-align: right;
+      color: #004d40;
+    }
+
+    .message-item.received {
+      background-color: #e8f5e9;
+      color: #333;
+    }
+
+    
+    .message-form {
+      width: 90%;
+      max-width: 900px;
+      margin: 20px auto;
+      display: flex;
+      gap: 10px;
+    }
+
+    .message-input {
+      flex: 1;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 16px;
+      background-color: #fafafa;
+      color: #333;
+      resize: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .message-input:focus {
+      border-color: #00796b; 
+      outline: none;
+    }
+
+    .btn-send {
+      padding: 15px 25px;
+      background-color: #00796b; 
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-send:hover {
+      background-color: #004d40;
+    }
+
+  
+    #messages {
+      height: calc(100vh - 160px); 
+    }
+
+    #messages::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    #messages::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.15);
+      border-radius: 12px;
+    }
+
+
+    .btn-send:focus, .message-input:focus {
+      transition: all 0.3s ease;
+      transform: scale(1.05);
+    }
+
+    .hidden-file-input {
+      display: none;
+    }
+
+    
+    .upload-btn {
+      display: inline-block;
+      background-color: #00796b; 
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    .upload-btn:hover {
+      background-color: #004d40; 
+    }
+
+    .image-preview {
+      margin-top: 10px;
+      text-align: center;
+      border: 1px dashed #ccc;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .image-preview img {
+      max-width: 50%;
+      max-height: 50px;
+      margin-top: 5px;
+      border-radius: 10px;
+    }
+    .btn-send:disabled {
+      background-color: #b0bec5; 
+      color: #eceff1; 
+      cursor: none; 
+      opacity: 0.6; 
+      box-shadow: none; 
+    }
+
+    
+    .part {
+      width: 100%;
+      background-color: #00796b;
+      color: rgb(0, 0, 0);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      height: 70px;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      flex: 1;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    
+    body {
+      padding-top: 90px; 
+    }
+
+    .back-link {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #00796b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  .back-link:hover {
+    background-color: #004d40;
+  }
+  </style>
+</head>
+<body>
+
+  <div class="part">
+    <div class="logo">
+      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
     </div>
-  <% end %>
-</div>
+  </div>
 
-<%= form_with model: @message, url: chat_messages_path(@chat), local: true do |form| %>
-  <%= form.text_area :content, placeholder: "Type a message..." %>
-  <%= form.submit "Send" %>
-<% end %>
+  <h1>Chat with <%= @chat.receiver.username %></h1>
+
+  
+  <div id="messages">
+    <% @messages.each do |message| %>
+      <div class="message-item <%= message.sender == current_user ? 'sent' : 'received' %>">
+        <strong><%= message.sender.username %>:</strong> <%= message.content %>
+        <% if message.image.attached? %>
+          <div>
+            <%= image_tag url_for(message.image), alt: "Message image", class: "chat-image" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  
+  <%= form_with model: @message, url: chat_messages_path(@chat), local: true, html: { class: "message-form", multipart: true } do |form| %>
+    <%= form.text_area :content, placeholder: "Type a message...", class: "message-input", rows: 1 %>
+    <div class="custom-file-upload">
+      <label for="file-upload" class="upload-btn">📎</label>
+      <%= form.file_field :image, id: "file-upload", accept: "image/*", class: "hidden-file-input" %>
+    </div>
+    <div id="image-preview" class="image-preview">
+      <p>No image selected</p>
+    </div>
+    <%= form.submit "Send", class: "btn-send", id: "send-button", disabled: true %>
+  <% end %>
+
+  <%= link_to "Back", chats_path, class: "back-link" %>
+
+  <script>
+    
+    const messagesDiv = document.getElementById('messages');
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+    
+    const messageInput = document.querySelector('.message-input');
+    messageInput.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {  
+        e.preventDefault();
+        document.querySelector('.message-form').submit();
+      }
+    });
+
+    document.getElementById('file-upload').addEventListener('change', function () {
+      const previewContainer = document.getElementById('image-preview');
+      const file = this.files[0];
+
+      
+      previewContainer.innerHTML = '';
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.alt = "Image Preview";
+          previewContainer.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        previewContainer.innerHTML = '<p>No image selected</p>';
+      }
+    });
+    function checkInput() {
+    const input = document.querySelector('.message-input');
+    const sendButton = document.getElementById('send-button');
+    const imageInput = document.getElementById('file-upload');
+    const file = imageInput.files[0]; 
+    
+    
+    const hasTextOrSymbol = input.value.trim().length > 0;
+    
+    
+    const hasImage = file !== undefined;
+
+    
+    if (hasTextOrSymbol || hasImage) {
+      sendButton.disabled = false;  
+    } else {
+      sendButton.disabled = true;   
+    }
+    }
+
+    
+    document.querySelector('.message-input').addEventListener('input', checkInput);
+
+    
+    document.getElementById('file-upload').addEventListener('change', checkInput);
+
+   
+    checkInput();
+  </script>
+</body>
+</html>

@@ -1,6 +1,7 @@
-<%= search_form_for(@query, url: search_path, method: :get, class:'d-flex') do |f| %>
-  <%= f.search_field :body_or_user_username_i_cont_any,
-   placeholder: "Search...",
-   class: "form-control me-2" %>
-  <%= f.submit "Search!", class:"btn btn-outline-success" %>
-<% end %>
+    <div class="search-bar">
+      <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
+        <%= f.search_field :body_or_user_username_cont_any, 
+          placeholder: "Search posts or users...", 
+          class: "search-input" %>
+        <%= f.submit "🔍", class: "search-button" %>
+      <% end %>

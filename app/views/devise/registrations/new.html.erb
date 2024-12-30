@@ -1,32 +1,138 @@
-<h2>Sign up</h2>
+
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username %>
-  </div>
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+  <style>
+      .container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          gap: 20px; 
+          padding: 20px;
+          background-color:rgb(210, 188, 156);
+      }
+
+      .left-section {
+          flex: 1;
+          max-width: 500px; 
+          padding: 20px;
+          background-color: white;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .right-section {
+          flex: 1;
+          max-width: 500px; 
+          height: 75%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: white;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+      }
+
+      .right-section img {
+          max-width: 100%;
+          height: auto; 
+          border-radius: 10px;
+      }
+
+      .field, .actions {
+          margin-bottom: 10px;
+      }
+
+      .field label {
+          display: block;
+          font-size: 14px;
+          font-weight: bold;
+      }
+
+      .field input {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ced4da;
+          border-radius: 5px;
+          font-size: 14px;
+          background-color: #f9f9f9;
+      }
+
+      .actions input {
+          background-color: #00796b;
+          color: white;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+      }
+
+      .actions input:hover {
+          background-color: #005b4f;
+      }
+
+      .already-account {
+          margin-top: 10px;
+          font-size: 14px;
+          color: #666;
+          text-align: center;
+      }
+
+      .login-link {
+          color: #007bff;
+          text-decoration: none;
+          font-weight: bold;
+      }
+
+      .login-link:hover {
+          color: #0056b3;
+          text-decoration: underline;
+      }
+
+
+  </style>
+
+<div class="container">
+  <div class="left-section">
+
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+    <div class="field">
+      <%= f.label :username %><br />
+      <%= f.text_field :username %>
+    </div>
+    <div class="field">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "new-password" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Sign up" %>
+      <p class="already-account">
+        Already have an account? 
+        <a href="/users/sign_in" class="login-link">Log in</a>
+      </p>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="right-section">
+    <img src="<%= asset_path('dogs.jpg') %>" alt="Dog Image">
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+

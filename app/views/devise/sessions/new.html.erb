@@ -1,69 +1,112 @@
-<%# Düzenlenmiş tam HTML kodu %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
-        /* Genel Sayfa Stili */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+        .container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f7f7f7;
+            gap: 20px; 
+            padding: 20px;
+            background-color: rgb(210, 188, 156);
         }
 
-        /* Ana Konteyner Stili */
-        .container {
-            display: flex;
-            height: 650px;
-            width: 1000px;
-            border: 1px solid white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Sol Bölüm Stili */
         .left-section {
             flex: 1;
+            max-width: 500px;
             padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .right-section {
+            flex: 1;
+            max-width: 500px; 
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: rgb(167, 224, 200);
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
 
-        .left-section .alert {
-            background-color: #ffcccc;
-            color: #b30000;
-            padding: 10px;
-            border-radius: 5px;
+        .right-section img {
+            max-width: 100%;
+            height: auto; 
+            border-radius: 10px;
+        }
+
+        .field {
+            position: relative;
+        }
+
+        .field, .actions {
             margin-bottom: 15px;
-            text-align: center;
         }
 
-        .left-section .field {
-            margin-bottom: 15px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .left-section .field label {
-            font-size: 20px;
-            font-weight: bold;
+        .field label {
+            display: block;
+            font-size: 14px;
             margin-bottom: 5px;
+            font-weight: bold;
         }
 
-        .left-section .field input {
+        .field input {
             width: 100%;
-            padding: 10px;
+            padding: 10px 10px 10px 35px; 
+            border: 1px solid #ced4da;
             border-radius: 5px;
-            border: 1px solid #ccc;
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;  
+            align-items: center;     
+            justify-content: center; 
+            gap: 10px;               
+        }
+
+        .actions input.login-btn {
+            background-color: #00796b;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 200px;
+        }
+
+        .actions input.login-btn:hover {
+            background-color: #005b4f;
+        }
+
+        .actions .signup-btn {
+            background-color: #00796b;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 200px;
+            text-align: center;
+        }
+
+        .actions .signup-btn:hover {
+            background-color: #005b4f;
         }
 
         .left-section .remember-me {
@@ -71,102 +114,49 @@
             align-items: center;
             justify-content: flex-start;
             margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .left-section .remember-me input {
             margin-right: 5px;
-        }
+	    }
 
-        .left-section .actions {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .left-section .actions button {
-            padding: 12px;
-            border: none;
-            border-radius: 12px; /* Daha belirgin köşe yumuşatması */
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease; /* Yumuşak geçiş ve transform ekledim */
-        }
-
-        .left-section .actions .login-btn {
-            background-color: #28a745;
-        }
-
-        .left-section .actions .login-btn:hover {
-            background-color: #218838;
-            transform: scale(1.05); /* Hover durumunda buton biraz büyüsün */
+        .alert {
+            padding: 10px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-radius: 5px;
+            margin-bottom: 15px;
         }
 
 
-        .left-section .signup {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .left-section .signup button {
-            text-align: center;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .left-section .signup-btn{
-            background-color: #28a745;
-        }
-
-        .left-section .signup-btn:hover {
-            background-color: #218838;
-        }
-
-        /* Sağ Bölüm Stili */
-        .right-section {
-            flex: 1;
-            background-color: #eaeaea;
-        }
-
-        .right-section img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="left-section">
-            <!-- Tek bir hata mesajı göster -->
             <% if flash[:alert] || flash[:notice] %>
                 <div class="alert">
                     <%= flash[:alert] || flash[:notice] %>
                 </div>
             <% end %>
 
-            <!-- Giriş Formu -->
+            
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                 <div class="field">
-                    <%= f.label :email %><br />
-                    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                    <label for="email">Email</label>
+                    <div style="position: relative;">
+                        <i class='bx bx-user' style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #aaa;"></i>
+                        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                    </div>
                 </div>
 
                 <div class="field">
-                    <%= f.label :password %><br />
-                    <%= f.password_field :password, autocomplete: "current-password" %>
+                    <label for="password">Password</label>
+                    <div style="position: relative;">
+                        <i class='bx bx-lock' style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #aaa;"></i>
+                        <%= f.password_field :password, autocomplete: "current-password" %>
+                    </div>
                 </div>
 
                 <% if devise_mapping.rememberable? %>
@@ -178,13 +168,9 @@
 
                 <div class="actions">
                     <%= f.submit "Log in", class: "login-btn" %>
+                    <%= link_to "Sign up", new_registration_path(resource_name), class: "signup-btn" %><br />
                 </div>
             <% end %>
-
-            <!-- Sign Up Butonu -->
-            <div class="actions">
-                <%= link_to "Sign up", new_registration_path(resource_name), class: "signup-btn" %>
-            </div>
 
             <%= render "devise/shared/links" %>
         </div>

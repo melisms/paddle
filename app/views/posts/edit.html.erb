@@ -1,8 +1,145 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing post</h1>
+<style>
 
-  <%= render "form", post: @post %>
 
-  <%= link_to "Show this post", @post, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to posts", root_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+
+    .form-container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+
+    h1 {
+      font-size: 32px;
+      color: #00796b;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+
+    .btn-primary, .btn-secondary, .btn-delete-link {
+      background-color: #00796b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-size: 16px;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin: 3px;
+    }
+
+    .btn-primary:hover, .btn-secondary:hover, .btn-delete-link:hover {
+      background-color: #005b4f;
+      transform: scale(1.05);
+      color: white;
+    }
+
+   
+    a {
+      text-decoration: none;
+      color: #00796b;
+      font-weight: normal;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #005b4f;
+    }
+
+    
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #00796b;
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 150px;
+    }
+
+    
+    .mt-6 {
+      margin-top: 1.5rem;
+    }
+
+    .mb-6 {
+      margin-bottom: 1.5rem;
+    }
+
+    .space-x-4 {
+      margin-right: 10px;
+    }
+
+    
+    .username {
+      font-weight: bold;
+      color: #00796b;
+    }
+
+    
+    label {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .form-container {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+
+</style>
+
+<div class="container mx-auto md:w-2/3 w-full px-4 py-6">
+  <h1 class="font-bold text-4xl text-center text-gray-800 mb-6">Editing Post</h1>
+
+  <div class="form-container bg-white shadow-lg rounded-lg p-6">
+    <%= render "form", post: @post %>
+  </div>
+  
+
+  <div class="button-group mt-6 flex justify-center space-x-4">
+    <%= link_to "Show this post", @post, class: "btn-primary" %>
+    <%= link_to "Back to posts", root_path, class: "btn-secondary" %>
+    <%= button_to "Delete this post", @post, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn-delete-link' %>
+  </div>
 </div>

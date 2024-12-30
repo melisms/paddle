@@ -4,9 +4,10 @@ class LikesController < ApplicationController
     @like = @post.likes.build(user: current_user)
 
     if @like.save
-      redirect_to post_path(@post), notice: "Post liked!"
+      # @post.user.notify(LikeNotification.with(like: @like))
+      redirect_to request.referrer, notice: "Post liked!"
     else
-      redirect_to post_path(@post), alert: "Unable to like post."
+      redirect_to request.referrer, alert: "Unable to like post."
     end
   end
 
@@ -15,9 +16,9 @@ class LikesController < ApplicationController
     @like = @post.likes.find_by(user: current_user)
 
     if @like&.destroy
-      redirect_to post_path(@post), notice: "Like removed!"
+      redirect_to request.referrer, notice: "Like removed!"
     else
-      redirect_to post_path(@post), alert: "Unable to remove like."
+      redirect_to request.referrer, alert: "Unable to remove like."
     end
   end
 end

@@ -1,19 +1,324 @@
-<h1 class="text-center"><%= pluralize(@posts.count, "Result") %></h1>
-<div class="container">
-  <table class="table table-dark table-striped">
-    <thead>
-      <tr>
-        <th><%= sort_link(@query, :body, "Blog Content") %></th>
-        <th><%= sort_link(@query, :user_name, "Users") %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @posts.each do |post| %>
-        <tr>
-          <td><%= post.body.truncate_words(25) %></td>
-          <td><%= link_to post.user.name, post.user %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<h1 class="text-center">Search Content</h1>
+<div class="part">
+  <div class="logo">
+    <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
+  </div>
+  <div class="search-bar">
+    <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
+      <%= f.search_field :body_or_user_username_cont_any, 
+        placeholder: "Search posts or users...", 
+        class: "search-input" %>
+      <%= f.submit "🔍", class: "search-button" %>
+    <% end %>
+  </div>
 </div>
+
+<div class="container">
+  <h1 class="search-header">
+    Search Results for "<%= params.dig(:q, :body_or_user_username_cont_any) %>" 
+  </h1>
+
+  <% if @posts.present? %>
+    <div class="posts-feed" id="postsFeed">
+      <% @posts.each do |post| %>
+        <div class="post">
+          <%= link_to post, class: "post-link" do %>
+            <div class="post-header">
+              <div class="username-wrapper">
+  
+                <div class="profile-picture">
+                  <% if post.user && post.user.profile_picture.attached? %>
+                    <%= image_tag url_for(post.user.profile_picture), class: "profile-picture-small" %>
+                  <% else %>
+                    <div class="profile-picture-placeholder"></div>
+                  <% end %>
+                </div>
+                <%= post.user.username %>
+              </div>
+            </div>
+
+            <div class="post-body">
+              <%= simple_format(post.body.gsub(/#\w+/) do |hashtag| 
+                    link_to hashtag, tag_path(name: hashtag[1..]), class: "hashtag"
+                  end.html_safe) %>
+
+              <% if post.photo.attached? %>
+                <div class="post-photo">
+                  <%= image_tag(post.photo, class: "post-image") %>
+                </div>
+              <% end %>
+
+              <div class="post-time">
+                <%= post.created_at.strftime('%b %d, %Y %H:%M') %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>No posts found.</p>
+  <% end %>
+</div>
+
+
+
+<style>
+  .layout {
+    display: flex;
+    flex-grow: 1; 
+    width: 100%; 
+    height: 100%; 
+    box-sizing: border-box;
+  }
+
+   .search-header {
+    text-align: center;
+    font-size: 26px;
+    color: #264653;
+    margin: 30px auto 30px;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 1.2px;
+    background-color: #e9f5f3;
+    padding: 12px 18px;
+    border-radius: 10px;
+    width: fit-content;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  .main-content {
+    flex-grow: 1;
+    background-color: #f4f6f8;
+    padding: 20px;
+    padding-top: 80px; 
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  .text-center {
+    font-family: 'Roboto', sans-serif;
+    color: #00796b;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+  }
+
+  .table {
+    margin-top: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .table th {
+    background-color: #004d40;
+    color: #ffffff;
+    text-align: left;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .table td {
+    background-color: #e0f2f1;
+    color: #004d40;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .table tr:hover {
+    background-color: #b2dfdb;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #e0f7fa;
+  }
+
+  .table-dark {
+    border: 1px solid #004d40;
+  }
+
+  .table-striped tbody tr:nth-of-type(even):hover {
+    background-color: #a7d7c5;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+
+    .table th, .table td {
+      font-size: 12px;
+    }
+  }
+
+  .part {
+    width: 100%;
+    background-color: #00796b;
+    color: rgb(0, 0, 0);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    height: 70px;
+    box-sizing: border-box;
+  }
+   
+  .logo {
+    flex: 1;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+
+  .search-bar {
+    flex: 3;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .search-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 50px 0 0 50px;
+    font-size: 16px;
+    outline: none;
+  }
+
+  .search-button {
+    background-color: #005b4f;
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 0 15px;
+    border-radius: 0 50px 50px 0;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .search-button:hover {
+    background-color: #004239;
+  }
+
+  .search-button:focus {
+    outline: none;
+  }
+
+  .posts-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+  }
+
+
+  .post {
+    background-color: #f8f9fa; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    padding: 16px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.2s, box-shadow 0.2s; 
+  }
+
+
+  .post:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); 
+  }
+
+  .post-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+
+  .post-body {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5; 
+  }
+
+  .post-time {
+  font-size: 0.8em; 
+  color: #999; 
+  margin-top: 10px; 
+  font-weight: normal; 
+}
+
+  
+  .hashtag {
+    color: #007bff; 
+    text-decoration: none; 
+  }
+
+  .hashtag:hover {
+    text-decoration: underline; 
+  }
+
+  
+  .post-link {
+    display: block; 
+    text-decoration: none; 
+    color: inherit; 
+  }
+
+  .post-photo img {
+  width: 400px;
+  height: 300px;
+  object-fit: cover; 
+}
+
+
+.username-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.profile-picture {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.profile-picture-small {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.profile-picture-placeholder {
+  width: 30px;
+  height: 30px;
+  background-color: gray;
+  border-radius: 50%;
+}
+
+</style>

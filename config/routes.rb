@@ -1,6 +1,24 @@
 Rails.application.routes.draw do
   get "search", to: "search#index"
-  get "users/profile"
+  get "profile", to: "users#profile", as: "profile"
+  patch "profile", to: "users#update"
+  get "profile/edit", to: "users#edit_profile", as: "edit_profile"
+  patch "profile/edit", to: "users#update_profile", as: "update_profile"
+  get "/profile/:username", to: "users#profile", as: "user_profile"
+
+  resources :pets, only: [ :index, :new, :create, :show ]
+
+  # config/routes.rb
+  resources :notifications, only: [ :index ] do
+    member do
+      patch :mark_as_read
+    end
+  end
+
+  resources :posts do
+    resources :comments, only: [ :create ]
+    resources :likes, only: [ :create, :destroy ]
+  end
   resources :posts
   devise_for :users, controllers: {
     sessions: "users/sessions",
@@ -23,8 +41,24 @@ Rails.application.routes.draw do
     resources :messages, only: [ :create, :index, :show ]
   end
 
+
+
   resources :posts do
     resources :comments, only: [ :create ]
     resources :likes, only: [ :create, :destroy ]
+  end
+
+  resources :tags, only: [ :show ], param: :name
+  resources :users, param: :username, only: [ :show ] do
+    member do
+      post :follow
+      delete :unfollow
+      get :followers
+      get :following
+    end
+  end
+  resources :tags, only: [ :show ], param: :name
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 end

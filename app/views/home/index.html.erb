@@ -1,67 +1,206 @@
-ı<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag 'index', media: 'all', 'data-turbo-track': 'reload' %>
+
+  <script>
+    // Update character count and post button state based on textarea input
+    function updateCharCount() {
+      var textarea = document.getElementById('postContent');
+      var charCount = document.getElementById('charCount');
+      var maxLength = textarea.getAttribute('maxlength');
+      var currentLength = textarea.value.length;
+      charCount.textContent = currentLength + '/' + maxLength;
+
+      updatePostButton();
+    }
+
+    // Enable or disable the post button based on content or photo input
+    function updatePostButton() {
+      var postButton = document.getElementById('postButton');
+      var postContent = document.getElementById('postContent').value.trim();
+      var photo = document.getElementById('postPhoto').files.length;
+
+      if (postContent.length > 0 || photo > 0) {
+        postButton.disabled = false;
+      } else {
+        postButton.disabled = true;
+      }
+    }
+
+    // Toggle the display of the notifications dropdown
+    function toggleDropdown(event) {
+      event.preventDefault(); // Prevent the link from being followed
+
+      const dropdown = document.querySelector('.notifications-dropdown');
+      
+      if (dropdown) {
+        dropdown.style.display = (dropdown.style.display === 'none' || dropdown.style.display === '') ? 'block' : 'none'; // Toggle the display
+      }
+    }
+
+    // Initialize when the page is fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+      // Ensure the post button is updated when the page loads
+      updatePostButton();
+
+      // Add event listener to the notification icon to trigger dropdown
+      const notificationIcon = document.querySelector('.notification-icon');
+      if (notificationIcon) {
+        notificationIcon.addEventListener('click', toggleDropdown);
+      }
+    });
+  </script>
 </head>
 <body>
-
-<div class="header">
-  <div class="logo">
-    <%= link_to 'Paddle', root_path %>
-  </div>
-</div>
-
-<div class="layout">
-
-  <div class="left-bar">
-    <%= render 'user/session_manager' %>
-  </div>
-
-  <div class="main-content">
-    <div class="post-input">
-      <%= form_with(model: @post, url: posts_path, method: :post, local: true) do |form| %>
-        <textarea id="postContent" name="post[body]" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()" class="form-control"></textarea>
-        <div class="char-count" id="charCount">0/350</div>
-        <%= form.submit "Post", class: "btn btn-primary", id: "postButton", disabled: true %>
-      <% end %>
+  <div class="part">
+    <div class="logo">
+      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
     </div>
-    <div class="posts-feed" id="postsFeed">
-      <% @posts.each do |post| %>
-        <div class="post">
-          <div class="post-header"><%= post.user.username %></div>
-          <div><%= post.body %></div>
-          <div class="post-time"><%= post.created_at.strftime('%b %d, %Y %H:%M') %></div>
-          <%= link_to "Show this post", post %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="right-bar">
+    
     <div class="search-bar">
-      <input type="text" placeholder="Search pets or hashtags...">
-      <button onclick="alert('Search clicked')">Search</button>
+      <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
+        <%= f.search_field :body_or_user_username_cont_any, 
+          placeholder: "Search posts or users...",
+          class: "search-input" %>
+        <%= f.submit "🔍", class: "search-button" %>
+      <% end %>
     </div>
+    
+    <!-- Bell icon for notifications -->
+    <div class="notification-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+          <path d="M12 22c1.1 0 1.99-.9 1.99-2H10c0 1.1.89 2 2 2zm6-6V8c0-3.31-2.69-6-6-6S6 4.69 6 8v8l-2 2v1h16v-1l-2-2z"/>
+        </svg>
+      
+      <div class="notification-badge">
+        <%= @user.notifications.unread.count %> <!-- Display unread notification count -->
+      </div>
 
-    <div class="explore">
-      <h3>Explore</h3>
-      <div class="explore-item">🐶 #CuteAnimals</div>
-      <div class="explore-item">🐱 #PetAdoption</div>
-      <div class="explore-item">🐾 #PetsOfTheDay</div>
-    </div>
-
-    <div class="trending">
-      <h3>Trending Topics</h3>
-      <div class="trend-item">🐕 #DogLovers</div>
-      <div class="trend-item">🐈 #CatVideos</div>
-      <div class="trend-item">🐦 #BirdWatching</div>
+      <!-- Dropdown for notifications -->
+      <div class="notifications-dropdown">
+        <div class="dropdown-content">
+          <h2>Notifications</h2>
+          <% if @notifications.any? %>
+            <ul>
+              <% @notifications.each do |notification| %>
+                <li class="<%= 'read' if notification.read_at %>">
+                  <% if notification.params[:message] %>
+                    <%= "#{notification.params[:message].sender.username} sent you a message" %>
+                  <% elsif notification.params[:comment] %>
+                    <%= "#{notification.params[:comment].user.username} commented on your post" %>
+                  <% elsif notification.params[:like] %>
+                    <%= "#{notification.params[:like].user.username} liked your post" %>
+                  <% end %>
+                  <%= link_to 'Mark as read', mark_as_read_notification_path(notification), method: :patch unless notification.read_at %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="no-notifications">No new notifications.</p>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 
-</div>
-<%= javascript_include_tag 'index', 'data-turbo-track': 'reload' %>
+  <div class="layout">
+    <div class="left-bar">
+      <%= render 'user/session_manager' %>
+    </div>
 
+    <div class="main-content">
+      <div class="post-input">
+        <%= form_with(model: @post, url: posts_path, method: :post, local: true) do |form| %>
+          <textarea id="postContent" name="post[body]" rows="3" placeholder="Share your pet's moments..." maxlength="350" oninput="updateCharCount()" class="form-control"></textarea>
+          <div class="char-count" id="charCount">0/350</div>
+
+          <div class="photo-upload">
+            <label for="postPhoto" class="photo-label">Upload a photo:</label>
+            <%= form.file_field :photo, id: "postPhoto", class: "form-control-file", onchange: "updatePostButton()" %>
+          </div>
+
+          <%= form.submit "Post", class: "btn btn-primary", id: "postButton", disabled: true %>
+        <% end %>
+      </div>
+
+      <div class="posts-feed" id="postsFeed">
+        <% @posts.each do |post| %>
+          <div class="post">
+            <div class="post-header">
+              <div class="username-wrapper">
+                <div class="profile-picture">
+                  <% if post.user && post.user.profile_picture.attached? %>
+                    <%= image_tag url_for(post.user.profile_picture), class: "profile-picture-small" %>
+                  <% else %>
+                    <div class="profile-picture-placeholder"></div>
+                  <% end %>
+                </div>
+                <%= link_to post.user.username, user_profile_path(post.user.username), class: "username-link" %>
+              </div>
+            </div>
+            <div class="post-body">
+              <%= simple_format(post.body.gsub(/#\w+/) do |hashtag| 
+                    link_to hashtag, tag_path(name: hashtag[1..]), class: "hashtag"
+                  end.html_safe) %>
+            </div>
+
+            <% if post.photo.attached? %>
+              <div class="post-photo">
+                <%= image_tag(post.photo, class: "post-image") %>
+              </div>
+            <% end %>
+
+            <div class="post-actions">
+              <p><%= post.likes.count %></p>
+
+              <% if post.likes.exists?(user: current_user) %>
+                <%= button_to post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, class: 'like-button'  do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="black">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                <% end %>
+              <% else %>
+                <%= button_to post_likes_path(post), method: :post, class: 'like-button' do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="black">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="black" stroke-width="2"/>
+                  </svg>
+                <% end %>
+              <% end %>
+              <p><%= post.comments.count %></p>
+              <%= link_to post_path(post), class: "comment-link" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="black" stroke-width="2">
+                  <path d="M21 15V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14l3-3h14c1.1 0 2-.9 2-2z"/>
+                </svg>
+              <% end %>
+            </div>
+
+            <div class="post-time post-date">
+              <%= post.created_at.strftime('%b %d, %Y %H:%M') %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="right-bar">
+      <div class="explore">
+        <h3>Explore</h3>
+        <%= link_to "🐶 #CuteAnimals", tag_path(name: "CuteAnimals"), class: "explore-item" %>
+        <%= link_to "🐱 #PetAdoption", tag_path(name: "PetAdoption"), class: "explore-item" %>
+        <%= link_to "🐾 #PetsOfTheDay", tag_path(name: "PetsOfTheDay"), class: "explore-item" %>
+      </div>
+
+      <div class="trending">
+        <h3>Trending Topics</h3>
+        <%= link_to "🐕 #DogLovers", tag_path(name: "DogLovers"), class: "trend-item" %>
+        <%= link_to "🐈 #CatVideos", tag_path(name: "CatVideos"), class: "trend-item" %>
+        <%= link_to "🐦 #BirdWatching", tag_path(name: "BirdWatching"), class: "trend-item" %>
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>

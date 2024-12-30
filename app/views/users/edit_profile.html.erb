@@ -1,0 +1,157 @@
+<style>
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .edit-profile-page {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      background-color: #f9f9f9;
+      box-sizing: border-box;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    .profile-picture-preview {
+      max-width: 150px;
+      max-height: 150px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    
+    .form-actions {
+      text-align: center;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background-color: #00796b;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+
+    .button:active {
+      background-color: #398439;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      text-decoration: none;
+      background-color: #00796b;
+      color: white; 
+      font-size: 16px; 
+      font-weight: bold; 
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-align: center;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+  }
+
+    .back-link:hover {
+      background-color: #005b4f; 
+      transform: scale(1.05); 
+      text-decoration: none; 
+  }
+
+    .back-link:focus {
+      outline: 2px dashed #005b4f; 
+      outline-offset: 4px;
+  }
+
+    /* Responsive Tasarım */
+    @media (max-width: 768px) {
+      .edit-profile-page {
+        margin: 20px;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        font-size: 16px;
+      }
+    }
+
+</style>
+
+<div class="edit-profile-page">
+  <h1>Edit Your Profile</h1>
+
+  <%= form_with model: @user, url: update_profile_path, method: :patch, local: true do |f| %>
+    <div class="form-group">
+      <%= f.label :profile_picture, "Profile Picture" %><br>
+      <% if @user.profile_picture.attached? %>
+        <%= image_tag url_for(@user.profile_picture), class: "profile-picture-preview" %><br>
+      <% end %>
+      <%= f.file_field :profile_picture %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :profile_description, "Profile Description" %><br>
+      <%= f.text_area :profile_description, rows: 5, cols: 50, placeholder: "Write something about yourself..." %>
+    </div>
+
+    <%= link_to "Back", root_path, class: "back-link" %>
+
+    <div class="form-actions">
+      <%= f.submit "Save Changes", class: "button" %>
+    </div>
+  <% end %>
+</div>

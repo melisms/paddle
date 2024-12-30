@@ -1,7 +1,10 @@
-<div id="<%= dom_id post %>">
+1
+<div id="<%= dom_id(post) %>">
+   <%= link_to post.user.username, user_profile_path(post.user.username), class: "username-link" %>
   <p class="my-5">
     <strong class="block font-medium mb-1"><%= @user.username %>:</strong>
-    <%= post.body %>
+    <%= post.body.gsub(/#\w+/) do |hashtag| %>
+      <%= link_to hashtag, tag_path(name: hashtag[1..]) %>
+    <% end.html_safe %>
   </p>
-
 </div>

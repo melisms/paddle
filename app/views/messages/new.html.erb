@@ -6,5 +6,10 @@
   <%= form.label :content %>
   <%= form.text_area :content %>
 
+  <div>
+    <%= form.label :image, "Attach an Image" %>
+    <%= form.file_field :image, accept: "image/*" %>
+  </div>
+
   <%= form.submit "Send Message" %>
 <% end %>

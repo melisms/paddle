@@ -17,5 +17,23 @@
         <%= link_to "Show this post", post, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       </p>
     <% end %>
-  </div>
+<% @user.notifications.each do |notification| %>
+  <li>
+    <% if notification.params[:message] %>
+      <%= "#{notification.params[:message].sender.username} sent you a message" %>
+    <% elsif notification.params[:comment] %>
+      <%= "#{notification.params[:comment].user.username} commented on your post" %>
+    <% elsif notification.params[:like] %>
+      <%= "#{notification.params[:like].user.username} liked your post" %>
+    <% else %>
+      Unknown notification type
+    <% end %>
+  </li>
+<% end %>
+
+
+
+
+
+
 </div>

@@ -59,4 +59,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  def create
+    super do |resource|
+      # Send the welcome email after the user is created
+      UserMailer.welcome_email(resource).deliver_later if resource.persisted?
+    end
+  end
 end

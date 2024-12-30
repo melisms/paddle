@@ -1,20 +1,204 @@
-<h1>Your Chats</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Chats</title>
 
-<% if @chats.empty? %>
-  <p>You don't have any chats yet. Start a new one!</p>
-<% else %>
-  <ul>
-    <% @chats.each do |chat| %>
-      <li>
-        <%= link_to "Chat with #{chat.receiver.username}", chat_path(chat) %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+  <%= stylesheet_link_tag 'index', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
 
-<h2>Start a New Chat</h2>
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
 
-<%= form_with model: Chat.new, url: chats_path, local: true do |form| %>
-  <%= form.select :receiver_id, User.where.not(id: current_user.id).pluck(:username, :id), prompt: "Select a user to chat with" %>
-  <%= form.submit "Start Chat" %>
-<% end %>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color:rgb(255, 255, 255);
+      color: #333;
+    }
+    
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 120px 20px 20px;
+    }
+
+    .search-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .search-inside {
+    
+      padding: 12px;
+      margin:  0;
+      width: 100%;
+      max-width: 600px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      font-size: 16px;
+      transition: border 0.3s ease;
+    }
+
+    .search-inside:focus {
+      border-color: #00796b;
+      outline: none;
+    }
+
+    .sections {
+      
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .section {
+      background-color: #e8f5e9;
+      flex: 1;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2 {
+      margin: 0 0 20px;
+      color: #00796b;
+      text-align: center;
+    }
+
+    .chat-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .chat-item {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .chat-link {
+      text-decoration: none;
+      color: #00796b;
+      font-weight: bold;
+    }
+
+    .chat-last-message {
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .btn-primary {
+      padding: 10px 20px;
+      background-color: #00796b;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #005a4c;
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+ <div class="part">
+    <div class="logo">
+      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
+    </div>
+  </div>
+  <div class="main-container">
+    <div class="search-container">
+      <input 
+        type="text" 
+        id="search-messages" 
+        placeholder="Search messages..." 
+        class="search-inside" 
+      />
+    </div>
+
+    <div class="sections">
+      <section class="section">
+        <h1>Your Chats</h1>
+
+        <% if @chats.empty? %>
+          <p>You don't have any chats yet. Start a new one by selecting a user below!</p>
+        <% else %>
+          <ul class="chat-list">
+            <% @chats.each do |chat| %>
+              <li class="chat-item" data-chat-id="<%= chat.id %>">
+                <%= link_to "Chat with #{chat.sender == current_user ? chat.receiver.username : chat.sender.username}", chat_path(chat), class: "chat-link" %>
+                <span class="chat-last-message">
+                  <% if chat.messages.any? %>
+                    <%= truncate(chat.messages.last.content, length: 30) %>
+                  <% else %>
+                    No messages yet
+                  <% end %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </section>
+
+      <section class="section">
+        <h2>Start a New Chat</h2>
+
+        <%= form_with model: Chat.new, url: chats_path, local: true, html: { class: "form-container" } do |form| %>
+          <div class="form-group">
+            <%= form.label :receiver_id, "Select a user to chat with" %>
+            <%= form.select :receiver_id, User.where.not(id: current_user.id).pluck(:username, :id), prompt: "Choose a user", class: "form-control" %>
+          </div>
+          <%= form.submit "Start Chat", class: "btn-primary" %>
+        <% end %>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('search-messages').addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      const messages = document.querySelectorAll('.chat-item');
+
+      messages.forEach(function(message) {
+        const content = message.textContent.toLowerCase();
+        message.style.display = content.includes(query) ? '' : 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>
+

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,153 +6,348 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paddle</title>
   <style>
+
+  
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f0f8f0;
-      display: flex;
-      justify-content: center;
-    }
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100%;
+}
 
-    .layout {
-      display: grid;
-      flex-direction: column;
-      width: 100%;
-      max-width: 1600px;
-      height: 100vh;
-      box-sizing: border-box;
-      margin-top: 70px; /* Adjust for fixed header */
-    }
+.layout {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 0;
+  flex-grow: 1;
+  overflow-y: auto;
+}
 
-    .header {
-      width: 100%;
-      background-color: #228b22;
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-      height: 70px;
-    }
+.header {
+  width: 100%;
+  background-color: #005b4f;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  height: 70px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 90px;
+}
 
-    .header .logo {
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
+.header .logo {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
 
-    .post {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px;
-      background-color: #eaf8e9;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+.post {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #eaf8e9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 750px;
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  overflow-y: auto;
+  max-height: calc(100vh - 120px); /* Yüksekliği ekranın kalan kısmına sığacak şekilde ayarlar */
+}
 
-    .post h2 {
-      font-size: 24px;
-      color: #228b22;
-    }
+.post img {
+  width: 400px; /* Genişlik 400px */
+  height: 300px; /* Yükseklik 300px */
+  object-fit: cover; /* Görüntüde bozulma olmaması için */
+  border-radius: 8px;
+}
 
-    .post p {
-      font-size: 16px;
-      color: #555;
-    }
+.post h2 {
+  font-size: 20px;
+  color: #228b22;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
 
-    .post-actions {
-      margin-top: 20px;
-    }
+.post p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  overflow: hidden;
+}
 
-    .like-button {
-      background-color: #228b22;
-      color: white;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
+.post-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
 
-    .like-button:hover {
-      background-color: #1c6b1c;
-      transform: scale(1.05);
-    }
+.like-button {
+  background-color: #228b22;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 5px;
+}
 
-    .comments-section {
-      margin-top: 25px;
-      padding: 15px;
-      background-color: #f9f9f9;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+.like-button:hover {
+  background-color: #1c6b1c;
+  transform: scale(1.05);
+}
 
-    .comment-item {
-      background-color: #eaf8e9;
-      padding: 8px;
-      margin-bottom: 12px;
-      border-radius: 5px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    }
+.post-actions a,
+.post-actions button {
+  margin-right: 10px;
+}
 
-    .comment-item:hover {
-      background-color: #d8f5d9;
-    }
+.edit-destroy-buttons {
+  display: none;
+  gap: 10px;
+}
+
+.edit-destroy-buttons.visible {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit-destroy-buttons.visible button,
+.edit-destroy-buttons.visible a {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .edit-destroy-buttons.visible {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.comments-section {
+  margin-top: 25px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+.comment-item {
+  background-color: #f1f8f1;
+  padding: 8px;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  overflow-wrap: break-word;
+}
+
+.comment-item strong {
+  color: #333;
+}
+
+.comments-list {
+  height: 145px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.comment-textarea {
+  width: 100%;
+  height: 60px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.comment-textarea:focus {
+  outline: none;
+  border-color: #228b22;
+}
+
+.comment-submit {
+  align-self: flex-end;
+  padding: 10px 15px;
+  background-color: #228b22;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment-submit:hover {
+  background-color: #1e7c1e;
+}
+
+input[type="submit"] {
+  background-color: #228b22;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #1c6b1c;
+}
+
+.back-to-posts {
+  display: block;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #228b22;
+  text-decoration: none;
+}
+
+.back-to-posts:hover {
+  text-decoration: underline;
+}
+
+
+.username-wrapper .profile-picture-small {
+  width: 40px !important; 
+  height: 40px !important; 
+  border-radius: 50% !important; 
+  object-fit: cover !important; 
+  margin-right: 8px;
+  border: 2px solid #ddd;
+  display: block;
+}
+
+
+.profile-picture-placeholder {
+ width: 30px;
+ height: 30px;
+ background-color: #ccc;
+ border-radius: 50%; 
+}
+
+
   </style>
+  
 </head>
 <body>
   <div class="header">
-    <div class="logo">Paddle</div>
+    <div class="logo">
+      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
+    </div>
   </div>
   <div class="layout">
     <div class="post">
-      <h2><%= @post.user.username %></h2>
-      <p><%= @post.body %></p>
+  <div class="post-header">
+    <div class="username-wrapper">
 
-      <!-- Likes -->
-      <div>
-        <p><%= pluralize(@post.likes.count, 'like') %></p>
-        <% if @post.likes.exists?(user: current_user) %>
-          <%= button_to '💔', post_like_path(@post, @post.likes.find_by(user: current_user)), method: :delete %>
-        <% else %>
-          <%= button_to '❤️', post_likes_path(@post), method: :post %>
-        <% end %>
-        <!-- you need to change this!!!!! -->
-        <%= link_to "Edit this post", edit_post_path(@post) %>
-        <%= link_to "Back to post", root_path %>
+  <% if @post.user && @post.user.profile_picture.attached? %>
+    <%= image_tag url_for(@post.user.profile_picture), class: "profile-picture-small" %>
+  <% else %>
+    <div class="profile-picture-placeholder"></div>
+  <% end %>
 
+  <h2><%= @post.user.username %></h2>
+</div>
 
-        <%= button_to "Destroy this post", @post, method: :delete, data: { confirm: "Are you sure?" } %>
-      </div>
+  </div>
+  
+  <p><%= @post.body %></p>
 
-      <!-- Comments -->
-      <div class="comments-section">
-        <h3>Comments</h3>
-        <ul>
-          <% @post.comments.each do |comment| %>
-            <li class="comment-item">
-              <strong><%= comment.user.username %>:</strong> <%= comment.body %>
-            </li>
-          <% end %>
-        </ul>
-
-        <!-- Add a Comment -->
-        <%= form_with model: [@post, @comment], local: true do |form| %>
-          <p>
-            <%= form.text_area :body, placeholder: 'Add a comment...' %>
-          </p>
-          <p>
-            <%= form.submit 'Comment' %>
-          </p>
-        <% end %>
-      </div>
+  <% if @post.photo.attached? %>
+    <div class="post-photo">
+      <%= image_tag(@post.photo, class: "post-image") %>
     </div>
+  <% end %>
+
+  <div class="post-actions">
+    <p><%= pluralize(@post.likes.count, 'like') %></p>
+    <% if @post.likes.exists?(user: current_user) %>
+      <%= button_to post_like_path(@post, @post.likes.find_by(user: current_user)), method: :delete do %>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="black">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      <% end %>
+    <% else %>
+      <%= button_to post_likes_path(@post), method: :post do %>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="black">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="black" stroke-width="2"/>
+        </svg>
+      <% end %>
+    <% end %>
+
+    <div class="edit-destroy-buttons <%= 'visible' if current_user == @post.user %>">
+      <%= link_to "Edit ", edit_post_path(@post) %> |
+      <%= button_to "Destroy", @post, method: :delete, data: { confirm: "Are you sure?" } %>
+    </div>
+  </div>
+
+  <%= link_to "Back to posts", root_path, class: 'back-to-posts' %>
+
+  <div class="comments-section">
+    <h3>Comments</h3>
+    <div class="comments-list">
+      <ul>
+        <% @post.comments.each do |comment| %>
+          <li class="comment-item">
+            <strong><%= comment.user.username %>:</strong> <%= comment.body %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <%= form_with model: [@post, @comment], local: true do |form| %>
+      <div class="comment-form">
+        <%= form.text_area :body, placeholder: 'Add a comment...', class: 'comment-textarea' %>
+        <%= form.submit 'Comment', class: 'comment-submit' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
   </div>
 </body>
 </html>
