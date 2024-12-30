@@ -286,9 +286,9 @@
       <div class="post-actions">
         <p><%= pluralize(@post.likes.count, 'like') %></p>
         <% if @post.likes.exists?(user: current_user) %>
-          <%= button_to '💔 Unlike', post_like_path(@post, @post.likes.find_by(user: current_user)), method: :delete %>
+          <%= button_to '♥', post_like_path(@post, @post.likes.find_by(user: current_user)), method: :delete %>
         <% else %>
-          <%= button_to '❤️ Like', post_likes_path(@post), method: :post %>
+          <%= button_to '♡', post_likes_path(@post), method: :post %>
         <% end %>
 
         

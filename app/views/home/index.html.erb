@@ -91,9 +91,9 @@
 
              
               <% if post.likes.exists?(user: current_user) %>
-                <%= button_to '💔 Unlike', post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, class: 'like-button' %>
+                <%= button_to '♥', post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, class: 'like-button' %>
               <% else %>
-                <%= button_to '❤️ Like', post_likes_path(post), method: :post, class: 'like-button' %>
+                <%= button_to '♡', post_likes_path(post), method: :post, class: 'like-button' %>
               <% end %>
 
         
