@@ -393,3 +393,23 @@ a.hashtag:hover {
 .like-button[data-liked="true"] {
   color: red; 
 }
+
+.username-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.profile-picture-small {
+  width: 30px; 
+  height: 30px;
+  border-radius: 50%; 
+  object-fit: cover; 
+  margin-right: 8px; 
+}
+
+.profile-picture-placeholder {
+  width: 30px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 50%; 
+}

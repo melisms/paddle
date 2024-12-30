@@ -71,7 +71,16 @@
         <% @posts.each do |post| %>
           <div class="post">
             <div class="post-header">
-              <%= link_to post.user.username, user_profile_path(post.user.username), class: "username-link" %>
+              <div class="username-wrapper">
+                <div class="profile-picture">
+                  <% if @user && @user.profile_picture.attached? %>
+                    <%= image_tag url_for(@user.profile_picture), class: "profile-picture-small" %>
+                  <% else %>
+                    <div class="profile-picture-placeholder"></div>
+                  <% end %>
+                </div>
+                <%= link_to post.user.username, user_profile_path(post.user.username), class: "username-link" %>
+              </div>
             </div>
             <div class="post-body">
               <%= simple_format(post.body.gsub(/#\w+/) do |hashtag| 
@@ -85,18 +94,15 @@
               </div>
             <% end %>
 
-           
             <div class="post-actions">
               <p><%= pluralize(post.likes.count, 'like') %> | <%= pluralize(post.comments.count, 'comment') %></p>
 
-             
               <% if post.likes.exists?(user: current_user) %>
                 <%= button_to '♥', post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, class: 'like-button' %>
               <% else %>
                 <%= button_to '♡', post_likes_path(post), method: :post, class: 'like-button' %>
               <% end %>
 
-        
               <%= link_to "View Comments", post_path(post), class: "comment-link" %>
             </div>
 
