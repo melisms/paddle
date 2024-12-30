@@ -190,6 +190,22 @@
     body {
       padding-top: 90px; 
     }
+
+    .back-link {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #00796b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+  }
+
+  .back-link:hover {
+    background-color: #004d40;
+  }
   </style>
 </head>
 <body>
@@ -228,6 +244,8 @@
     </div>
     <%= form.submit "Send", class: "btn-send", id: "send-button", disabled: true %>
   <% end %>
+
+  <%= link_to "Back", chats_path, class: "back-link" %>
 
   <script>
     
