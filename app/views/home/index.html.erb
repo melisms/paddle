@@ -6,6 +6,7 @@
   <%= stylesheet_link_tag 'index', media: 'all', 'data-turbo-track': 'reload' %>
 
   <script>
+    // Update character count and post button state based on textarea input
     function updateCharCount() {
       var textarea = document.getElementById('postContent');
       var charCount = document.getElementById('charCount');
@@ -16,6 +17,7 @@
       updatePostButton();
     }
 
+    // Enable or disable the post button based on content or photo input
     function updatePostButton() {
       var postButton = document.getElementById('postButton');
       var postContent = document.getElementById('postContent').value.trim();
@@ -27,8 +29,28 @@
         postButton.disabled = true;
       }
     }
+
+    // Toggle the display of the notifications dropdown
+    function toggleDropdown(event) {
+      event.preventDefault(); // Prevent the link from being followed
+
+      const dropdown = document.querySelector('.notifications-dropdown');
+      
+      if (dropdown) {
+        dropdown.style.display = (dropdown.style.display === 'none' || dropdown.style.display === '') ? 'block' : 'none'; // Toggle the display
+      }
+    }
+
+    // Initialize when the page is fully loaded
     document.addEventListener('DOMContentLoaded', function () {
+      // Ensure the post button is updated when the page loads
       updatePostButton();
+
+      // Add event listener to the notification icon to trigger dropdown
+      const notificationIcon = document.querySelector('.notification-icon');
+      if (notificationIcon) {
+        notificationIcon.addEventListener('click', toggleDropdown);
+      }
     });
   </script>
 </head>
@@ -37,6 +59,7 @@
     <div class="logo">
       <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
     </div>
+    
     <div class="search-bar">
       <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
         <%= f.search_field :body_or_user_username_cont_any, 
@@ -45,15 +68,40 @@
         <%= f.submit "🔍", class: "search-button" %>
       <% end %>
     </div>
-
+    
+    <!-- Bell icon for notifications -->
     <div class="notification-icon">
-      <%= link_to notifications_path do %>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
           <path d="M12 22c1.1 0 1.99-.9 1.99-2H10c0 1.1.89 2 2 2zm6-6V8c0-3.31-2.69-6-6-6S6 4.69 6 8v8l-2 2v1h16v-1l-2-2z"/>
         </svg>
-      <% end %>
+      
       <div class="notification-badge">
         <%= @user.notifications.unread.count %> <!-- Display unread notification count -->
+      </div>
+
+      <!-- Dropdown for notifications -->
+      <div class="notifications-dropdown">
+        <div class="dropdown-content">
+          <h2>Notifications</h2>
+          <% if @notifications.any? %>
+            <ul>
+              <% @notifications.each do |notification| %>
+                <li class="<%= 'read' if notification.read_at %>">
+                  <% if notification.params[:message] %>
+                    <%= "#{notification.params[:message].sender.username} sent you a message" %>
+                  <% elsif notification.params[:comment] %>
+                    <%= "#{notification.params[:comment].user.username} commented on your post" %>
+                  <% elsif notification.params[:like] %>
+                    <%= "#{notification.params[:like].user.username} liked your post" %>
+                  <% end %>
+                  <%= link_to 'Mark as read', mark_as_read_notification_path(notification), method: :patch unless notification.read_at %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="no-notifications">No new notifications.</p>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
@@ -143,7 +191,7 @@
 
       <div class="trending">
         <h3>Trending Topics</h3>
-        <%= link_to "🐕 #DogLovers", search_path(q: { body_or_user_username_cont_any: "#DogLovers" }), class: "trend-item" %>
+        <%= link_to "🐕 #DogLovers" , search_path(q: { body_or_user_username_cont_any: "#DogLovers" }), class: "trend-item" %>
         <%= link_to "🐈 #CatVideos", search_path(q: { body_or_user_username_cont_any: "#CatVideos" }), class: "trend-item" %>
         <%= link_to "🐦 #BirdWatching", search_path(q: { body_or_user_username_cont_any: "#BirdWatching" }), class: "trend-item" %>
       </div>
