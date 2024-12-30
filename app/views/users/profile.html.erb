@@ -259,110 +259,117 @@
       }
     }
 
+      .post-photo img {
+        width: 400px;
+        height: 300px;
+        object-fit: cover; 
+        display: block;
+ 
+    }
+
+
   </style>
 </head>
 <body>
 
-  <div class="part">
-    <div class="logo">
-      <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
-    </div>
-    <div class="search-bar">
-      <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
-        <%= f.search_field :body_i_cont_any,
-          placeholder: "Search...",
-          class: "search-input" %>
-        <%= f.submit "🔍", class: "search-button" %>
-      <% end %>
-    </div>
+ <div class="part">
+  <div class="logo">
+    <%= link_to 'Paddle', root_path, style: 'text-decoration: none; color: white;' %>
   </div>
-
-  <div class="container">
-    <br>
-
-    <div class="profile-container">
-      <div class="profile-left">
-        <div class="profile-picture">
-          <% if @user.profile_picture.attached? %>
-            <%= image_tag url_for(@user.profile_picture), class: "profile-picture" %>
-          <% else %>
-            <p>No profile picture uploaded.</p>
-          <% end %>
-        </div>
-
-        <div class="profile-username">
-          <%= @user.username %>
-        </div>
-
-        <div class="profile-description">
-          <% if @user.profile_description.present? %>
-            <p><%= @user.profile_description %></p>
-          <% else %>
-            <p>This user hasn't added a description yet.</p>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="profile-right">
-        <div class="profile-stats">
-          <p>
-            <%= @user.followers_count %>
-            <%= link_to 'Followers', followers_user_path(@user.username) %>
-          </p>
-          <p>
-            <%= @user.following_count %>
-            <%= link_to 'Following', following_user_path(@user.username) %>
-          </p>
-        </div>
-
-        <div class="profile-actions">
-          <%if current_user == @user %>
-            <%= link_to "Edit Profile", edit_profile_path, class: "button" %>
-          <%end%>
-
-          <% if current_user != @user %>
-            <% if current_user.following?(@user) %>
-              <%= button_to 'Unfollow', unfollow_user_path(@user.username), method: :delete, class: "btn-unfollow" %>
-            <% else %>
-              <%= button_to 'Follow', follow_user_path(@user.username), method: :post, class: "btn-follow" %>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <div class="profile-header">
-      <p><%= @user.posts.count %> posts</p>
-    </div>
-
-    <% if @user.posts.any? %>
-      <ul class="posts">
-        <% @user.posts.each do |post| %>
-          <li class="post">
-            <div class="post-body" id="post-<%= post.id %>">
-              <p><%= post.body %></p>
-            </div>
-
-            <% if post.media.attached? %>
-              <div class="post-media">
-                <% post.media.each do |media| %>
-                  <%= image_tag(media, alt: "Post Media") if media.content_type.start_with?('image/') %>
-                <% end %>
-              </div>
-            <% end %>
-            <div class="actions">
-              <%= link_to 'Show', post_path(post), class: 'show-link' %>
-              <% if current_user == @user %>
-                <%= link_to 'Edit', edit_post_path(post), class: 'edit-link' %>
-              <% end %>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p><strong>No posts yet. Start creating your first post!</strong></p>
+  <div class="search-bar">
+    <%= search_form_for(@query, url: search_path, method: :get, class: 'search-form') do |f| %>
+      <%= f.search_field :body_i_cont_any,
+        placeholder: "Search...",
+        class: "search-input" %>
+      <%= f.submit "🔍", class: "search-button" %>
     <% end %>
   </div>
+</div>
 
-</body>
-</html>
+<div class="container">
+  <br>
+
+  <div class="profile-container">
+    <div class="profile-left">
+      <div class="profile-picture">
+        <% if @user.profile_picture.attached? %>
+          <%= image_tag url_for(@user.profile_picture), class: "profile-picture" %>
+        <% else %>
+          <p>No profile picture uploaded.</p>
+        <% end %>
+      </div>
+
+      <div class="profile-username">
+        <%= @user.username %>
+      </div>
+
+      <div class="profile-description">
+        <% if @user.profile_description.present? %>
+          <p><%= @user.profile_description %></p>
+        <% else %>
+          <p>This user hasn't added a description yet.</p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="profile-right">
+      <div class="profile-stats">
+        <p>
+          <%= @user.followers_count %>
+          <%= link_to 'Followers', followers_user_path(@user.username) %>
+        </p>
+        <p>
+          <%= @user.following_count %>
+          <%= link_to 'Following', following_user_path(@user.username) %>
+        </p>
+      </div>
+
+      <div class="profile-actions">
+        <% if current_user == @user %>
+          <%= link_to "Edit Profile", edit_profile_path, class: "button" %>
+        <% end %>
+
+        <% if current_user != @user %>
+          <% if current_user.following?(@user) %>
+            <%= button_to 'Unfollow', unfollow_user_path(@user.username), method: :delete, class: "btn-unfollow" %>
+          <% else %>
+            <%= button_to 'Follow', follow_user_path(@user.username), method: :post, class: "btn-follow" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-header">
+    <p><%= @user.posts.count %> posts</p>
+  </div>
+
+  <% if @user.posts.any? %>
+    <ul class="posts">
+      <% @user.posts.each do |post| %>
+        <li class="post">
+          <div class="post-body" id="post-<%= post.id %>">
+            <%= simple_format(post.body.gsub(/#\w+/) do |hashtag| 
+                  link_to hashtag, tag_path(name: hashtag[1..]), class: "hashtag"
+                end.html_safe) %>
+          </div>
+
+          <% if post.photo.attached? %>
+            <div class="post-photo">
+              <%= image_tag(post.photo, class: "post-image") %>
+            </div>
+          <% end %>
+
+          <div class="actions">
+            <%= link_to 'Show', post_path(post), class: 'show-link' %>
+            <% if current_user == @user %>
+              <%= link_to 'Edit', edit_post_path(post), class: 'edit-link' %>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p><strong>No posts yet. Start creating your first post!</strong></p>
+  <% end %>
+</div>
