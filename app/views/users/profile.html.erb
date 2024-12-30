@@ -143,7 +143,7 @@
       text-decoration: underline;
     }
 
-    .button, .btn-follow, .btn-unfollow, .edit-link, .delete-link {
+    .button, .btn-follow, .btn-unfollow, .edit-link, .show-link {
       display: inline-block;
       padding: 7px 15px;
       font-size: 14px;
@@ -156,7 +156,7 @@
       transition: background-color 0.3s;
     }
 
-    .button:hover, .btn-follow:hover, .btn-unfollow:hover, .edit-link:hover, .delete-link:hover {
+    .button:hover, .btn-follow:hover, .btn-unfollow:hover, .edit-link:hover, .show-link:hover {
       background-color: #004239;
     }
 
@@ -172,7 +172,7 @@
       background-color: #00796b;
     }
 
-    .delete-link {
+    .show-link {
       background-color: #00796b;
     }
 
@@ -307,8 +307,7 @@
 
     
     <div class="profile-header">
-      <h1><%= @user.username %>'s Posts</h1>
-      <p>Posts: <%= @user.posts.count %></p>
+      <p><%= @user.posts.count %> posts</p>
     </div>
 
     <% if @user.posts.any? %>
@@ -326,12 +325,12 @@
                 <% end %>
               </div>
             <% end %>
-            <% if current_user == @user %>
-              <div class="actions">
+            <div class="actions">
+              <%= link_to 'Show', post_path(post), class: 'show-link' %>  
+              <% if current_user == @user %>
                 <%= link_to 'Edit', edit_post_path(post), class: 'edit-link' %>
-                <%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure you want to delete this post?' }, class: 'delete-link' %>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
           </li>
         <% end %>
       </ul>
