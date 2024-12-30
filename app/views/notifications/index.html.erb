@@ -1,0 +1,26 @@
+<!-- app/views/notifications/index.html.erb -->
+<div class="notifications">
+  <h2>Notifications</h2>
+  <% if @notifications.any? %>
+    <ul>
+      <% @notifications.each do |notification| %>
+        <li class="<%= 'read' if notification.read_at %>">
+          <% if notification.params[:message] %>
+            <%= "#{notification.params[:message].sender.username} sent you a message" %>
+          <% elsif notification.params[:comment] %>
+            <%= "#{notification.params[:comment].user.username} commented on your post" %>
+          <% elsif notification.params[:like] %>
+            <%= "#{notification.params[:like].user.username} liked your post" %>
+          <% else %>
+            Unknown notification type
+          <% end %>
+          
+          <!-- Link to mark as read -->
+          <%= link_to 'Mark as read', mark_as_read_notification_path(notification), method: :patch unless notification.read_at %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No new notifications.</p>
+  <% end %>
+</div>

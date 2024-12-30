@@ -45,6 +45,17 @@
         <%= f.submit "🔍", class: "search-button" %>
       <% end %>
     </div>
+    <!-- Bell icon for notifications -->
+    <div class="notification-icon">
+      <%= link_to notifications_path do %>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+          <path d="M12 22c1.1 0 1.99-.9 1.99-2H10c0 1.1.89 2 2 2zm6-6V8c0-3.31-2.69-6-6-6S6 4.69 6 8v8l-2 2v1h16v-1l-2-2z"/>
+        </svg>
+      <% end %>
+      <div class="notification-badge">
+        <%= @user.notifications.unread.count %> <!-- Display unread notification count -->
+      </div>
+    </div>
   </div>
 
   <div class="layout">

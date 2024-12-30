@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-  before_action :authenticate_user! # Optional: only allow authenticated users to view notifications
+  before_action :authenticate_user!
 
   def index
     # Fetch notifications for the current user
@@ -7,9 +7,15 @@ class NotificationsController < ApplicationController
   end
 
   def mark_as_read
-    # Mark a specific notification as read
-    notification = NoticedNotification.find(params[:id])
-    notification.update(read_at: Time.current)
-    redirect_to notifications_path, notice: "Notification marked as read"
+    # Fetch the notification
+    notification = current_user.notifications.find_by(id: params[:id])
+
+    # If the notification exists and is unread, mark it as read
+    if notification && notification.read_at.nil?
+      notification.update(read_at: Time.current)
+      redirect_to notifications_path, notice: "Notification marked as read"
+    else
+      redirect_to notifications_path, alert: "Notification not found or already read"
+    end
   end
 end
