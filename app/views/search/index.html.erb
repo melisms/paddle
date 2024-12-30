@@ -13,9 +13,9 @@
     </div>
 </div>
 <div class="container">
-  <h1 class="search-header">Search Results for ...</h1>
+  <h1 class="search-header">
+  Search Results for "<%= params.dig(:q, :body_or_user_username_cont_any) %>" </h1>
 
-  
   <% if @posts.present? %>
     <div class="posts-feed" id="postsFeed">
       <% @posts.each do |post| %>
