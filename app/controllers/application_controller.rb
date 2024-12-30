@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
+  allow_browser versions: :modern
   before_action :set_query, :set_user
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  
   def set_query
     @query = Post.ransack(params[:q])
   end
