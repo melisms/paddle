@@ -10,7 +10,7 @@ class Message < ApplicationRecord
 
   scope :unread, -> { where(read: false) }
 
-  has_many :notification_mentions, as: :record, dependent: :destroy, class_name: 'Noticed::Event'
+  has_many :notification_mentions, as: :record, dependent: :destroy, class_name: "Noticed::Event"
 
   after_create :notify_receiver
 
@@ -23,5 +23,4 @@ class Message < ApplicationRecord
     # Ensure the notifier is called correctly
     MessageNotifier.with(message: self).deliver(receiver)
   end
-
 end
