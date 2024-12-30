@@ -95,92 +95,45 @@
   cursor: pointer;
 }
 
-/* Dropdown menu */
 .notifications-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Button for the dropdown */
-.dropdown-button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-.dropdown-button:hover {
-  background-color: #0056b3;
-}
-
-/* Dropdown content container */
-.dropdown-content {
-  display: none;
   position: absolute;
+  top: 50px; /* Adjust based on where your icon is */
+  right: 0;
+  width: 300px;
   background-color: white;
-  min-width: 300px;
-  max-height: 400px;
-  overflow-y: auto;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  border-radius: 8px;
-  z-index: 1;
-  top: 40px; /* Adjusted position */
-  right: 0; /* Ensure it aligns correctly */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  z-index: 1000;
+  display: none; /* Initially hidden */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Dropdown content visible when active */
-.notifications-dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Notification list */
-.dropdown-content ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.dropdown-content li {
+.notifications-dropdown .dropdown-content {
   padding: 10px;
-  border-bottom: 1px solid #ddd;
-  font-size: 14px;
 }
 
-.dropdown-content li:last-child {
-  border-bottom: none;
+.notifications-dropdown ul {
+  list-style: none;
+  padding: 0;
 }
 
-/* Read notification styling */
-.dropdown-content li.read {
-  background-color: #f8f9fa;
-  color: #6c757d;
+.notifications-dropdown li {
+  padding: 8px;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-.dropdown-content li a {
-  display: inline-block;
-  margin-top: 5px;
-  color: #007bff;
-  text-decoration: none;
-  font-size: 12px;
+.notifications-dropdown li.read {
+  color: #999;
 }
 
-.dropdown-content li a:hover {
-  text-decoration: underline;
-}
-
-/* "No new notifications" text */
-.no-notifications {
+.notifications-dropdown .no-notifications {
   text-align: center;
-  color: #6c757d;
-  font-size: 14px;
+  padding: 20px;
+  color: #aaa;
 }
 
-/* Layout and other sections */
+
+
 .layout {
  display: flex;
  flex-grow: 1; 
