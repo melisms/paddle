@@ -259,7 +259,7 @@
 
   <div class="profile-container">
     <div class="profile-header">
-      <h1><%= @user.username %>'s Profile</h1>
+      <h1><%= @user.username %></h1>
     </div>
 
     <div class="profile-picture">
@@ -272,7 +272,7 @@
 
     <div class="profile-description">
       <% if @user.profile_description.present? %>
-        <p><strong>Description:</strong> <%= @user.profile_description %></p>
+        <p> <%= @user.profile_description %></p>
       <% else %>
         <p>This user hasn't added a description yet.</p>
       <% end %>
@@ -282,21 +282,21 @@
     <% if current_user == @user %>
       <%= link_to "Edit Profile", edit_profile_path, class: "button" %>
        <p>
-        <%= @user.followers_count %> Followers | 
-        <%= link_to 'View Followers', followers_user_path(@user.username) %>
+        <%= @user.followers_count %>
+        <%= link_to 'Followers', followers_user_path(@user.username) %>
       </p>
       <p>
-        <%= @user.following_count %> Following | 
-        <%= link_to 'View Following', following_user_path(@user.username) %>
+        <%= @user.following_count %>
+        <%= link_to 'Following', following_user_path(@user.username) %>
       </p>
     <% else %>
       <p>
-        <%= @user.followers_count %> Followers | 
-        <%= link_to 'View Followers', followers_user_path(@user.username) %>
+        <%= @user.followers_count %>
+        <%= link_to 'Followers', followers_user_path(@user.username) %>
       </p>
       <p>
-        <%= @user.following_count %> Following | 
-        <%= link_to 'View Following', following_user_path(@user.username) %>
+        <%= @user.following_count %>
+        <%= link_to 'Following', following_user_path(@user.username) %>
       </p>
       <% if current_user.following?(@user) %>
         <%= button_to 'Unfollow', unfollow_user_path(@user.username), method: :delete, class: "btn-unfollow" %>
