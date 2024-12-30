@@ -29,9 +29,16 @@
               <%= simple_format(post.body.gsub(/#\w+/) do |hashtag| 
                     link_to hashtag, tag_path(name: hashtag[1..]), class: "hashtag"
                   end.html_safe) %>
-            <div class="post-time">
-              <%= post.created_at.strftime('%b %d, %Y %H:%M') %>
-            </div>
+
+              <% if post.photo.attached? %>
+                <div class="post-photo">
+                  <%= image_tag(post.photo, class: "post-image") %>
+                </div>
+              <% end %>
+
+              <div class="post-time">
+                <%= post.created_at.strftime('%b %d, %Y %H:%M') %>
+              </div>
             </div>
           <% end %>
         </div>
@@ -41,6 +48,7 @@
     <p>No posts found.</p>
   <% end %>
 </div>
+
 
 <style>
   .layout {
@@ -267,5 +275,11 @@
     text-decoration: none; 
     color: inherit; 
   }
+
+  .post-photo img {
+  width: 400px;
+  height: 300px;
+  object-fit: cover; /* Görüntü, alanı dolduracak şekilde kesilebilir */
+}
 
 </style>
