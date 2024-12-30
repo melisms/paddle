@@ -6,7 +6,7 @@
   <%= stylesheet_link_tag 'index', media: 'all', 'data-turbo-track': 'reload' %>
 
   <script>
-    // Update character count and post button state based on textarea input
+
     function updateCharCount() {
       var textarea = document.getElementById('postContent');
       var charCount = document.getElementById('charCount');
@@ -17,7 +17,6 @@
       updatePostButton();
     }
 
-    // Enable or disable the post button based on content or photo input
     function updatePostButton() {
       var postButton = document.getElementById('postButton');
       var postContent = document.getElementById('postContent').value.trim();
@@ -30,9 +29,8 @@
       }
     }
 
-    // Toggle the display of the notifications dropdown
     function toggleDropdown(event) {
-      event.preventDefault(); // Prevent the link from being followed
+      event.preventDefault(); 
 
       const dropdown = document.querySelector('.notifications-dropdown');
       
@@ -41,12 +39,11 @@
       }
     }
 
-    // Initialize when the page is fully loaded
+
     document.addEventListener('DOMContentLoaded', function () {
-      // Ensure the post button is updated when the page loads
       updatePostButton();
 
-      // Add event listener to the notification icon to trigger dropdown
+
       const notificationIcon = document.querySelector('.notification-icon');
       if (notificationIcon) {
         notificationIcon.addEventListener('click', toggleDropdown);
@@ -69,17 +66,16 @@
       <% end %>
     </div>
     
-    <!-- Bell icon for notifications -->
+
     <div class="notification-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
           <path d="M12 22c1.1 0 1.99-.9 1.99-2H10c0 1.1.89 2 2 2zm6-6V8c0-3.31-2.69-6-6-6S6 4.69 6 8v8l-2 2v1h16v-1l-2-2z"/>
         </svg>
       
       <div class="notification-badge">
-        <%= @user.notifications.unread.count %> <!-- Display unread notification count -->
+        <%= @user.notifications.unread.count %> 
       </div>
 
-      <!-- Dropdown for notifications -->
       <div class="notifications-dropdown">
         <div class="dropdown-content">
           <h2>Notifications</h2>
