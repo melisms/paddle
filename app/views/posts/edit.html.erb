@@ -33,7 +33,7 @@
     }
 
 
-    .btn-primary, .btn-secondary {
+    .btn-primary, .btn-secondary, .btn-delete-link {
       background-color: #00796b;
       color: white;
       padding: 12px 24px;
@@ -46,7 +46,7 @@
       margin: 3px;
     }
 
-    .btn-primary:hover, .btn-secondary:hover {
+    .btn-primary:hover, .btn-secondary:hover, .btn-delete-link:hover {
       background-color: #005b4f;
       transform: scale(1.05);
       color: white;
@@ -140,5 +140,6 @@
   <div class="button-group mt-6 flex justify-center space-x-4">
     <%= link_to "Show this post", @post, class: "btn-primary" %>
     <%= link_to "Back to posts", root_path, class: "btn-secondary" %>
+    <%= button_to "Delete this post", @post, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn-delete-link' %>
   </div>
 </div>
