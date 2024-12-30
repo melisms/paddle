@@ -5,6 +5,6 @@ class HomeController < ApplicationController
     @posts = Post.all.order(created_at: :desc)
     @post = Post.new
 
-    #@notifications = current_user.notifications.unread if current_user.present?
+    # @notifications = current_user.notifications.unread if current_user.present?
   end
 end

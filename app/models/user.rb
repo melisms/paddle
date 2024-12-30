@@ -24,8 +24,9 @@ class User < ApplicationRecord
 
   has_many :pets, dependent: :destroy
 
-  
-  has_many :notifications, as: :receiver, dependent: :destroy
+
+  has_many :notifications, as: :recipient, dependent: :destroy, class_name: "Noticed::Notification"
+  has_many :notification_mentions, as: :record, dependent: :destroy, class_name: "Noticed::Event"
 
 
   after_initialize :set_default_role, if: :new_record?
@@ -50,6 +51,6 @@ class User < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    [ 'username' ]
+    [ "username" ]
   end
 end

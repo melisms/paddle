@@ -2,13 +2,13 @@ class Like < ApplicationRecord
   belongs_to :user
   belongs_to :post
   validates :user_id, uniqueness: { scope: :post_id }
+  has_many :notification_mentions, as: :record, dependent: :destroy, class_name: "Noticed::Event"
 
-  #after_create :notify_post_owner
+  after_create_commit :send_like_notification
 
   private
 
-  #def notify_post_owner
-    #return if post.user == user
-    #LikeNotification.with(like: self).deliver_later(post.user)
-  #end
+  def send_like_notification
+    LikeNotifier.with(like: self).deliver_later(post.user) # Notify the post owner
+  end
 end

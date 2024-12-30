@@ -5,256 +5,250 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paddle</title>
   <style>
+
+  
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color:rgb(255, 255, 255);
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      overflow-y: auto;
-    }
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100%;
+}
 
-    .layout {
-      width: 100%;
-      max-width: 1200px;
-      padding: 20px;
-      box-sizing: border-box;
-      margin-top: 90px;
-      flex-grow: 1;
-      overflow: auto;
-      max-height: calc(100vh - 90px);
-    }
+.layout {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 0;
+  flex-grow: 1;
+  overflow-y: auto;
+}
 
-    .header {
-      width: 100%;
-      background-color: #005b4f;
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-      height: 70px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      margin-bottom: 90px;
-    }
+.header {
+  width: 100%;
+  background-color: #005b4f;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  height: 70px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 90px;
+}
 
-    .header .logo {
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
+.header .logo {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
 
-    .post {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      background-color: #eaf8e9;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      width: 500px;
-      overflow: auto; 
-      resize: none;
-      position: fixed;
-      top: 90px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      overflow-y: auto;
-    }
+.post {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #eaf8e9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  overflow-y: auto;
+  max-height: calc(100vh - 120px); /* Yüksekliği ekranın kalan kısmına sığacak şekilde ayarlar */
+}
 
-    .post h2 {
-      font-size: 20px;
-      color: #228b22;
-      margin-bottom: 10px;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-    }
+.post img {
+  width: 400px; /* Genişlik 400px */
+  height: 300px; /* Yükseklik 300px */
+  object-fit: cover; /* Görüntüde bozulma olmaması için */
+  border-radius: 8px;
+}
 
-    .post p {
-      font-size: 16px;
-      color: #555;
-      line-height: 1.5;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      max-width: 100%;
-      overflow: hidden;
-    }
+.post h2 {
+  font-size: 20px;
+  color: #228b22;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
 
-    .post-media img,
-    .post-media video {
-      max-width: 100%;
-      max-height: 400px;
-      display: block;
-      margin: 10px auto;
-      border-radius: 8px;
-      object-fit: cover;
-    }
+.post p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  overflow: hidden;
+}
 
-    .post-actions {
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-start;  
-      flex-direction: column;  
-    }
+.post-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
 
-    .like-button {
-      background-color: #228b22;
-      color: white;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      margin-top: 5px; 
-    }
+.like-button {
+  background-color: #228b22;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 5px;
+}
 
-    .like-button:hover {
-      background-color: #1c6b1c;
-      transform: scale(1.05);
-    }
+.like-button:hover {
+  background-color: #1c6b1c;
+  transform: scale(1.05);
+}
 
-    .post-actions a,
-    .post-actions button {
-      margin-right: 10px;
-    }
+.post-actions a,
+.post-actions button {
+  margin-right: 10px;
+}
 
-    .edit-destroy-buttons {
-      display: none;
-      gap: 10px;
-    }
+.edit-destroy-buttons {
+  display: none;
+  gap: 10px;
+}
 
-    .edit-destroy-buttons.visible {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+.edit-destroy-buttons.visible {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-    .edit-destroy-buttons.visible button,
-    .edit-destroy-buttons.visible a {
-      display: inline-block;
-    }
+.edit-destroy-buttons.visible button,
+.edit-destroy-buttons.visible a {
+  display: inline-block;
+}
 
-    @media (max-width: 768px) {
-      .edit-destroy-buttons.visible {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
+@media (max-width: 768px) {
+  .edit-destroy-buttons.visible {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 
-    .comments-section {
-      margin-top: 25px;
-      padding: 15px;
-      background-color: #f9f9f9;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+.comments-section {
+  margin-top: 25px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-    ul li {
-      margin-bottom: 10px;
-    }
+ul li {
+  margin-bottom: 10px;
+}
 
-    
-    .comment-item {
-      background-color: #f1f8f1;
-      padding: 8px;
-      border-radius: 5px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-      overflow-wrap: break-word;
-    }
+.comment-item {
+  background-color: #f1f8f1;
+  padding: 8px;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  overflow-wrap: break-word;
+}
 
-    .comment-item strong {
-      color: #333;
-    }
+.comment-item strong {
+  color: #333;
+}
 
-    
-    .comments-list {
-      height: 145px; 
-      overflow-y: auto; 
-      border: 1px solid #ccc; 
-      padding: 10px;
-      border-radius: 5px;
-      background-color: #fff;
-    }
+.comments-list {
+  height: 145px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+}
 
-    
-    .comment-form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 10px;
-      background-color: #f9f9f9;
-      box-sizing: border-box;
-    }
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
 
-    .comment-textarea {
-      width: 100%;
-      height: 60px;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      resize: none;
-    }
+.comment-textarea {
+  width: 100%;
+  height: 60px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: none;
+}
 
-    .comment-textarea:focus {
-      outline: none;
-      border-color: #228b22;
-    }
+.comment-textarea:focus {
+  outline: none;
+  border-color: #228b22;
+}
 
-    .comment-submit {
-      align-self: flex-end;
-      padding: 10px 15px;
-      background-color: #228b22;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+.comment-submit {
+  align-self: flex-end;
+  padding: 10px 15px;
+  background-color: #228b22;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-    .comment-submit:hover {
-      background-color: #1e7c1e;
-    }
+.comment-submit:hover {
+  background-color: #1e7c1e;
+}
 
+input[type="submit"] {
+  background-color: #228b22;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    input[type="submit"] {
-      background-color: #228b22;
-      color: white;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
+input[type="submit"]:hover {
+  background-color: #1c6b1c;
+}
 
-    input[type="submit"]:hover {
-      background-color: #1c6b1c;
-    }
+.back-to-posts {
+  display: block;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #228b22;
+  text-decoration: none;
+}
 
-    
-    .back-to-posts {
-      display: block;
-      margin-top: 20px;
-      font-size: 14px;
-      color: #228b22;
-      text-decoration: none;
-    }
+.back-to-posts:hover {
+  text-decoration: underline;
+}
 
-    .back-to-posts:hover {
-      text-decoration: underline;
-    }
   </style>
   
 </head>
@@ -270,25 +264,26 @@
       <p><%= @post.body %></p>
 
       
-      <% if @post.media.attached? %>
-        <div class="post-media">
-          <% @post.media.each do |media| %>
-            <% if media.image? %>
-              <%= image_tag media, class: 'post-image', alt: 'Post Image' %>
-            <% elsif media.video? %>
-              <%= video_tag media, class: 'post-video', controls: true %>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
+      <% if @post.photo.attached? %>
+  <div class="post-photo">
+    <%= image_tag(@post.photo, class: "post-image") %>
+  </div>
+    <% end %>
 
-      
       <div class="post-actions">
         <p><%= pluralize(@post.likes.count, 'like') %></p>
         <% if @post.likes.exists?(user: current_user) %>
-          <%= button_to '💔 Unlike', post_like_path(@post, @post.likes.find_by(user: current_user)), method: :delete %>
+          <%= button_to post_like_path(@post, @post.likes.find_by(user: current_user)), method: :delete do %>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="black">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          <% end %>
         <% else %>
-          <%= button_to '❤️ Like', post_likes_path(@post), method: :post %>
+          <%= button_to post_likes_path(@post), method: :post do %>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="black">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="black" stroke-width="2"/>
+            </svg>
+          <% end %>
         <% end %>
 
         

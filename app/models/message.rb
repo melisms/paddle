@@ -10,6 +10,8 @@ class Message < ApplicationRecord
 
   scope :unread, -> { where(read: false) }
 
+  has_many :notification_mentions, as: :record, dependent: :destroy, class_name: "Noticed::Event"
+
   after_create :notify_receiver
 
   private
@@ -18,6 +20,7 @@ class Message < ApplicationRecord
     # Avoid notifying the sender about their own message
     return if sender == receiver
 
-    MessageNotification.with(message: self).deliver_later(receiver)
+    # Ensure the notifier is called correctly
+    MessageNotifier.with(message: self).deliver(receiver)
   end
 end

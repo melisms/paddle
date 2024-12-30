@@ -71,7 +71,16 @@
         <% @posts.each do |post| %>
           <div class="post">
             <div class="post-header">
-              <%= link_to post.user.username, user_profile_path(post.user.username), class: "username-link" %>
+              <div class="username-wrapper">
+                <div class="profile-picture">
+                  <% if @user && @user.profile_picture.attached? %>
+                    <%= image_tag url_for(@user.profile_picture), class: "profile-picture-small" %>
+                  <% else %>
+                    <div class="profile-picture-placeholder"></div>
+                  <% end %>
+                </div>
+                <%= link_to post.user.username, user_profile_path(post.user.username), class: "username-link" %>
+              </div>
             </div>
             <div class="post-body">
               <%= simple_format(post.body.gsub(/#\w+/) do |hashtag| 
@@ -85,25 +94,29 @@
               </div>
             <% end %>
 
-            <!-- Beğeni ve Yorum Sayıları -->
             <div class="post-actions">
               <p><%= pluralize(post.likes.count, 'like') %> | <%= pluralize(post.comments.count, 'comment') %></p>
 
-              <!-- Beğeni Butonları -->
               <% if post.likes.exists?(user: current_user) %>
-                <%= button_to '💔 Unlike', post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, class: 'like-button' %>
+                <%= button_to post_like_path(post, post.likes.find_by(user: current_user)), method: :delete, class: 'like-button'  do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="black">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                <% end %>
               <% else %>
-                <%= button_to '❤️ Like', post_likes_path(post), method: :post, class: 'like-button' %>
+                <%= button_to post_likes_path(post), method: :post, class: 'like-button' do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="black">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="black" stroke-width="2"/>
+                  </svg>
+                <% end %>
               <% end %>
 
-              <!-- Yorum Linki -->
               <%= link_to "View Comments", post_path(post), class: "comment-link" %>
             </div>
 
-            <div class="post-time">
+            <div class="post-time post-date">
               <%= post.created_at.strftime('%b %d, %Y %H:%M') %>
             </div>
-            <%= link_to "Show this post", post, class: "post-link" %>
           </div>
         <% end %>
       </div>

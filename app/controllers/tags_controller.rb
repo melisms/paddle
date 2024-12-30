@@ -8,5 +8,4 @@ class TagsController < ApplicationController
       flash[:alert] = "Tag not found."
     end
   end
-  
 end
