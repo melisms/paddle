@@ -5,6 +5,13 @@ class PostsController < ApplicationController
   before_action :set_user
 
   def index
+    @user = current_user
+    feed = Feed.new(@user)
+    @posts = feed.fetch_feed
+
+    @notifications = current_user.notifications.unread if current_user.present?
+
+
     @posts = Post.includes(:tags).order(created_at: :desc)
   end
 
