@@ -2,12 +2,12 @@
 
 one:
   sender_id: 1
-  recipient_id: 1
+  receiver_id: 1
   content: MyText
   read: false
 
 two:
   sender_id: 1
-  recipient_id: 1
+  receiver_id: 1
   content: MyText
   read: false
