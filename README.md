@@ -1,24 +1,37 @@
-# README
+# PADDLE
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Paddle is a social platform that connects pet adopters, shelters, and veterinary professionals to streamline pet adoption and improve communication around animal care.
 
-Things you may want to cover:
+## Key Features
 
-* Ruby version
+* Pet Adoption Listings: browse, create, and manage adoptable pet profiles
+* Veterinary Communication: enables interaction between users, shelters, and veterinary professionals
+* Community Interaction: discussion space for pet-related topics and engagement
+* Role-Based Access Control: supports adopters, shelters, and veterinary professionals with tailored permissions
+* Ruby on Rails Backend: built on a scalable MVC architecture
 
-* System dependencies
+## Product Vision
 
-* Configuration
+* Pet adoption and veterinary communication are fragmented across disconnected systems. Paddle centralizes these interactions into a single platform to make pet adoption more accessible, transparent, and efficient.
 
-* Database creation
+## Tech Stack
 
-* Database initialization
+* Ruby
+* Ruby on Rails
+* RESTful architecture
+* PostgreSQL 
+* MVC design pattern
 
-* How to run the test suite
+## Project Focus Areas
 
-* Services (job queues, cache servers, search engines, etc.)
+* Adoption workflow management
+* User communication system
+* Veterinary interaction layer
+* Social platform architecture
 
-* Deployment instructions
+## Future Improvements
 
-* ...
+* Geo-based pet discovery
+* AI-assisted adoption matching
+* Mobile application (iOS/Android)
+* Verified veterinary profiles
