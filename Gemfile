@@ -68,6 +68,6 @@ gem "database_cleaner-active_record"
 
 gem "sassc", "~> 2.4"
 gem "ransack", "~> 4.4"
-gem "noticed", "~> 2.6"
+gem "noticed", "~> 3.0"
 gem "rails-erd", "~> 1.7", ">= 1.7.2"
 gem "railroady", "~> 1.6"
